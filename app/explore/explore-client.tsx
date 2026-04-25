@@ -15,8 +15,6 @@ interface ExploreClientProps {
 export function ExploreClient({ profiles }: ExploreClientProps) {
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([])
   const [ageRange, setAgeRange] = useState<[number, number]>([8, 18])
-  const [lookingForVC, setLookingForVC] = useState(false)
-  const [lookingForUniversity, setLookingForUniversity] = useState(false)
   const [sortBy, setSortBy] = useState<"newest" | "youngest" | "az">("newest")
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -37,18 +35,6 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
       (p) => p.age >= ageRange[0] && p.age <= ageRange[1]
     )
 
-    if (lookingForVC) {
-      filtered = filtered.filter(
-        (p) => p.lookingFor === "vc" || p.lookingFor === "both"
-      )
-    }
-
-    if (lookingForUniversity) {
-      filtered = filtered.filter(
-        (p) => p.lookingFor === "university" || p.lookingFor === "both"
-      )
-    }
-
     if (searchQuery) {
       const query = searchQuery.toLowerCase()
       filtered = filtered.filter(
@@ -67,15 +53,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
     }
 
     return filtered
-  }, [
-    profiles,
-    selectedIndustries,
-    ageRange,
-    lookingForVC,
-    lookingForUniversity,
-    sortBy,
-    searchQuery,
-  ])
+  }, [profiles, selectedIndustries, ageRange, sortBy, searchQuery])
 
   const toggleIndustry = (industry: string) => {
     setSelectedIndustries((prev) =>
@@ -88,8 +66,6 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
   const resetFilters = () => {
     setSelectedIndustries([])
     setAgeRange([8, 18])
-    setLookingForVC(false)
-    setLookingForUniversity(false)
     setSortBy("newest")
     setSearchQuery("")
   }
@@ -152,37 +128,6 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
           </div>
         </div>
 
-        {/* Looking For */}
-        <div className="mt-10">
-          <h3 className="text-base font-medium text-foreground lg:text-lg">
-            Looking for
-          </h3>
-          <div className="mt-4 flex flex-col gap-3">
-            <label className="flex cursor-pointer items-center gap-3">
-              <input
-                type="checkbox"
-                checked={lookingForVC}
-                onChange={(e) => setLookingForVC(e.target.checked)}
-                className="h-5 w-5 rounded border-border accent-accent"
-              />
-              <span className="text-base text-muted-foreground">
-                Open to VC / Investors
-              </span>
-            </label>
-            <label className="flex cursor-pointer items-center gap-3">
-              <input
-                type="checkbox"
-                checked={lookingForUniversity}
-                onChange={(e) => setLookingForUniversity(e.target.checked)}
-                className="h-5 w-5 rounded border-border accent-accent"
-              />
-              <span className="text-base text-muted-foreground">
-                Open to University Admissions
-              </span>
-            </label>
-          </div>
-        </div>
-
         {/* Sort By */}
         <div className="mt-10">
           <h3 className="text-base font-medium text-foreground lg:text-lg">Sort by</h3>
@@ -230,7 +175,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
         {/* Card Grid */}
         <div className="mt-8 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
           {filteredProfiles.map((profile) => (
-            <ProfileCard key={profile.id} profile={profile} size="large" />
+            <ProfileCard key={profile.id} profile={profile} variant="simple" size="large" />
           ))}
         </div>
 

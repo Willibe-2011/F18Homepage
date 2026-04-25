@@ -194,9 +194,9 @@ export default async function ProfilePage({
           <section className="border-b border-border bg-accent/[0.04]">
             <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
               <SectionEyebrow number="01" label="The Record" />
-              <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-12">
+              <div className={`mt-12 grid gap-10 ${ogImages[0] ? "lg:grid-cols-12" : ""} lg:gap-12`}>
                 {/* Left: the record statement */}
-                <div className="lg:col-span-7 lg:pr-4">
+                <div className={ogImages[0] ? "lg:col-span-7 lg:pr-4" : ""}>
                   <p className="font-serif text-4xl font-bold leading-[1.1] text-foreground md:text-5xl lg:text-6xl xl:text-7xl text-balance">
                     {profile.breakTheRecord}
                   </p>
@@ -213,18 +213,20 @@ export default async function ProfilePage({
                   )}
                 </div>
 
-                {/* Right: OG image if available, otherwise local placeholder */}
-                <figure className="lg:col-span-5">
-                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-lg">
-                    <Image
-                      src={ogImages[0] || "/placeholder.svg?height=900&width=720"}
-                      alt={`${profile.name} — proof`}
-                      fill
-                      className="object-cover"
-                      unoptimized={!!ogImages[0]}
-                    />
-                  </div>
-                </figure>
+                {/* Right: OG image — only rendered when available */}
+                {ogImages[0] && (
+                  <figure className="lg:col-span-5">
+                    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-lg">
+                      <Image
+                        src={ogImages[0]}
+                        alt={`${profile.name} — proof`}
+                        fill
+                        className="object-cover"
+                        unoptimized
+                      />
+                    </div>
+                  </figure>
+                )}
               </div>
             </div>
           </section>
@@ -244,17 +246,6 @@ export default async function ProfilePage({
                 {profile.whatTheyreBuilding}
               </p>
 
-              {/* Product screenshot placeholder */}
-              <figure className="mt-16 lg:mt-20">
-                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-xl">
-                  <Image
-                    src="/placeholder.svg?height=900&width=1600"
-                    alt={`${profile.project} screenshot`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </figure>
             </div>
           </section>
         )}
@@ -285,82 +276,93 @@ export default async function ProfilePage({
         {/* ============================================
             04 — PROOF & PRESS
             ============================================ */}
-        {(profile.proofTraction.length > 0 || profile.evidence.length > 0) && (
-          <section className="border-b border-border bg-secondary/30">
-            <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
-              <SectionEyebrow number="04" label="Proof & Press" />
+        {(() => {
+          // Only include evidence cards that have an ogImage
+          const evidenceWithImages = profile.evidence
+            .map((item, index) => ({ item, ogImage: ogImages[index], index }))
+            .filter(({ ogImage }) => !!ogImage)
 
-              {/* Traction highlights */}
-              {profile.proofTraction.length > 0 && (
-                <ul className="mt-10 flex flex-col gap-3 border-l-2 border-accent pl-6 lg:gap-4">
-                  {profile.proofTraction.map((item, index) => (
-                    <li
-                      key={index}
-                      className="flex items-start gap-3 text-base leading-relaxed text-foreground lg:text-lg"
-                    >
-                      <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-green-600" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
+          const hasVisibleContent =
+            profile.proofTraction.length > 0 || evidenceWithImages.length > 0
 
-              {/* Evidence cards */}
-              {profile.evidence.length > 0 && (
-                <div className="mt-16 lg:mt-20">
-                  <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground lg:text-sm">
-                    As featured in
-                  </p>
-                  <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:gap-6">
-                    {profile.evidence.map((item, index) => {
-                      const urlMatch = item.match(/(https?:\/\/[^\s]+)/)
-                      const url = urlMatch ? urlMatch[1] : null
-                      const text = url
-                        ? item.replace(url, "").replace(/[—:-]\s*$/, "").trim()
-                        : item
-                      const host = url ? new URL(url).hostname.replace(/^www\./, "") : ""
-                      const ogImage = ogImages[index]
+          if (!hasVisibleContent) return null
 
-                      return (
-                        <li key={index}>
-                          <a
-                            href={url || "#"}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
-                          >
-                            <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
-                              <Image
-                                src={ogImage || `/placeholder.svg?height=450&width=800&query=news%20article%20thumbnail%20${index + 1}`}
-                                alt={`${host} article preview`}
-                                fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                unoptimized={!!ogImage}
-                              />
-                            </div>
-                            <div className="flex flex-1 flex-col justify-between gap-6 p-6 lg:p-8">
-                              <p className="text-lg font-medium leading-snug text-foreground lg:text-xl">
-                                {text || host}
-                              </p>
-                              {url && (
-                                <span className="inline-flex items-center justify-between gap-3">
-                                  <span className="font-mono text-sm text-muted-foreground lg:text-base">
-                                    {host}
-                                  </span>
-                                  <ExternalLink className="h-5 w-5 text-accent transition-transform group-hover:translate-x-0.5" />
-                                </span>
-                              )}
-                            </div>
-                          </a>
-                        </li>
-                      )
-                    })}
+          return (
+            <section className="border-b border-border bg-secondary/30">
+              <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
+                <SectionEyebrow number="04" label="Proof & Press" />
+
+                {/* Traction highlights */}
+                {profile.proofTraction.length > 0 && (
+                  <ul className="mt-10 flex flex-col gap-3 border-l-2 border-accent pl-6 lg:gap-4">
+                    {profile.proofTraction.map((item, index) => (
+                      <li
+                        key={index}
+                        className="flex items-start gap-3 text-base leading-relaxed text-foreground lg:text-lg"
+                      >
+                        <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-green-600" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
                   </ul>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
+                )}
+
+                {/* Evidence cards — only shown when ogImage is available */}
+                {evidenceWithImages.length > 0 && (
+                  <div className="mt-16 lg:mt-20">
+                    <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground lg:text-sm">
+                      As featured in
+                    </p>
+                    <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:gap-6">
+                      {evidenceWithImages.map(({ item, ogImage, index }) => {
+                        const urlMatch = item.match(/(https?:\/\/[^\s]+)/)
+                        const url = urlMatch ? urlMatch[1] : null
+                        const text = url
+                          ? item.replace(url, "").replace(/[—:-]\s*$/, "").trim()
+                          : item
+                        const host = url ? new URL(url).hostname.replace(/^www\./, "") : ""
+
+                        return (
+                          <li key={index}>
+                            <a
+                              href={url || "#"}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
+                            >
+                              <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
+                                <Image
+                                  src={ogImage!}
+                                  alt={`${host} article preview`}
+                                  fill
+                                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                  unoptimized
+                                />
+                              </div>
+                              <div className="flex flex-1 flex-col justify-between gap-6 p-6 lg:p-8">
+                                <p className="text-lg font-medium leading-snug text-foreground lg:text-xl">
+                                  {text || host}
+                                </p>
+                                {url && (
+                                  <span className="inline-flex items-center justify-between gap-3">
+                                    <span className="font-mono text-sm text-muted-foreground lg:text-base">
+                                      {host}
+                                    </span>
+                                    <ExternalLink className="h-5 w-5 text-accent transition-transform group-hover:translate-x-0.5" />
+                                  </span>
+                                )}
+                              </div>
+                            </a>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </section>
+          )
+        })()}
 
         {/* ============================================
             05 — THEIR STORY (long-form)
@@ -370,12 +372,6 @@ export default async function ProfilePage({
             <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
               <div className="flex flex-wrap items-center gap-6">
                 <SectionEyebrow number="05" label="Their Story" />
-                {profile.readPublish && (
-                  <span className="inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-1.5 text-sm font-medium text-green-800">
-                    <CheckCircle className="h-4 w-4" />
-                    Published
-                  </span>
-                )}
               </div>
 
               <article className="mt-12">
@@ -391,7 +387,7 @@ export default async function ProfilePage({
                       {paragraph}
                     </p>
                     {/* Editorial b-roll image */}
-                    {i === 0 && arr.length > 1 && (
+                    {/* {false && i === 0 && arr.length > 1 && (
                       <figure className="my-12 lg:my-16">
                         <div className="relative aspect-[21/9] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-md">
                           <Image
@@ -407,7 +403,7 @@ export default async function ProfilePage({
                           </figcaption>
                         )}
                       </figure>
-                    )}
+                    )} */}
                   </Fragment>
                 ))}
               </article>
@@ -487,21 +483,6 @@ export default async function ProfilePage({
                     Explore
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Link>
-                )}
-                {showUniversityCard && (
-                  <Link
-                    href="/explore"
-                    className="group inline-flex items-center justify-center gap-3 rounded-full border-2 border-foreground px-10 py-6 text-lg font-semibold text-foreground transition-all hover:bg-foreground hover:text-background lg:text-xl"
-                  >
-                    Explore
-                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                )}
-                {showUniversityCard && (
-                  <button className="group inline-flex items-center justify-center gap-3 rounded-full border-2 border-foreground px-10 py-6 text-lg font-semibold text-foreground transition-all hover:bg-foreground hover:text-background lg:text-xl">
-                    Request a University Intro
-                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </button>
                 )}
               </div>
             </div>

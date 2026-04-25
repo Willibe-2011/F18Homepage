@@ -13,7 +13,8 @@ export function Footer() {
             Mission
           </Link>
           <Link
-            href="/get-featured"
+            target="_blank"
+            href="https://forms.gle/evkDGtdsratB7kWZ9"
             className="text-base text-muted-foreground transition-colors hover:text-foreground lg:text-lg"
           >
             Get Featured

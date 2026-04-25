@@ -44,7 +44,8 @@ export default async function HomePage() {
                 <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
               </Link>
               <Link
-                href="/get-featured"
+                target="_blank"
+                href="https://forms.gle/evkDGtdsratB7kWZ9"
                 className="inline-flex items-center gap-3 rounded-full border-2 border-foreground px-10 py-5 text-lg font-semibold text-foreground transition-colors hover:bg-foreground/10"
               >
                 Get Featured
@@ -77,7 +78,7 @@ export default async function HomePage() {
           <div className="mt-14 overflow-x-auto pb-6">
             <div className="flex gap-8 px-8 md:px-[calc((100vw-1400px)/2+48px)]">
               {featuredProfiles.map((profile) => (
-                <ProfileCard key={profile.id} profile={profile} />
+                <ProfileCard key={profile.id} profile={profile} variant="simple" />
               ))}
             </div>
           </div>

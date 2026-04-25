@@ -94,7 +94,8 @@ export default function AboutPage() {
         {/* CTA */}
         <section className="mx-auto max-w-[1400px] px-8 lg:px-12 mt-32 text-center">
           <Link
-            href="/get-featured"
+            target="_blank"
+            href="https://forms.gle/evkDGtdsratB7kWZ9"
             className="group inline-flex items-center gap-3 rounded-full bg-accent px-10 py-5 text-lg font-semibold text-accent-foreground transition-all hover:bg-accent/90 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
           >
             Get Featured on F18

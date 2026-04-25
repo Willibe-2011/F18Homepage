@@ -208,7 +208,7 @@ function notionPageToProfile(page: any): F18Profile {
   const name = richTextToString(props.Name?.title ?? [])
   const letterToVC = cleanHtmlBreaks(getTextProp(props, "Letter to VC")) || undefined
   const letterToUniversity =
-    cleanHtmlBreaks(getTextProp(props, "Letter to 大学招生办")) || undefined
+    cleanHtmlBreaks(getTextProp(props, "Letter to AD")) || undefined
   const personalArticle = cleanHtmlBreaks(getTextProp(props, "Personal Article"))
 
   // Project short name: from the new "Project" property, fallback to first

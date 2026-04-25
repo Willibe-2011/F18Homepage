@@ -25,7 +25,7 @@ export function Navbar() {
       <nav className="mx-auto flex h-full max-w-[1400px] items-center justify-between px-8 lg:px-12">
         {/* Left: Logo */}
         <Link href="/" className="font-serif text-2xl font-bold text-foreground lg:text-3xl">
-          F18
+          Founder18
         </Link>
 
         {/* Center: Navigation Links */}
@@ -46,7 +46,8 @@ export function Navbar() {
 
         {/* Right: CTA Button */}
         <Link
-          href="/get-featured"
+          target="_blank"
+          href="https://forms.gle/evkDGtdsratB7kWZ9"
           className="rounded-full bg-accent px-7 py-3 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent/90 lg:px-8 lg:py-3.5 lg:text-lg"
         >
           Get Featured
