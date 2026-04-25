@@ -7,7 +7,6 @@ import {
   ArrowRight,
   ExternalLink,
   CheckCircle,
-  Globe,
 } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
@@ -192,9 +191,13 @@ export default async function ProfilePage({
           <section className="border-b border-border bg-accent/[0.04]">
             <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
               <SectionEyebrow number="01" label="The Record" />
-              <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-12">
+              <div
+                className={`mt-12 grid gap-10 lg:gap-12 ${
+                  ogImages[0] ? "lg:grid-cols-12" : ""
+                }`}
+              >
                 {/* Left: the record statement */}
-                <div className="lg:col-span-7 lg:pr-4">
+                <div className={ogImages[0] ? "lg:col-span-7 lg:pr-4" : ""}>
                   <p className="font-serif text-4xl font-bold leading-[1.1] text-foreground md:text-5xl lg:text-6xl xl:text-7xl text-balance">
                     {profile.breakTheRecord}
                   </p>
@@ -210,17 +213,21 @@ export default async function ProfilePage({
                     </a>
                   )}
                 </div>
-                {/* Right: visual proof */}
-                <figure className="lg:col-span-5">
-                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-lg">
-                    <Image
-                      src="/placeholder.svg?height=900&width=720"
-                      alt={`${profile.name} achieving the record`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </figure>
+
+                {/* Right: OG image — only rendered when available */}
+                {ogImages[0] && (
+                  <figure className="lg:col-span-5">
+                    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-lg">
+                      <Image
+                        src={ogImages[0]}
+                        alt={`${profile.name} — proof`}
+                        fill
+                        className="object-cover"
+                        unoptimized
+                      />
+                    </div>
+                  </figure>
+                )}
               </div>
             </div>
           </section>
@@ -240,17 +247,6 @@ export default async function ProfilePage({
                 {profile.whatTheyreBuilding}
               </p>
 
-              {/* Product screenshot placeholder */}
-              <figure className="mt-16 lg:mt-20">
-                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-xl">
-                  <Image
-                    src="/placeholder.svg?height=900&width=1600"
-                    alt={`${profile.project} product screenshot`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </figure>
             </div>
           </section>
         )}
@@ -325,6 +321,8 @@ export default async function ProfilePage({
                         : ""
                       const ogImage = ogImages[index]
 
+                      if (!ogImage) return null
+
                       return (
                         <li key={index}>
                           <a
@@ -333,43 +331,15 @@ export default async function ProfilePage({
                             rel="noopener noreferrer"
                             className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
                           >
-                            {/* ── Image area ── unified 16/9 skeleton ── */}
+                            {/* ── Image area ── */}
                             <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
-                              {ogImage ? (
-                                /* Real OG / Twitter card image */
-                                <Image
-                                  src={ogImage}
-                                  alt={`${host} article preview`}
-                                  fill
-                                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                  unoptimized
-                                />
-                              ) : (
-                                /* Branded placeholder — same height, never a broken tile */
-                                <div className="flex h-full flex-col items-center justify-center gap-4 bg-gradient-to-br from-secondary via-secondary/70 to-accent/10 px-8">
-                                  {/* Favicon ring */}
-                                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-border bg-card shadow-sm">
-                                    {host ? (
-                                      /* eslint-disable-next-line @next/next/no-img-element */
-                                      <img
-                                        src={`https://www.google.com/s2/favicons?domain=${host}&sz=64`}
-                                        alt={host}
-                                        width={32}
-                                        height={32}
-                                        className="h-8 w-8 rounded-sm"
-                                      />
-                                    ) : (
-                                      <Globe className="h-8 w-8 text-muted-foreground" />
-                                    )}
-                                  </div>
-                                  {/* Domain label */}
-                                  {host && (
-                                    <span className="font-mono text-sm font-medium tracking-wide text-muted-foreground">
-                                      {host}
-                                    </span>
-                                  )}
-                                </div>
-                              )}
+                              <Image
+                                src={ogImage}
+                                alt={`${host} article preview`}
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                unoptimized
+                              />
                             </div>
 
                             {/* ── Text area ── */}

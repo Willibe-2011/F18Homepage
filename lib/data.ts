@@ -1,5 +1,6 @@
 export interface F18Profile {
   id: string
+  slug: string
   name: string
   age: number
   location: string
@@ -40,6 +41,7 @@ export const industries = [
 export const mockProfiles: F18Profile[] = [
   {
     id: "mohammad-parsa-parhizkar",
+    slug: "mohammad-parsa-parhizkar",
     name: "Mohammad Parsa Parhizkar",
     age: 12,
     location: "Kuala Lumpur, Malaysia",
@@ -133,6 +135,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "maya-chen",
+    slug: "maya-chen",
     name: "Mohammad Parsa Parhizkar",
     age: 12,
     location: "Kuala Lumpur, Malaysia",
@@ -173,6 +176,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "alex-rivera",
+    slug: "alex-rivera",
     name: "Alex Rivera",
     age: 17,
     location: "Houston, USA",
@@ -204,6 +208,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "priya-sharma",
+    slug: "priya-sharma",
     name: "Priya Sharma",
     age: 14,
     location: "Mumbai, India",
@@ -235,6 +240,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "kai-johnson",
+    slug: "kai-johnson",
     name: "Kai Johnson",
     age: 16,
     location: "Portland, USA",
@@ -264,6 +270,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "emma-zhang",
+    slug: "emma-zhang",
     name: "Emma Zhang",
     age: 13,
     location: "Boston, USA",
@@ -295,6 +302,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "marcus-williams",
+    slug: "marcus-williams",
     name: "Marcus Williams",
     age: 17,
     location: "Atlanta, USA",
@@ -326,6 +334,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "sofia-kim",
+    slug: "sofia-kim",
     name: "Sofia Kim",
     age: 15,
     location: "Seattle, USA",
@@ -357,6 +366,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "leo-martinez",
+    slug: "leo-martinez",
     name: "Leo Martinez",
     age: 16,
     location: "Mexico City, Mexico",
@@ -386,6 +396,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "aria-patel",
+    slug: "aria-patel",
     name: "Aria Patel",
     age: 14,
     location: "Chicago, USA",
@@ -417,6 +428,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "jordan-lee",
+    slug: "jordan-lee",
     name: "Jordan Lee",
     age: 17,
     location: "Honolulu, USA",

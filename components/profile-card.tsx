@@ -11,7 +11,7 @@ export function ProfileCard({ profile, size = "default" }: ProfileCardProps) {
   const cardHeight = size === "large" ? "h-[480px]" : "h-[420px]"
 
   return (
-    <Link href={`/profile/${profile.id}`} className="block">
+    <Link href={`/profile/${profile.slug}`} className="block">
       <article
         className={`${cardWidth} ${cardHeight} flex-shrink-0 rounded-2xl border border-border bg-card p-8 transition-all duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-xl`}
       >

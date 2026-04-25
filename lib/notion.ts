@@ -2,7 +2,18 @@ import type { F18Profile } from "./data"
 
 const NOTION_API_KEY = process.env.NOTION_API_KEY!
 const DATABASE_ID = process.env.NOTION_DATABASE_ID!
+/** Stats snapshot database: latest row shown on the home page (override via env). */
+const STATS_DATABASE_ID =
+  process.env.NOTION_LATEST_DATABASE_ID ?? "34d9166f-d9fd-80f2-ab0e-ce8e5bed0915"
 const NOTION_VERSION = "2022-06-28"
+
+export interface F18Stats {
+  totalCandidates: number
+  countriesCount: number
+  industriesCount: number
+  avgAge: number
+  snapshotDate: string | null
+}
 
 const notionHeaders = {
   Authorization: `Bearer ${NOTION_API_KEY}`,
@@ -18,6 +29,13 @@ export function slugify(name: string): string {
     .trim()
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
+}
+
+/** Notion accepts dashed UUIDs; normalize 32-char hex from share links. */
+export function normalizeNotionId(id: string): string {
+  const raw = id.replace(/-/g, "")
+  if (raw.length !== 32 || !/^[a-f0-9]+$/i.test(raw)) return id
+  return `${raw.slice(0, 8)}-${raw.slice(8, 12)}-${raw.slice(12, 16)}-${raw.slice(16, 20)}-${raw.slice(20)}`
 }
 
 // Concatenate Notion rich_text array to plain string
@@ -79,6 +97,102 @@ function formatDate(iso: string | undefined): string {
   })
 }
 
+function formatDateTime(iso: string | undefined): string {
+  if (!iso) return ""
+  return new Date(iso).toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  })
+}
+
+function propertyToDisplayString(prop: any): string {
+  if (!prop || !prop.type) return ""
+  switch (prop.type) {
+    case "title":
+      return richTextToString(prop.title ?? [])
+    case "rich_text":
+      return cleanHtmlBreaks(richTextToString(prop.rich_text ?? []))
+    case "number":
+      return prop.number != null && prop.number !== "" ? String(prop.number) : ""
+    case "select":
+      return prop.select?.name ?? ""
+    case "multi_select":
+      return (prop.multi_select ?? []).map((s: { name?: string }) => s.name).filter(Boolean).join(", ")
+    case "date": {
+      const d = prop.date
+      if (!d) return ""
+      const end = d.end ? ` → ${d.end}` : ""
+      return `${d.start ?? ""}${end}`
+    }
+    case "checkbox":
+      return prop.checkbox ? "Yes" : "No"
+    case "url":
+      return prop.url ?? ""
+    case "email":
+      return prop.email ?? ""
+    case "phone_number":
+      return prop.phone_number ?? ""
+    case "status":
+      return prop.status?.name ?? ""
+    case "created_time":
+      return formatDateTime(prop.created_time)
+    case "last_edited_time":
+      return formatDateTime(prop.last_edited_time)
+    case "people":
+      return (prop.people ?? [])
+        .map((p: { name?: string }) => p.name)
+        .filter(Boolean)
+        .join(", ")
+    case "relation":
+      return `${(prop.relation ?? []).length} linked page(s)`
+    case "files":
+      return (prop.files ?? [])
+        .map((f: { name?: string; file?: { url?: string }; external?: { url?: string } }) => {
+          return f.name ?? f.file?.url ?? f.external?.url ?? ""
+        })
+        .filter(Boolean)
+        .join(", ")
+    case "formula": {
+      const f = prop.formula
+      if (!f) return ""
+      if (f.type === "string") return f.string ?? ""
+      if (f.type === "number" && f.number != null) return String(f.number)
+      if (f.type === "boolean") return f.boolean ? "Yes" : "No"
+      if (f.type === "date" && f.date?.start) return f.date.start
+      return ""
+    }
+    default:
+      return ""
+  }
+}
+
+function notionPageToLatestEntry(page: any): NotionLatestEntry {
+  const props = (page.properties ?? {}) as Record<string, any>
+  let title = ""
+  const fields: { name: string; value: string }[] = []
+
+  for (const [name, prop] of Object.entries(props)) {
+    const value = propertyToDisplayString(prop)
+    if (prop?.type === "title") {
+      title = value || title
+      continue
+    }
+    if (value.trim()) fields.push({ name, value: value.trim() })
+  }
+
+  const created = page.created_time as string | undefined
+  return {
+    id: page.id,
+    title: title || "Untitled",
+    createdTimeLabel: formatDateTime(created) || "—",
+    notionPageUrl: typeof page.url === "string" ? page.url : null,
+    fields: fields.slice(0, 12),
+  }
+}
+
 // Map a raw Notion page object (properties only) to F18Profile
 function notionPageToProfile(page: any): F18Profile {
   const props = page.properties as Record<string, any>
@@ -103,9 +217,10 @@ function notionPageToProfile(page: any): F18Profile {
   const proofTraction = parseLines(getTextProp(props, "ProofTraction"))
 
   return {
-    id: slugify(name),
+    id: page.id as string,
+    slug: slugify(name),
     name,
-    age: props.Age?.number ?? 0,
+    age: props.Age?.number ?? 0, // 0 means "not provided" — SpotlightCard handles this
     location: getTextProp(props, "Address"),
     gender: (props.Gender?.select?.name ?? "Prefer not to say") as F18Profile["gender"],
     pictureUrl: props.PictureURL?.url ?? undefined,
@@ -204,4 +319,42 @@ export async function getAllPublishedSlugs(): Promise<string[]> {
       const name = richTextToString(page.properties?.Name?.title ?? [])
       return slugify(name)
     })
+}
+
+/**
+ * Fetch the latest stats snapshot from the configured database.
+ * `cache: 'no-store'` ensures every request sees the most recently created row.
+ */
+export async function getF18Stats(): Promise<F18Stats | null> {
+  if (!NOTION_API_KEY) return null
+  const dbId = normalizeNotionId(STATS_DATABASE_ID)
+
+  const res = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
+    method: "POST",
+    headers: notionHeaders,
+    body: JSON.stringify({
+      sorts: [{ timestamp: "created_time", direction: "descending" }],
+      page_size: 1,
+    }),
+    cache: "no-store",
+  })
+
+  if (!res.ok) {
+    const err = await res.text()
+    console.error(`Notion stats DB query ${res.status}:`, err)
+    return null
+  }
+
+  const data = await res.json()
+  const page = (data.results ?? []).find((r: any) => r.object === "page")
+  if (!page) return null
+
+  const p = page.properties as Record<string, any>
+  return {
+    totalCandidates: p.TotalCandidates?.number ?? 0,
+    countriesCount: p.CountriesCount?.number ?? 0,
+    industriesCount: p.IndustriesCount?.number ?? 0,
+    avgAge: p.AvgAge?.number ?? 0,
+    snapshotDate: p.SnapshotDate?.date?.start ?? null,
+  }
 }
