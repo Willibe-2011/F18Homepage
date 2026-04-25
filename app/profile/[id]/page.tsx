@@ -244,19 +244,20 @@ export default async function ProfilePage({
                 {profile.whatTheyreBuilding}
               </p>
 
-            {/* Product screenshot placeholder */}
-            <figure className="mt-16 lg:mt-20">
-              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-xl">
-                <Image
-                  src="/placeholder.svg?height=900&width=1600"
-                  alt={`${profile.project} screenshot`}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </figure>
-          </div>
-        </section>
+              {/* Product screenshot placeholder */}
+              <figure className="mt-16 lg:mt-20">
+                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-xl">
+                  <Image
+                    src="/placeholder.svg?height=900&width=1600"
+                    alt={`${profile.project} screenshot`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </figure>
+            </div>
+          </section>
+        )}
 
         {/* ============================================
             03 — WHY IT MATTERS
