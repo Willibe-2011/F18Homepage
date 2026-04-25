@@ -32,10 +32,21 @@ export function ProfileCard({ profile, size = "default" }: ProfileCardProps) {
             />
           </div>
 
-          {/* Name */}
-          <h3 className="mt-2 text-2xl font-bold text-foreground lg:text-3xl">
-            {profile.name}
-          </h3>
+          {/* Name - Auto-scales down for long names */}
+          <div className="w-full px-2">
+            <h3 
+              className={`mt-2 font-bold text-foreground truncate ${
+                profile.name.length > 20 
+                  ? "text-lg lg:text-xl" 
+                  : profile.name.length > 15
+                  ? "text-xl lg:text-2xl"
+                  : "text-2xl lg:text-3xl"
+              }`}
+              title={profile.name}
+            >
+              {profile.name}
+            </h3>
+          </div>
 
           {/* Project */}
           <p className="mt-3 flex-1 text-base leading-relaxed text-muted-foreground line-clamp-3">

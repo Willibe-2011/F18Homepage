@@ -82,25 +82,6 @@ export default async function ProfilePage({
                   />
                 </div>
 
-                {/* Quick facts under the avatar */}
-                <dl className="mt-8 grid grid-cols-2 divide-x divide-border border-y border-border py-4 text-center">
-                  <div className="px-2">
-                    <dt className="text-xs uppercase tracking-widest text-muted-foreground">
-                      Age
-                    </dt>
-                    <dd className="mt-1 font-serif text-3xl font-bold text-accent lg:text-4xl">
-                      {profile.age}
-                    </dd>
-                  </div>
-                  <div className="px-2">
-                    <dt className="text-xs uppercase tracking-widest text-muted-foreground">
-                      Industry
-                    </dt>
-                    <dd className="mt-1 text-sm font-medium text-foreground lg:text-base">
-                      {profile.industry}
-                    </dd>
-                  </div>
-                </dl>
               </div>
 
               {/* RIGHT — Identity, TL;DR, CTA */}
@@ -116,6 +97,27 @@ export default async function ProfilePage({
                   {profile.name}
                 </h1>
 
+                {/* Quick facts moved from left */}
+                <dl className="mt-10 flex items-center gap-12 border-y border-white/10 py-6">
+                  <div>
+                    <dt className="text-xs uppercase tracking-widest text-muted-foreground">
+                      Age
+                    </dt>
+                    <dd className="mt-1 font-serif text-3xl font-bold text-accent lg:text-4xl">
+                      {profile.age}
+                    </dd>
+                  </div>
+                  <div className="h-12 w-px bg-white/10" />
+                  <div>
+                    <dt className="text-xs uppercase tracking-widest text-muted-foreground">
+                      Industry
+                    </dt>
+                    <dd className="mt-2 text-lg font-medium text-foreground tracking-wide uppercase lg:text-xl">
+                      {profile.industry}
+                    </dd>
+                  </div>
+                </dl>
+
                 {/* TL;DR — one-line elevator pitch */}
                 <p className="mt-10 text-2xl leading-snug text-foreground lg:text-3xl xl:text-[34px] text-balance">
                   Building{" "}
@@ -130,10 +132,13 @@ export default async function ProfilePage({
 
                 {/* CTAs */}
                 <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
-                  <button className="group inline-flex items-center justify-center gap-3 rounded-full bg-accent px-8 py-5 text-lg font-semibold text-accent-foreground shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl lg:text-xl">
-                    Request an Intro
+                  <Link 
+                    href="/explore"
+                    className="group inline-flex items-center justify-center gap-2 rounded-full border-2 border-transparent bg-accent px-8 py-5 text-lg font-semibold text-accent-foreground shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl"
+                  >
+                    Explore
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </button>
+                  </Link>
                   {profile.profileUrl && (
                     <a
                       href={profile.profileUrl}
@@ -147,10 +152,7 @@ export default async function ProfilePage({
                   )}
                 </div>
 
-                {/* Tertiary links */}
-                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground lg:text-base">
-                  <span>Updated {profile.lastEditTime}</span>
-                </div>
+
               </div>
             </div>
           </div>
@@ -439,10 +441,10 @@ export default async function ProfilePage({
 
               <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center">
                 {showVCCard && (
-                  <button className="group inline-flex items-center justify-center gap-3 rounded-full bg-accent px-10 py-6 text-lg font-semibold text-accent-foreground shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl lg:text-xl">
-                    Request an Investor Intro
+                  <Link href="/explore" className="group inline-flex items-center justify-center gap-3 rounded-full bg-accent px-10 py-6 text-lg font-semibold text-accent-foreground shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl lg:text-xl">
+                    Explore
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </button>
+                  </Link>
                 )}
               </div>
             </div>
@@ -460,9 +462,7 @@ export default async function ProfilePage({
                 <ArrowLeft className="h-5 w-5" />
                 Back to Explore
               </Link>
-              <span className="text-sm text-muted-foreground lg:text-base">
-                Last updated {profile.lastEditTime}
-              </span>
+
             </div>
           </div>
         </section>

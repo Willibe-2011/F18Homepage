@@ -34,19 +34,7 @@ function GlassShape() {
             />
           </TorusKnot>
 
-          {/* Glowing Inner Nodes - harmonious luxury colors */}
-          <Sphere args={[0.3, 32, 32]} position={[0, 1.2, 0]}>
-            {/* Warm Gold / Amber */}
-            <meshBasicMaterial color="#fbbf24" toneMapped={false} />
-          </Sphere>
-          <Sphere args={[0.2, 32, 32]} position={[-1.2, -0.5, 0]}>
-            {/* Mint / Emerald Green */}
-            <meshBasicMaterial color="#34d399" toneMapped={false} />
-          </Sphere>
-          <Sphere args={[0.4, 32, 32]} position={[1, -0.8, 0.5]}>
-            {/* Pure White / Silver */}
-            <meshBasicMaterial color="#ffffff" toneMapped={false} />
-          </Sphere>
+          {/* Glowing Inner Nodes removed */}
         </group>
       </Float>
     </group>
