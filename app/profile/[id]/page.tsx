@@ -233,15 +233,16 @@ export default async function ProfilePage({
         {/* ============================================
             02 — WHAT THEY'RE BUILDING
             ============================================ */}
-        <section className="border-b border-border">
-          <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
-            <SectionEyebrow number="02" label="What they're building" />
-            <h2 className="mt-8 font-serif text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-5xl text-balance">
-              {profile.project}
-            </h2>
-            <p className="mt-10 text-xl leading-relaxed text-muted-foreground lg:text-2xl">
-              {profile.whatTheyreBuilding}
-            </p>
+        {profile.whatTheyreBuilding && (
+          <section className="border-b border-border">
+            <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
+              <SectionEyebrow number="02" label="What they're building" />
+              <h2 className="mt-8 font-serif text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-5xl text-balance">
+                {profile.project}
+              </h2>
+              <p className="mt-10 text-xl leading-relaxed text-muted-foreground lg:text-2xl">
+                {profile.whatTheyreBuilding}
+              </p>
 
             {/* Product screenshot placeholder */}
             <figure className="mt-16 lg:mt-20">
@@ -494,6 +495,12 @@ export default async function ProfilePage({
                     Explore
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Link>
+                )}
+                {showUniversityCard && (
+                  <button className="group inline-flex items-center justify-center gap-3 rounded-full border-2 border-foreground px-10 py-6 text-lg font-semibold text-foreground transition-all hover:bg-foreground hover:text-background lg:text-xl">
+                    Request a University Intro
+                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </button>
                 )}
               </div>
             </div>
