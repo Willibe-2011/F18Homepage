@@ -238,11 +238,8 @@ export default async function ProfilePage({
               {profile.whyItMatters.map((item, index) => (
                 <li
                   key={index}
-                  className="flex flex-col gap-5 border-t-2 border-foreground pt-6"
+                  className="flex flex-col border-t-2 border-white/20 pt-6"
                 >
-                  <span className="font-mono text-sm font-medium text-accent lg:text-base">
-                    0{index + 1}
-                  </span>
                   <p className="text-lg leading-relaxed text-foreground lg:text-xl">
                     {item}
                   </p>
