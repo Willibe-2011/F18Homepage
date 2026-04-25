@@ -2,10 +2,21 @@ import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ProfileCard } from "@/components/profile-card"
-import { mockProfiles } from "@/lib/data"
+import { getPublishedProfiles } from "@/lib/notion"
 
-export default function HomePage() {
-  const featuredProfiles = mockProfiles.slice(0, 10)
+export const revalidate = 3600 // revalidate every hour
+
+export default async function HomePage() {
+  // Fetch published profiles from Notion, sorted by created_time desc
+  let allProfiles = []
+  try {
+    allProfiles = await getPublishedProfiles()
+  } catch {
+    // Fallback to empty list if Notion is unreachable
+    allProfiles = []
+  }
+  // "This week's eighteen" – top 10 by created time
+  const featuredProfiles = allProfiles.slice(0, 10)
 
   return (
     <>
@@ -38,7 +49,7 @@ export default function HomePage() {
             </div>
             <p className="mt-20 text-lg text-muted-foreground">
               <span className="mr-3">▸</span>
-              {mockProfiles.length} featured · updated this week
+              {allProfiles.length} featured · updated this week
             </p>
           </div>
         </section>

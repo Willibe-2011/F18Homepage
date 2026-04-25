@@ -22,17 +22,21 @@ export interface F18Profile {
   lookingFor: "nothing" | "vc" | "university" | "both"
 }
 
+// Industry options matching the Notion database schema
 export const industries = [
   "Tech",
-  "Bio",
-  "Climate",
-  "Arts",
-  "Sports",
-  "Research",
-  "Business",
+  "Education",
+  "Healthcare",
+  "Finance",
+  "Media",
+  "Retail",
+  "Real Estate",
+  "Manufacturing",
+  "Hospitality",
   "Other",
 ] as const
 
+// Legacy mock data kept for fallback only – production data comes from Notion
 export const mockProfiles: F18Profile[] = [
   {
     id: "mohammad-parsa-parhizkar",
@@ -444,56 +448,4 @@ Find them early. Inspire them always. Build the future together.`,
 
 export function getProfileById(id: string): F18Profile | undefined {
   return mockProfiles.find((profile) => profile.id === id)
-}
-
-export function getFilteredProfiles(filters: {
-  industries?: string[]
-  ageRange?: [number, number]
-  lookingForVC?: boolean
-  lookingForUniversity?: boolean
-  hasPublished?: boolean
-  searchQuery?: string
-  sortBy?: "newest" | "youngest" | "az"
-}): F18Profile[] {
-  let filtered = [...mockProfiles]
-
-  if (filters.industries && filters.industries.length > 0) {
-    filtered = filtered.filter((p) => filters.industries!.includes(p.industry))
-  }
-
-  if (filters.ageRange) {
-    filtered = filtered.filter(
-      (p) => p.age >= filters.ageRange![0] && p.age <= filters.ageRange![1]
-    )
-  }
-
-  if (filters.lookingForVC) {
-    filtered = filtered.filter((p) => p.lookingFor === "vc" || p.lookingFor === "both")
-  }
-
-  if (filters.lookingForUniversity) {
-    filtered = filtered.filter((p) => p.lookingFor === "university" || p.lookingFor === "both")
-  }
-
-  if (filters.hasPublished) {
-    filtered = filtered.filter((p) => p.readPublish)
-  }
-
-  if (filters.searchQuery) {
-    const query = filters.searchQuery.toLowerCase()
-    filtered = filtered.filter(
-      (p) =>
-        p.name.toLowerCase().includes(query) ||
-        p.projectDescription.toLowerCase().includes(query) ||
-        p.industry.toLowerCase().includes(query)
-    )
-  }
-
-  if (filters.sortBy === "youngest") {
-    filtered.sort((a, b) => a.age - b.age)
-  } else if (filters.sortBy === "az") {
-    filtered.sort((a, b) => a.name.localeCompare(b.name))
-  }
-
-  return filtered
 }

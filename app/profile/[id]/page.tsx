@@ -7,18 +7,25 @@ import {
   ArrowRight,
   ExternalLink,
   CheckCircle,
-  MapPin,
-  Award,
+  Globe,
 } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { StickyIntroBar } from "@/components/sticky-intro-bar"
-import { getProfileById, mockProfiles } from "@/lib/data"
+import { getProfileBySlug, getAllPublishedSlugs } from "@/lib/notion"
+import { fetchOgImage } from "@/lib/og"
 
-export function generateStaticParams() {
-  return mockProfiles.map((profile) => ({
-    id: profile.id,
-  }))
+export const revalidate = 3600 // revalidate every hour
+export const dynamicParams = true // render on demand if not in static params
+
+export async function generateStaticParams() {
+  try {
+    const slugs = await getAllPublishedSlugs()
+    return slugs.map((slug) => ({ id: slug }))
+  } catch {
+    // If Notion is unreachable at build time, pages will be generated on demand
+    return []
+  }
 }
 
 // Eyebrow / section number component for editorial feel
@@ -41,11 +48,20 @@ export default async function ProfilePage({
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
-  const profile = getProfileById(id)
+  const profile = await getProfileBySlug(id)
 
   if (!profile) {
     notFound()
   }
+
+  // Pre-fetch OG images for all evidence URLs in parallel (server-side, cached 24 h)
+  const evidenceUrls = profile.evidence.map((item) => {
+    const m = item.match(/(https?:\/\/[^\s]+)/)
+    return m ? m[1] : null
+  })
+  const ogImages = await Promise.all(
+    evidenceUrls.map((url) => (url ? fetchOgImage(url) : Promise.resolve(null))),
+  )
 
   const showVCCard = profile.lookingFor === "vc" || profile.lookingFor === "both"
   const showUniversityCard =
@@ -150,6 +166,19 @@ export default async function ProfilePage({
                 {/* Tertiary links */}
                 <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground lg:text-base">
                   <span>Updated {profile.lastEditTime}</span>
+                  {profile.location && (
+                    <span>{profile.location}</span>
+                  )}
+                  {profile.socialMedia && (
+                    <a
+                      href={profile.socialMedia}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-foreground transition-colors"
+                    >
+                      Social
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -159,223 +188,267 @@ export default async function ProfilePage({
         {/* ============================================
             01 — THE RECORD (editorial pull-quote)
             ============================================ */}
-        <section className="border-b border-border bg-accent/[0.04]">
-          <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
-            <SectionEyebrow number="01" label="The Record" />
-            <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-12">
-              {/* Left: the record statement */}
-              <div className="lg:col-span-7 lg:pr-4">
-                <p className="font-serif text-4xl font-bold leading-[1.1] text-foreground md:text-5xl lg:text-6xl xl:text-7xl text-balance">
-                  {profile.breakTheRecord}
-                </p>
-                {profile.evidence[0] && (
-                  <a
-                    href={profile.evidence[0].match(/(https?:\/\/[^\s]+)/)?.[0] || "#"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-10 inline-flex items-center gap-3 text-lg text-accent transition-colors hover:underline lg:text-xl"
-                  >
-                    See the proof
-                    <ArrowRight className="h-5 w-5" />
-                  </a>
-                )}
-              </div>
-              {/* Right: visual proof — moment photograph */}
-              <figure className="lg:col-span-5">
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-lg">
-                  <Image
-                    src="/placeholder.svg?height=900&width=720"
-                    alt={`${profile.name} on stage at GITEX Asia 2026`}
-                    fill
-                    className="object-cover"
-                  />
+        {profile.breakTheRecord && (
+          <section className="border-b border-border bg-accent/[0.04]">
+            <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
+              <SectionEyebrow number="01" label="The Record" />
+              <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-12">
+                {/* Left: the record statement */}
+                <div className="lg:col-span-7 lg:pr-4">
+                  <p className="font-serif text-4xl font-bold leading-[1.1] text-foreground md:text-5xl lg:text-6xl xl:text-7xl text-balance">
+                    {profile.breakTheRecord}
+                  </p>
+                  {profile.evidence[0] && (
+                    <a
+                      href={profile.evidence[0].match(/(https?:\/\/[^\s]+)/)?.[0] || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-10 inline-flex items-center gap-3 text-lg text-accent transition-colors hover:underline lg:text-xl"
+                    >
+                      See the proof
+                      <ArrowRight className="h-5 w-5" />
+                    </a>
+                  )}
                 </div>
-                <figcaption className="mt-3 font-mono text-xs uppercase tracking-widest text-muted-foreground lg:text-sm">
-                  On stage · GITEX Asia 2026, Singapore
-                </figcaption>
-              </figure>
+                {/* Right: visual proof */}
+                <figure className="lg:col-span-5">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-lg">
+                    <Image
+                      src="/placeholder.svg?height=900&width=720"
+                      alt={`${profile.name} achieving the record`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </figure>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* ============================================
             02 — WHAT THEY'RE BUILDING
             ============================================ */}
-        <section className="border-b border-border">
-          <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
-            <SectionEyebrow number="02" label="What they're building" />
-            <h2 className="mt-8 font-serif text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-5xl text-balance">
-              {profile.project}
-            </h2>
-            <p className="mt-10 text-xl leading-relaxed text-muted-foreground lg:text-2xl">
-              {profile.whatTheyreBuilding}
-            </p>
+        {profile.whatTheyreBuilding && (
+          <section className="border-b border-border">
+            <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
+              <SectionEyebrow number="02" label="What they're building" />
+              <h2 className="mt-8 font-serif text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-5xl text-balance">
+                {profile.project}
+              </h2>
+              <p className="mt-10 text-xl leading-relaxed text-muted-foreground lg:text-2xl">
+                {profile.whatTheyreBuilding}
+              </p>
 
-            {/* Product screenshot — makes the abstract product tangible */}
-            <figure className="mt-16 lg:mt-20">
-              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-xl">
-                <Image
-                  src="/placeholder.svg?height=900&width=1600"
-                  alt="Minedu AI in-game screenshot showing AI tutor inside Minecraft"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <figcaption className="mt-4 font-mono text-xs uppercase tracking-widest text-muted-foreground lg:text-sm">
-                Product screenshot · Minedu AI inside Minecraft
-              </figcaption>
-            </figure>
-          </div>
-        </section>
+              {/* Product screenshot placeholder */}
+              <figure className="mt-16 lg:mt-20">
+                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-xl">
+                  <Image
+                    src="/placeholder.svg?height=900&width=1600"
+                    alt={`${profile.project} product screenshot`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </figure>
+            </div>
+          </section>
+        )}
 
         {/* ============================================
             03 — WHY IT MATTERS
             ============================================ */}
-        <section className="border-b border-border bg-accent/[0.04]">
-          <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
-            <SectionEyebrow number="03" label="Why it matters" />
-            <ol className="mt-12 grid gap-8 md:grid-cols-3 md:gap-10">
-              {profile.whyItMatters.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex flex-col gap-5 border-t-2 border-foreground pt-6"
-                >
-                  <span className="font-mono text-sm font-medium text-accent lg:text-base">
-                    0{index + 1}
-                  </span>
-                  <p className="text-lg leading-relaxed text-foreground lg:text-xl">
-                    {item}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
+        {profile.whyItMatters.length > 0 && (
+          <section className="border-b border-border bg-accent/[0.04]">
+            <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
+              <SectionEyebrow number="03" label="Why it matters" />
+              <ol className="mt-12 grid gap-8 md:grid-cols-3 md:gap-10">
+                {profile.whyItMatters.map((item, index) => (
+                  <li
+                    key={index}
+                    className="flex flex-col gap-5 border-t-2 border-foreground pt-6"
+                  >
+                    <span className="font-mono text-sm font-medium text-accent lg:text-base">
+                      0{index + 1}
+                    </span>
+                    <p className="text-lg leading-relaxed text-foreground lg:text-xl">
+                      {item}
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+        )}
 
         {/* ============================================
-            04 — PROOF & PRESS (merged: traction highlights + press links)
+            04 — PROOF & PRESS
             ============================================ */}
-        <section className="border-b border-border bg-secondary/30">
-          <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
-            <SectionEyebrow number="04" label="Proof & Press" />
+        {(profile.proofTraction.length > 0 || profile.evidence.length > 0) && (
+          <section className="border-b border-border bg-secondary/30">
+            <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
+              <SectionEyebrow number="04" label="Proof & Press" />
 
-            {/* Traction highlights — compact lead-in */}
-            <ul className="mt-10 flex flex-col gap-3 border-l-2 border-accent pl-6 lg:gap-4">
-              {profile.proofTraction.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex items-start gap-3 text-base leading-relaxed text-foreground lg:text-lg"
-                >
-                  <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-green-600" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            {/* Press cards — main focus */}
-            <div className="mt-16 lg:mt-20">
-              <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground lg:text-sm">
-                As featured in
-              </p>
-              <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:gap-6">
-                {profile.evidence.map((item, index) => {
-                  const urlMatch = item.match(/(https?:\/\/[^\s]+)/)
-                  const url = urlMatch ? urlMatch[1] : null
-                  const text = url
-                    ? item
-                        .replace(url, "")
-                        .replace(/[—:-]\s*$/, "")
-                        .trim()
-                    : item
-                  const host = url ? new URL(url).hostname.replace(/^www\./, "") : ""
-
-                  return (
-                    <li key={index}>
-                      <a
-                        href={url || "#"}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
-                      >
-                        {/* Article thumbnail */}
-                        <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
-                          <Image
-                            src={`/placeholder.svg?height=450&width=800&query=news%20article%20thumbnail%20${index + 1}`}
-                            alt={`${host} article preview`}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                        </div>
-                        <div className="flex flex-1 flex-col justify-between gap-6 p-6 lg:p-8">
-                          <p className="text-lg font-medium leading-snug text-foreground lg:text-xl">
-                            {text}
-                          </p>
-                          {url && (
-                            <span className="inline-flex items-center justify-between gap-3">
-                              <span className="font-mono text-sm text-muted-foreground lg:text-base">
-                                {host}
-                              </span>
-                              <ExternalLink className="h-5 w-5 text-accent transition-transform group-hover:translate-x-0.5" />
-                            </span>
-                          )}
-                        </div>
-                      </a>
+              {/* Traction highlights */}
+              {profile.proofTraction.length > 0 && (
+                <ul className="mt-10 flex flex-col gap-3 border-l-2 border-accent pl-6 lg:gap-4">
+                  {profile.proofTraction.map((item, index) => (
+                    <li
+                      key={index}
+                      className="flex items-start gap-3 text-base leading-relaxed text-foreground lg:text-lg"
+                    >
+                      <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-green-600" />
+                      <span>{item}</span>
                     </li>
-                  )
-                })}
-              </ul>
+                  ))}
+                </ul>
+              )}
+
+              {/* Press cards */}
+              {profile.evidence.length > 0 && (
+                <div className="mt-16 lg:mt-20">
+                  <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground lg:text-sm">
+                    As featured in
+                  </p>
+                  <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:gap-6">
+                    {profile.evidence.map((item, index) => {
+                      const urlMatch = item.match(/(https?:\/\/[^\s]+)/)
+                      const url = urlMatch ? urlMatch[1] : null
+                      const text = url
+                        ? item
+                            .replace(url, "")
+                            .replace(/[—:\-]\s*$/, "")
+                            .trim()
+                        : item
+                      const host = url
+                        ? new URL(url).hostname.replace(/^www\./, "")
+                        : ""
+                      const ogImage = ogImages[index]
+
+                      return (
+                        <li key={index}>
+                          <a
+                            href={url || "#"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
+                          >
+                            {/* ── Image area ── unified 16/9 skeleton ── */}
+                            <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
+                              {ogImage ? (
+                                /* Real OG / Twitter card image */
+                                <Image
+                                  src={ogImage}
+                                  alt={`${host} article preview`}
+                                  fill
+                                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                  unoptimized
+                                />
+                              ) : (
+                                /* Branded placeholder — same height, never a broken tile */
+                                <div className="flex h-full flex-col items-center justify-center gap-4 bg-gradient-to-br from-secondary via-secondary/70 to-accent/10 px-8">
+                                  {/* Favicon ring */}
+                                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-border bg-card shadow-sm">
+                                    {host ? (
+                                      /* eslint-disable-next-line @next/next/no-img-element */
+                                      <img
+                                        src={`https://www.google.com/s2/favicons?domain=${host}&sz=64`}
+                                        alt={host}
+                                        width={32}
+                                        height={32}
+                                        className="h-8 w-8 rounded-sm"
+                                      />
+                                    ) : (
+                                      <Globe className="h-8 w-8 text-muted-foreground" />
+                                    )}
+                                  </div>
+                                  {/* Domain label */}
+                                  {host && (
+                                    <span className="font-mono text-sm font-medium tracking-wide text-muted-foreground">
+                                      {host}
+                                    </span>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+
+                            {/* ── Text area ── */}
+                            <div className="flex flex-1 flex-col justify-between gap-6 p-6 lg:p-8">
+                              <p className="text-lg font-medium leading-snug text-foreground lg:text-xl">
+                                {text || host}
+                              </p>
+                              {url && (
+                                <span className="inline-flex items-center justify-between gap-3">
+                                  <span className="font-mono text-sm text-muted-foreground lg:text-base">
+                                    {host}
+                                  </span>
+                                  <ExternalLink className="h-5 w-5 text-accent transition-transform group-hover:translate-x-0.5" />
+                                </span>
+                              )}
+                            </div>
+                          </a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )}
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* ============================================
             05 — THEIR STORY (long-form)
             ============================================ */}
-        <section className="border-b border-border bg-accent/[0.04]">
-          <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
-            <div className="flex flex-wrap items-center gap-6">
-              <SectionEyebrow number="05" label="Their Story" />
-              {profile.readPublish && (
-                <span className="inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-1.5 text-sm font-medium text-green-800">
-                  <CheckCircle className="h-4 w-4" />
-                  Published
-                </span>
-              )}
-            </div>
+        {profile.personalArticle && (
+          <section className="border-b border-border bg-accent/[0.04]">
+            <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
+              <div className="flex flex-wrap items-center gap-6">
+                <SectionEyebrow number="05" label="Their Story" />
+                {profile.readPublish && (
+                  <span className="inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-1.5 text-sm font-medium text-green-800">
+                    <CheckCircle className="h-4 w-4" />
+                    Published
+                  </span>
+                )}
+              </div>
 
-            <article className="mt-12">
-              {profile.personalArticle.split("\n\n").map((paragraph, i, arr) => (
-                <Fragment key={i}>
-                  <p
-                    className={`mb-8 leading-[1.7] text-foreground last:mb-0 ${
-                      i === 0
-                        ? "font-serif text-2xl lg:text-3xl"
-                        : "text-lg lg:text-xl"
-                    }`}
-                  >
-                    {paragraph}
-                  </p>
-                  {/* Editorial b-roll image — visual breathing point mid-article */}
-                  {i === 0 && arr.length > 1 && (
-                    <figure className="my-12 lg:my-16">
-                      <div className="relative aspect-[21/9] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-md">
-                        <Image
-                          src="/placeholder.svg?height=800&width=1900"
-                          alt={`${profile.name} working on Minedu AI`}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <figcaption className="mt-3 font-mono text-xs uppercase tracking-widest text-muted-foreground lg:text-sm">
-                        At work · Kuala Lumpur, Malaysia
-                      </figcaption>
-                    </figure>
-                  )}
-                </Fragment>
-              ))}
-            </article>
-          </div>
-        </section>
+              <article className="mt-12">
+                {profile.personalArticle.split("\n\n").map((paragraph, i, arr) => (
+                  <Fragment key={i}>
+                    <p
+                      className={`mb-8 leading-[1.7] text-foreground last:mb-0 ${
+                        i === 0
+                          ? "font-serif text-2xl lg:text-3xl"
+                          : "text-lg lg:text-xl"
+                      }`}
+                    >
+                      {paragraph}
+                    </p>
+                    {/* Editorial b-roll image — visual breathing point mid-article */}
+                    {i === 0 && arr.length > 1 && (
+                      <figure className="my-12 lg:my-16">
+                        <div className="relative aspect-[21/9] w-full overflow-hidden rounded-2xl border border-border bg-secondary shadow-md">
+                          <Image
+                            src="/placeholder.svg?height=800&width=1900"
+                            alt={`${profile.name} at work`}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        {profile.location && (
+                          <figcaption className="mt-3 font-mono text-xs uppercase tracking-widest text-muted-foreground lg:text-sm">
+                            At work · {profile.location}
+                          </figcaption>
+                        )}
+                      </figure>
+                    )}
+                  </Fragment>
+                ))}
+              </article>
+            </div>
+          </section>
+        )}
 
         {/* ============================================
             06 — OFFICIAL LETTERS
@@ -444,6 +517,12 @@ export default async function ProfilePage({
                 {showVCCard && (
                   <button className="group inline-flex items-center justify-center gap-3 rounded-full bg-accent px-10 py-6 text-lg font-semibold text-accent-foreground shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl lg:text-xl">
                     Request an Investor Intro
+                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </button>
+                )}
+                {showUniversityCard && (
+                  <button className="group inline-flex items-center justify-center gap-3 rounded-full border-2 border-foreground px-10 py-6 text-lg font-semibold text-foreground transition-all hover:bg-foreground hover:text-background lg:text-xl">
+                    Request a University Intro
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </button>
                 )}
