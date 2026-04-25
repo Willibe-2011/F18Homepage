@@ -29,8 +29,7 @@ function GlassShape() {
               ior={1.5}
               clearcoat={1}
               clearcoatRoughness={0.1}
-              chromaticAberration={0.06}
-              color="#ffffff" /* Changed back to white for premium contrast on dark green */
+              color="#ffffff"
             />
           </TorusKnot>
 

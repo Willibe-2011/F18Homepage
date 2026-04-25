@@ -16,23 +16,14 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   title: 'F18 — Extraordinary Under 18',
   description: 'A registry of people under 18 who built something that matters.',
-  generator: 'v0.app',
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: '/logo.jpg',
+        type: 'image/jpg',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: '/logo.jpg',
   },
 }
 

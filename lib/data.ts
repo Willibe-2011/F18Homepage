@@ -1,5 +1,6 @@
 export interface F18Profile {
   id: string
+  slug: string
   name: string
   age: number
   location: string
@@ -22,20 +23,25 @@ export interface F18Profile {
   lookingFor: "nothing" | "vc" | "university" | "both"
 }
 
+// Industry options matching the Notion database schema
 export const industries = [
   "Tech",
-  "Bio",
-  "Climate",
-  "Arts",
-  "Sports",
-  "Research",
-  "Business",
+  "Education",
+  "Healthcare",
+  "Finance",
+  "Media",
+  "Retail",
+  "Real Estate",
+  "Manufacturing",
+  "Hospitality",
   "Other",
 ] as const
 
+// Legacy mock data kept for fallback only – production data comes from Notion
 export const mockProfiles: F18Profile[] = [
   {
     id: "mohammad-parsa-parhizkar",
+    slug: "mohammad-parsa-parhizkar",
     name: "Mohammad Parsa Parhizkar",
     age: 12,
     location: "Kuala Lumpur, Malaysia",
@@ -129,6 +135,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "maya-chen",
+    slug: "maya-chen",
     name: "Mohammad Parsa Parhizkar",
     age: 12,
     location: "Kuala Lumpur, Malaysia",
@@ -169,6 +176,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "alex-rivera",
+    slug: "alex-rivera",
     name: "Alex Rivera",
     age: 17,
     location: "Houston, USA",
@@ -200,6 +208,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "priya-sharma",
+    slug: "priya-sharma",
     name: "Priya Sharma",
     age: 14,
     location: "Mumbai, India",
@@ -231,6 +240,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "kai-johnson",
+    slug: "kai-johnson",
     name: "Kai Johnson",
     age: 16,
     location: "Portland, USA",
@@ -260,6 +270,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "emma-zhang",
+    slug: "emma-zhang",
     name: "Emma Zhang",
     age: 13,
     location: "Boston, USA",
@@ -291,6 +302,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "marcus-williams",
+    slug: "marcus-williams",
     name: "Marcus Williams",
     age: 17,
     location: "Atlanta, USA",
@@ -322,6 +334,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "sofia-kim",
+    slug: "sofia-kim",
     name: "Sofia Kim",
     age: 15,
     location: "Seattle, USA",
@@ -353,6 +366,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "leo-martinez",
+    slug: "leo-martinez",
     name: "Leo Martinez",
     age: 16,
     location: "Mexico City, Mexico",
@@ -382,6 +396,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "aria-patel",
+    slug: "aria-patel",
     name: "Aria Patel",
     age: 14,
     location: "Chicago, USA",
@@ -413,6 +428,7 @@ Find them early. Inspire them always. Build the future together.`,
   },
   {
     id: "jordan-lee",
+    slug: "jordan-lee",
     name: "Jordan Lee",
     age: 17,
     location: "Honolulu, USA",
@@ -444,56 +460,4 @@ Find them early. Inspire them always. Build the future together.`,
 
 export function getProfileById(id: string): F18Profile | undefined {
   return mockProfiles.find((profile) => profile.id === id)
-}
-
-export function getFilteredProfiles(filters: {
-  industries?: string[]
-  ageRange?: [number, number]
-  lookingForVC?: boolean
-  lookingForUniversity?: boolean
-  hasPublished?: boolean
-  searchQuery?: string
-  sortBy?: "newest" | "youngest" | "az"
-}): F18Profile[] {
-  let filtered = [...mockProfiles]
-
-  if (filters.industries && filters.industries.length > 0) {
-    filtered = filtered.filter((p) => filters.industries!.includes(p.industry))
-  }
-
-  if (filters.ageRange) {
-    filtered = filtered.filter(
-      (p) => p.age >= filters.ageRange![0] && p.age <= filters.ageRange![1]
-    )
-  }
-
-  if (filters.lookingForVC) {
-    filtered = filtered.filter((p) => p.lookingFor === "vc" || p.lookingFor === "both")
-  }
-
-  if (filters.lookingForUniversity) {
-    filtered = filtered.filter((p) => p.lookingFor === "university" || p.lookingFor === "both")
-  }
-
-  if (filters.hasPublished) {
-    filtered = filtered.filter((p) => p.readPublish)
-  }
-
-  if (filters.searchQuery) {
-    const query = filters.searchQuery.toLowerCase()
-    filtered = filtered.filter(
-      (p) =>
-        p.name.toLowerCase().includes(query) ||
-        p.projectDescription.toLowerCase().includes(query) ||
-        p.industry.toLowerCase().includes(query)
-    )
-  }
-
-  if (filters.sortBy === "youngest") {
-    filtered.sort((a, b) => a.age - b.age)
-  } else if (filters.sortBy === "az") {
-    filtered.sort((a, b) => a.name.localeCompare(b.name))
-  }
-
-  return filtered
 }
