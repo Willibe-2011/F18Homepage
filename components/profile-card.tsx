@@ -1,6 +1,6 @@
 import Link from "next/link"
-import Image from "next/image"
 import type { F18Profile } from "@/lib/data"
+import { ProfileImageFill } from "@/components/profile-image-fill"
 
 interface ProfileCardProps {
   profile: F18Profile
@@ -14,7 +14,10 @@ export function ProfileCard({ profile, size = "default", variant = "full" }: Pro
       profile.pictureUrl ||
       `/placeholder.svg?height=400&width=400&query=portrait%20${encodeURIComponent(profile.name)}`
 
-    const widthClass = size === "large" ? "w-full" : "w-[200px] flex-shrink-0"
+    const widthClass =
+      size === "large"
+        ? "w-full"
+        : "w-full max-w-md mx-auto md:mx-0 md:w-[200px] md:max-w-none md:flex-shrink-0"
 
     return (
       <Link href={`/profile/${profile.slug}`} className="block group">
@@ -22,10 +25,9 @@ export function ProfileCard({ profile, size = "default", variant = "full" }: Pro
           className={`${widthClass} overflow-hidden rounded-2xl border border-border bg-card transition-all duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-xl`}
         >
           <div className="relative aspect-square w-full overflow-hidden bg-secondary">
-            <Image
-              src={imgSrc}
+            <ProfileImageFill
+              primarySrc={imgSrc}
               alt={profile.name}
-              fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>

@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Image from "next/image"
 import { ArrowRight } from "lucide-react"
+import { ProfileImageFill } from "@/components/profile-image-fill"
 
 interface StickyIntroBarProps {
   name: string
@@ -46,7 +46,7 @@ export function StickyIntroBar({
         <div className="flex items-center gap-4 rounded-2xl border border-border bg-card/95 p-3 shadow-2xl backdrop-blur-md lg:gap-6 lg:p-4">
           {/* Left: Avatar */}
           <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-xl bg-secondary lg:h-16 lg:w-16">
-            <Image src={avatarSrc} alt={name} fill className="object-cover" />
+            <ProfileImageFill primarySrc={avatarSrc} alt={name} className="object-cover" />
           </div>
 
           {/* Middle: Identity */}

@@ -26,19 +26,19 @@ export default async function HomePage() {
       <Navbar />
       <main>
         {/* Section A: Hero */}
-        <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-8 pt-24 lg:px-12 lg:pt-28">
+        <section className="relative flex min-h-dvh flex-col justify-center overflow-hidden px-5 pt-20 sm:px-8 sm:pt-24 lg:px-12 lg:pt-28">
           <Hero3D />
           <div className="mx-auto w-full max-w-[1400px] relative z-10 pointer-events-none">
-            <h1 className="max-w-4xl font-serif text-5xl font-bold leading-tight text-foreground md:text-6xl lg:text-7xl xl:text-8xl text-balance pointer-events-auto">
+            <h1 className="max-w-4xl font-serif text-[2.25rem] font-bold leading-[1.12] text-foreground text-balance pointer-events-auto sm:text-5xl md:text-6xl md:leading-tight lg:text-7xl xl:text-8xl">
               Next Gen Founders. F18 found them.
             </h1>
-            <p className="mt-8 max-w-2xl text-xl text-muted-foreground md:text-2xl lg:text-3xl">
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:mt-8 sm:text-lg md:text-2xl md:leading-normal lg:text-3xl">
               Verified builders under 18. Real products. Real impact. Before the world catches up.
             </p>
-            <div className="mt-14 flex flex-wrap items-center gap-6 pointer-events-auto">
+            <div className="mt-10 flex flex-col gap-3 pointer-events-auto sm:mt-14 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
               <Link
                 href="/explore"
-                className="group inline-flex items-center gap-3 rounded-full bg-accent px-10 py-5 text-lg font-semibold text-accent-foreground transition-all hover:bg-accent/90 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-all hover:bg-accent/90 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] sm:w-auto sm:gap-3 sm:px-10 sm:py-4 sm:text-base md:py-5 md:text-lg"
               >
                 Explore the F18
                 <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
@@ -46,7 +46,7 @@ export default async function HomePage() {
               <Link
                 target="_blank"
                 href="https://forms.gle/evkDGtdsratB7kWZ9"
-                className="inline-flex items-center gap-3 rounded-full border-2 border-foreground px-10 py-5 text-lg font-semibold text-foreground transition-colors hover:bg-foreground/10"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-foreground px-6 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-foreground/10 sm:w-auto sm:border-2 sm:px-10 sm:py-4 sm:text-base md:py-5 md:text-lg"
               >
                 Get Featured
               </Link>
@@ -61,21 +61,28 @@ export default async function HomePage() {
 
         {/* Section B: This week's eighteen — Notion data */}
         <section className="py-32">
-          <div className="mx-auto max-w-[1400px] px-8 lg:px-12">
-            <div className="flex items-end justify-between border-b border-white/10 pb-6">
-              <h2 className="font-serif text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
+          <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
+            <div className="flex flex-col gap-4 border-b border-white/10 pb-6 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+              <h2 className="font-serif text-3xl font-bold text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
                 This week&apos;s eighteen.
               </h2>
               <Link
                 href="/explore"
-                className="group flex items-center gap-2 text-sm font-semibold tracking-widest text-muted-foreground uppercase transition-colors hover:text-foreground md:text-base"
+                className="group flex w-fit shrink-0 items-center gap-2 text-sm font-semibold tracking-widest text-muted-foreground uppercase transition-colors hover:text-foreground md:text-base"
               >
                 Explore More
                 <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
               </Link>
             </div>
           </div>
-          <div className="mt-14 overflow-x-auto pb-6">
+          {/* Mobile: vertical stack */}
+          <div className="mt-10 flex flex-col gap-6 px-5 sm:px-8 md:hidden">
+            {featuredProfiles.map((profile) => (
+              <ProfileCard key={profile.id} profile={profile} variant="simple" />
+            ))}
+          </div>
+          {/* md+: horizontal rail (unchanged) */}
+          <div className="mt-14 hidden overflow-x-auto pb-6 md:block">
             <div className="flex gap-8 px-8 md:px-[calc((100vw-1400px)/2+48px)]">
               {featuredProfiles.map((profile) => (
                 <ProfileCard key={profile.id} profile={profile} variant="simple" />

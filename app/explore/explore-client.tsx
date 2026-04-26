@@ -2,8 +2,6 @@
 
 import { useState, useMemo } from "react"
 import { Search } from "lucide-react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
 import { ProfileCard } from "@/components/profile-card"
 import type { F18Profile } from "@/lib/data"
 import { industries } from "@/lib/data"
@@ -18,7 +16,6 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
   const [sortBy, setSortBy] = useState<"newest" | "youngest" | "az">("newest")
   const [searchQuery, setSearchQuery] = useState("")
 
-  // Derive available industries from actual data, preserving schema order
   const availableIndustries = useMemo(() => {
     const inData = new Set(profiles.map((p) => p.industry))
     return industries.filter((i) => inData.has(i))
@@ -71,22 +68,39 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
   }
 
   return (
-    <div className="mx-auto flex max-w-[1600px] gap-12 px-8 py-16 lg:px-12 lg:py-20">
-      {/* Left Sidebar */}
-      <aside className="sticky top-28 h-fit w-[320px] flex-shrink-0 lg:top-32">
+    <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
+      {/*
+        移动端 DOM 顺序：搜索 → Filter → 结果（flex-col）。
+        lg+：两列网格，侧栏跨两行在左，右侧上行搜索、下行结果。
+      */}
+      <div className="flex flex-col gap-10 lg:grid lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start lg:gap-12">
+        <div className="min-w-0 lg:col-start-2 lg:row-start-1">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground lg:left-5 lg:h-6 lg:w-6" />
+            <input
+              type="text"
+              placeholder="Search by name, project, or keyword..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-xl border border-border bg-card py-3.5 pl-12 pr-4 text-base text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent lg:py-4 lg:pl-14 lg:pr-6 lg:text-lg"
+            />
+          </div>
+        </div>
+
+        <aside className="h-fit w-full shrink-0 self-start rounded-2xl border border-border bg-card/40 p-6 lg:sticky lg:top-28 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:w-[320px] lg:max-w-full lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 xl:top-32">
         <h2 className="font-serif text-3xl font-bold text-foreground lg:text-4xl">
           Filter.
         </h2>
 
-        {/* Industry */}
-        <div className="mt-10">
+        <div className="mt-8 lg:mt-10">
           <h3 className="text-base font-medium text-foreground lg:text-lg">Industry</h3>
-          <div className="mt-4 flex flex-wrap gap-3">
+          <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-4 lg:flex-wrap lg:gap-3 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
             {availableIndustries.map((industry) => (
               <button
                 key={industry}
+                type="button"
                 onClick={() => toggleIndustry(industry)}
-                className={`rounded-full px-4 py-2 text-base transition-colors ${
+                className={`shrink-0 rounded-full px-3 py-2 text-sm transition-colors lg:px-4 lg:py-2 lg:text-base ${
                   selectedIndustries.includes(industry)
                     ? "bg-accent text-accent-foreground"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
@@ -98,21 +112,24 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
           </div>
         </div>
 
-        {/* Age Range */}
-        <div className="mt-10">
+        <div className="mt-8 lg:mt-10">
           <h3 className="text-base font-medium text-foreground lg:text-lg">Age</h3>
-          <div className="mt-4 flex items-center gap-4">
+          <p className="mt-2 text-sm text-muted-foreground lg:hidden">
+            Drag min and max (ages {ageRange[0]}–{ageRange[1]})
+          </p>
+          <div className="mt-4 flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-4">
             <input
               type="range"
               min="8"
               max="18"
               value={ageRange[0]}
+              aria-label="Minimum age"
               onChange={(e) =>
-                setAgeRange([parseInt(e.target.value), ageRange[1]])
+                setAgeRange([parseInt(e.target.value, 10), ageRange[1]])
               }
-              className="h-3 flex-1 cursor-pointer appearance-none rounded-lg bg-secondary accent-accent"
+              className="h-3 w-full min-w-0 cursor-pointer appearance-none rounded-lg bg-secondary accent-accent lg:flex-1"
             />
-            <span className="text-base text-muted-foreground">
+            <span className="hidden shrink-0 text-base text-muted-foreground lg:inline">
               {ageRange[0]} - {ageRange[1]}
             </span>
             <input
@@ -120,23 +137,23 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
               min="8"
               max="18"
               value={ageRange[1]}
+              aria-label="Maximum age"
               onChange={(e) =>
-                setAgeRange([ageRange[0], parseInt(e.target.value)])
+                setAgeRange([ageRange[0], parseInt(e.target.value, 10)])
               }
-              className="h-3 flex-1 cursor-pointer appearance-none rounded-lg bg-secondary accent-accent"
+              className="h-3 w-full min-w-0 cursor-pointer appearance-none rounded-lg bg-secondary accent-accent lg:flex-1"
             />
           </div>
         </div>
 
-        {/* Sort By */}
-        <div className="mt-10">
+        <div className="mt-8 lg:mt-10">
           <h3 className="text-base font-medium text-foreground lg:text-lg">Sort by</h3>
           <select
             value={sortBy}
             onChange={(e) =>
               setSortBy(e.target.value as "newest" | "youngest" | "az")
             }
-            className="mt-4 w-full rounded-xl border border-border bg-card px-4 py-3 text-base text-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+            className="mt-3 w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent lg:mt-4 lg:bg-card"
           >
             <option value="newest">Newest</option>
             <option value="youngest">Youngest</option>
@@ -144,54 +161,41 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
           </select>
         </div>
 
-        {/* Reset */}
         <button
+          type="button"
           onClick={resetFilters}
-          className="mt-10 text-base text-muted-foreground transition-colors hover:text-foreground"
+          className="mt-8 text-sm text-muted-foreground transition-colors hover:text-foreground lg:mt-10 lg:text-base"
         >
           Reset filters
         </button>
-      </aside>
+        </aside>
 
-      {/* Right: Grid */}
-      <div className="flex-1">
-        {/* Search Bar */}
-        <div className="relative">
-          <Search className="absolute left-5 top-1/2 h-6 w-6 -translate-y-1/2 text-muted-foreground" />
-          <input
-            type="text"
-            placeholder="Search by name, project, or keyword..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-xl border border-border bg-card py-4 pl-14 pr-6 text-lg text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-          />
-        </div>
+        <div className="min-w-0 lg:col-start-2 lg:row-start-2">
+          <p className="text-base text-muted-foreground max-lg:text-sm lg:text-lg">
+            Showing {filteredProfiles.length} of {profiles.length} F18s
+          </p>
 
-        {/* Result Count */}
-        <p className="mt-6 text-base text-muted-foreground lg:text-lg">
-          Showing {filteredProfiles.length} of {profiles.length} F18s
-        </p>
-
-        {/* Card Grid */}
-        <div className="mt-8 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-          {filteredProfiles.map((profile) => (
-            <ProfileCard key={profile.id} profile={profile} variant="simple" size="large" />
-          ))}
-        </div>
-
-        {filteredProfiles.length === 0 && (
-          <div className="mt-16 text-center">
-            <p className="text-xl text-muted-foreground">
-              No profiles match your filters.
-            </p>
-            <button
-              onClick={resetFilters}
-              className="mt-6 text-lg text-accent hover:underline"
-            >
-              Reset filters
-            </button>
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:mt-8 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
+            {filteredProfiles.map((profile) => (
+              <ProfileCard key={profile.id} profile={profile} variant="simple" size="large" />
+            ))}
           </div>
-        )}
+
+          {filteredProfiles.length === 0 && (
+            <div className="mt-12 text-center lg:mt-16">
+              <p className="text-lg text-muted-foreground lg:text-xl">
+                No profiles match your filters.
+              </p>
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="mt-5 text-base text-accent hover:underline lg:mt-6 lg:text-lg"
+              >
+                Reset filters
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

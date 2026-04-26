@@ -1,6 +1,6 @@
 import Link from "next/link"
-import Image from "next/image"
 import type { F18Profile } from "@/lib/data"
+import { ProfileImageFill } from "@/components/profile-image-fill"
 
 interface SpotlightCardProps {
   profile: F18Profile
@@ -138,16 +138,14 @@ export function SpotlightCard({ profile }: SpotlightCardProps) {
           <div className="relative order-first flex items-start lg:order-last">
             {profile.pictureUrl ? (
               <div className="relative w-full overflow-hidden rounded-2xl">
-                <div className="aspect-[3/4] w-full">
-                  <Image
-                    src={profile.pictureUrl}
+                <div className="relative aspect-[3/4] w-full">
+                  <ProfileImageFill
+                    primarySrc={profile.pictureUrl}
                     alt={profile.name}
-                    fill
                     className="object-cover object-top"
-                    sizes="(max-width: 1024px) 100vw, 420px"
+                    initialsClassName="flex h-full w-full items-center justify-center bg-white/10 font-serif text-6xl font-bold tracking-tight text-white/50 lg:text-8xl"
                   />
                 </div>
-                {/* Gradient overlay at bottom */}
                 <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-foreground/80 to-transparent" />
               </div>
             ) : (

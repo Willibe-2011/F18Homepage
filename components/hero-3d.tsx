@@ -1,62 +1,61 @@
 "use client"
 
-import { useRef } from "react"
-import { Canvas, useFrame } from "@react-three/fiber"
-import { Environment, Float, Sphere, TorusKnot } from "@react-three/drei"
-import * as THREE from "three"
+import dynamic from "next/dynamic"
+import { useEffect, useState } from "react"
 
-function GlassShape() {
-  const meshRef = useRef<THREE.Mesh>(null)
+const Hero3DCanvas = dynamic(
+  () =>
+    import("./hero-3d-canvas").then((m) => ({ default: m.Hero3DCanvas })),
+  { ssr: false, loading: () => null }
+)
 
-  useFrame((state, delta) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x += delta * 0.1
-      meshRef.current.rotation.y += delta * 0.15
-    }
-  })
+const MD_MIN = 768
 
+/** CSS-only hero backdrop for small viewports (no WebGL / Three.js). */
+function HeroMobileBackdrop() {
   return (
-    <group>
-      {/* Main Glass Shape */}
-      <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-        {/* Changed y position from 0 to 1.2 to move it up */}
-        <group position={[1.5, 1.2, -1]} scale={0.85}>
-          <TorusKnot ref={meshRef} args={[1.5, 0.4, 128, 64]}>
-            <meshPhysicalMaterial
-              transmission={1}
-              roughness={0.1}
-              thickness={2.5}
-              ior={1.5}
-              clearcoat={1}
-              clearcoatRoughness={0.1}
-              color="#ffffff"
-            />
-          </TorusKnot>
-
-          {/* Glowing Inner Nodes removed */}
-        </group>
-      </Float>
-    </group>
+    <div
+      className="absolute inset-0 z-0 md:hidden overflow-hidden pointer-events-none"
+      aria-hidden
+    >
+      {/* Base depth */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_85%_20%,rgba(255,255,255,0.14),transparent_55%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_10%_75%,rgba(0,120,64,0.45),transparent_50%)]" />
+      {/* Soft “glass” orbs */}
+      <div
+        className="absolute -right-[20%] top-[8%] h-[min(52vw,280px)] w-[min(52vw,280px)] rounded-full opacity-[0.22] blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.55), rgba(200,230,210,0.15) 45%, transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute -right-[8%] top-[22%] h-[min(40vw,200px)] w-[min(40vw,200px)] rounded-full opacity-30 blur-2xl border border-white/10"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02))",
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80" />
+    </div>
   )
 }
 
 export function Hero3D() {
+  const [useCanvas, setUseCanvas] = useState(false)
+
+  useEffect(() => {
+    const mql = window.matchMedia(`(min-width: ${MD_MIN}px)`)
+    const apply = () => setUseCanvas(mql.matches)
+    apply()
+    mql.addEventListener("change", apply)
+    return () => mql.removeEventListener("change", apply)
+  }, [])
+
   return (
-    <div className="absolute inset-0 z-0 h-full w-full opacity-100">
-      <Canvas
-        dpr={[1, 1.5]}
-        camera={{ position: [0, 0, 7], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
-      >
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
-        <directionalLight position={[-10, -10, -5]} intensity={0.5} />
-        
-        {/* Environment map is critical for glass reflections */}
-        <Environment preset="city" />
-        
-        <GlassShape />
-      </Canvas>
-    </div>
+    <>
+      <HeroMobileBackdrop />
+      {useCanvas ? <Hero3DCanvas /> : null}
+    </>
   )
 }
