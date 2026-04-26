@@ -44,6 +44,7 @@ export function Hero3D() {
   return (
     <div className="absolute inset-0 z-0 h-full w-full opacity-100">
       <Canvas
+        dpr={[1, 1.5]}
         camera={{ position: [0, 0, 7], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
       >
