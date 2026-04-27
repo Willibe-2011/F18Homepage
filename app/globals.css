@@ -124,3 +124,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes founder-wave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@layer utilities {
+  .founder-wave-text {
+    background-size: 180% 100%;
+    animation: founder-wave 9s cubic-bezier(0.45, 0.05, 0.25, 1) infinite;
+    will-change: background-position;
+  }
+}

@@ -61,8 +61,8 @@ export function StickyIntroBar({
 
           {/* Right: CTA */}
           <button className="inline-flex flex-shrink-0 items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent/90 lg:gap-3 lg:px-7 lg:py-4 lg:text-base">
-            <span className="hidden sm:inline">Request an Intro</span>
-            <span className="sm:hidden">Intro</span>
+            <span className="hidden sm:inline">CONNECT</span>
+            <span className="sm:hidden">CONNECT</span>
             <ArrowRight className="h-4 w-4 lg:h-5 lg:w-5" />
           </button>
         </div>

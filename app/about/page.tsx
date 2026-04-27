@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
@@ -9,15 +8,24 @@ export default function AboutPage() {
       <main className="min-h-screen pt-24 pb-32">
         {/* Mission Section */}
         <section className="mx-auto max-w-[1400px] px-8 lg:px-12 pt-16">
-          <p className="font-mono text-sm font-semibold tracking-widest text-accent uppercase mb-6">
+          <p className="relative inline-block pb-1 font-mono text-sm font-semibold tracking-[0.28em] text-accent uppercase after:absolute after:left-1/2 after:bottom-0 after:h-px after:w-full after:-translate-x-1/2 after:bg-accent/70 mb-6">
             Mission
           </p>
-          <h1 className="font-serif text-5xl font-bold leading-tight text-foreground md:text-6xl lg:text-7xl xl:text-8xl text-balance max-w-5xl">
+          <h1 className="font-serif text-4xl font-bold leading-tight text-foreground md:text-5xl lg:text-6xl xl:text-7xl text-balance max-w-5xl">
             Accelerate Next Gen Founder Shift.
           </h1>
-          <p className="mt-8 max-w-3xl text-xl leading-relaxed text-muted-foreground md:text-2xl">
-            Next Gen Founders identify and solve real problems before 18. Founders18 accelerates that shift — finding them, amplifying their story, and bringing them the attention and capital they deserve.
-          </p>
+          <div className="relative mt-10 max-w-3xl">
+            <span className="pointer-events-none absolute -left-1 top-10 hidden h-24 w-24 rounded-full bg-white/10 blur-2xl md:block" aria-hidden="true" />
+            <p className="font-mono text-[11px] font-semibold tracking-[0.35em] text-foreground/55 uppercase md:text-xs">
+              Founders Thesis
+            </p>
+            <p className="relative mt-4 pl-6 text-xl font-normal leading-relaxed tracking-[0.003em] text-foreground/90 [text-wrap:pretty] md:mt-5 md:pl-8 md:text-2xl md:leading-relaxed">
+              <span className="pointer-events-none absolute left-0 top-0 h-full w-0.5 rounded-full bg-gradient-to-b from-white/55 via-white/25 to-transparent" aria-hidden="true" />
+              <span className="relative">
+                Next Gen Founders identify and solve real problems before 18. Founders18 accelerates that shift — finding them, amplifying their story, and bringing them the attention and capital they deserve.
+              </span>
+            </p>
+          </div>
         </section>
 
         {/* Separator */}
@@ -33,17 +41,17 @@ export default function AboutPage() {
                 What is F18?
               </h2>
             </div>
-            <div className="max-w-3xl">
-              <p className="text-xl leading-relaxed text-foreground mb-8">
+            <div className="max-w-3xl space-y-6">
+              <p className="text-xl leading-relaxed text-foreground/92 md:text-2xl md:leading-relaxed">
                 Founders18 (F18) is a discovery and amplification platform for the next generation of founders — builders who are already solving real problems before they turn 18.
               </p>
-              <p className="text-xl leading-relaxed text-muted-foreground mb-8">
+              <p className="text-xl leading-relaxed text-foreground/82 md:text-2xl md:leading-relaxed">
                 F18 is not a competition. Not a program. Not a directory of high achievers.
               </p>
-              <p className="text-xl leading-relaxed text-foreground font-medium mb-8">
-                It is a verified record of Next Gen Founders — backed by evidence: real products, real users, real impact. <span className="text-muted-foreground font-normal">Every profile on F18 is researched, verified, and told through a story that captures who they are and what they&apos;ve built.</span>
+              <p className="text-xl leading-relaxed text-foreground/90 md:text-2xl md:leading-relaxed">
+                It is a verified record of Next Gen Founders — backed by evidence: real products, real users, real impact. Every profile on F18 is researched, verified, and told through a story that captures who they are and what they&apos;ve built.
               </p>
-              <p className="text-xl leading-relaxed text-muted-foreground">
+              <p className="text-xl leading-relaxed text-foreground/82 md:text-2xl md:leading-relaxed">
                 In the AI age, age is no longer a barrier to solving what matters. F18 exists to make sure the world sees that — and that the builders driving this shift get the attention and capital they deserve.
               </p>
             </div>
@@ -91,17 +99,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="mx-auto max-w-[1400px] px-8 lg:px-12 mt-32 text-center">
-          <Link
-            target="_blank"
-            href="https://forms.gle/evkDGtdsratB7kWZ9"
-            className="group inline-flex items-center gap-3 rounded-full bg-accent px-10 py-5 text-lg font-semibold text-accent-foreground transition-all hover:bg-accent/90 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
-          >
-            Get Featured on F18
-            <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
-          </Link>
-        </section>
       </main>
       <Footer />
     </>

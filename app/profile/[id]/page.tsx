@@ -3,7 +3,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import {
-  ArrowLeft,
   ArrowRight,
   ExternalLink,
   CheckCircle,
@@ -111,21 +110,21 @@ export default async function ProfilePage({
                 </h1>
 
                 {/* Quick facts — inline bar (local style) */}
-                <dl className="mt-10 flex items-center gap-12 border-y border-white/10 py-6">
+                <dl className="mt-10 flex items-center gap-12 border-y border-white/10 py-6 lg:gap-14 lg:py-7">
                   <div>
-                    <dt className="text-xs uppercase tracking-widest text-muted-foreground">
+                    <dt className="text-sm uppercase tracking-widest text-muted-foreground lg:text-base">
                       Age
                     </dt>
-                    <dd className="mt-1 font-serif text-3xl font-bold text-accent lg:text-4xl">
+                    <dd className="mt-2 font-serif text-4xl font-bold text-accent lg:text-5xl">
                       {profile.age}
                     </dd>
                   </div>
-                  <div className="h-12 w-px bg-white/10" />
+                  <div className="h-14 w-px bg-white/10 lg:h-16" />
                   <div>
-                    <dt className="text-xs uppercase tracking-widest text-muted-foreground">
+                    <dt className="text-sm uppercase tracking-widest text-muted-foreground lg:text-base">
                       Industry
                     </dt>
-                    <dd className="mt-2 text-lg font-medium text-foreground tracking-wide uppercase lg:text-xl">
+                    <dd className="mt-2 text-xl font-medium text-foreground tracking-wide uppercase lg:text-2xl">
                       {profile.industry}
                     </dd>
                   </div>
@@ -149,7 +148,7 @@ export default async function ProfilePage({
                     href="/explore"
                     className="group inline-flex items-center justify-center gap-2 rounded-full border-2 border-transparent bg-accent px-8 py-5 text-lg font-semibold text-accent-foreground shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl"
                   >
-                    Explore
+                    See more F18
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Link>
                   {profile.profileUrl && (
@@ -165,23 +164,6 @@ export default async function ProfilePage({
                   )}
                 </div>
 
-                {/* Tertiary info */}
-                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground lg:text-base">
-                  {profile.lastEditTime && (
-                    <span>Updated {profile.lastEditTime}</span>
-                  )}
-                  {profile.location && <span>{profile.location}</span>}
-                  {profile.socialMedia && (
-                    <a
-                      href={profile.socialMedia}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-foreground transition-colors"
-                    >
-                      Social
-                    </a>
-                  )}
-                </div>
               </div>
             </div>
           </div>
@@ -480,7 +462,7 @@ export default async function ProfilePage({
                     href="/explore"
                     className="group inline-flex items-center justify-center gap-3 rounded-full bg-accent px-10 py-6 text-lg font-semibold text-accent-foreground shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl lg:text-xl"
                   >
-                    Explore
+                    See more F18
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Link>
                 )}
@@ -492,14 +474,7 @@ export default async function ProfilePage({
         {/* Footer Navigation */}
         <section className="py-16 lg:py-20">
           <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <Link
-                href="/explore"
-                className="inline-flex items-center gap-3 text-base text-muted-foreground transition-colors hover:text-foreground lg:text-lg"
-              >
-                <ArrowLeft className="h-5 w-5" />
-                Back to Explore
-              </Link>
+            <div className="flex flex-wrap items-center justify-start gap-4">
               {profile.lastEditTime && (
                 <span className="text-sm text-muted-foreground lg:text-base">
                   Last updated {profile.lastEditTime}
