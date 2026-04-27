@@ -399,18 +399,13 @@ export default async function ProfilePage({
         {(profile.letterToVC || profile.letterToUniversity) && (
           <section className="border-b border-border bg-secondary/30">
             <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
-              <SectionEyebrow number="06" label="Official Letters" />
+              <SectionEyebrow
+                number="06"
+                label={`Why investors should pay attention to ${profile.name} now`}
+              />
               <div className="mt-12 grid gap-10 xl:grid-cols-2">
                 {profile.letterToVC && (
                   <div className="rounded-3xl border border-border bg-card p-8 lg:p-12">
-                    <div className="mb-6 flex items-center gap-3">
-                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 font-mono text-sm font-bold text-accent">
-                        VC
-                      </span>
-                      <h3 className="font-serif text-xl font-bold text-foreground lg:text-2xl">
-                        Letter to Investors
-                      </h3>
-                    </div>
                     <div className="max-h-[480px] overflow-y-auto pr-2">
                       <p className="whitespace-pre-wrap text-base leading-relaxed text-muted-foreground lg:text-lg">
                         {profile.letterToVC}
@@ -419,19 +414,21 @@ export default async function ProfilePage({
                   </div>
                 )}
                 {profile.letterToUniversity && (
-                  <div className="rounded-3xl border border-border bg-card p-8 lg:p-12">
-                    <div className="mb-6 flex items-center gap-3">
-                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 font-mono text-sm font-bold text-accent">
-                        EDU
+                  <div>
+                    <div className="mb-6 flex items-baseline gap-4">
+                      <span className="font-mono text-sm font-medium tracking-widest text-accent lg:text-base">
+                        07
                       </span>
-                      <h3 className="font-serif text-xl font-bold text-foreground lg:text-2xl">
-                        Letter to Admissions
-                      </h3>
+                      <span className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground lg:text-base">
+                        {`Why college administrators can't afford to overlook ${profile.name}`}
+                      </span>
                     </div>
+                    <div className="rounded-3xl border border-border bg-card p-8 lg:p-12">
                     <div className="max-h-[480px] overflow-y-auto pr-2">
                       <p className="whitespace-pre-wrap text-base leading-relaxed text-muted-foreground lg:text-lg">
                         {profile.letterToUniversity}
                       </p>
+                    </div>
                     </div>
                   </div>
                 )}
