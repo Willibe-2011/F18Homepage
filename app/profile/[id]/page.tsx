@@ -148,7 +148,7 @@ export default async function ProfilePage({
                     href="/explore"
                     className="group inline-flex items-center justify-center gap-2 rounded-full border-2 border-transparent bg-accent px-8 py-5 text-lg font-semibold text-accent-foreground shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl"
                   >
-                    See more F18
+                    Connect
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Link>
                   {profile.profileUrl && (
@@ -399,27 +399,33 @@ export default async function ProfilePage({
         {(profile.letterToVC || profile.letterToUniversity) && (
           <section className="border-b border-border bg-secondary/30">
             <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
-              <SectionEyebrow
-                number="06"
-                label={`Why investors should pay attention to ${profile.name} now`}
-              />
-              <div className="mt-12 grid gap-10 xl:grid-cols-2">
+              <div className="mt-12 grid gap-10 xl:grid-cols-2 xl:items-start">
                 {profile.letterToVC && (
-                  <div className="rounded-3xl border border-border bg-card p-8 lg:p-12">
-                    <div className="max-h-[480px] overflow-y-auto pr-2">
-                      <p className="whitespace-pre-wrap text-base leading-relaxed text-muted-foreground lg:text-lg">
-                        {profile.letterToVC}
-                      </p>
+                  <div className="min-w-0">
+                    <div className="mb-6 flex min-w-0 items-start gap-4">
+                      <span className="font-mono text-sm font-medium tracking-widest text-accent lg:text-base">
+                        06
+                      </span>
+                      <span className="block min-w-0 text-sm font-semibold uppercase tracking-[0.2em] leading-relaxed text-muted-foreground break-words lg:text-base">
+                        {`Why investors should pay attention to ${profile.name} now`}
+                      </span>
+                    </div>
+                    <div className="rounded-3xl border border-border bg-card p-8 lg:p-12">
+                      <div className="max-h-[480px] overflow-y-auto pr-2">
+                        <p className="whitespace-pre-wrap text-base leading-relaxed text-muted-foreground lg:text-lg">
+                          {profile.letterToVC}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 )}
                 {profile.letterToUniversity && (
-                  <div>
-                    <div className="mb-6 flex items-baseline gap-4">
+                  <div className="min-w-0">
+                    <div className="mb-6 flex min-w-0 items-start gap-4">
                       <span className="font-mono text-sm font-medium tracking-widest text-accent lg:text-base">
                         07
                       </span>
-                      <span className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground lg:text-base">
+                      <span className="block min-w-0 text-sm font-semibold uppercase tracking-[0.2em] leading-relaxed text-muted-foreground break-words lg:text-base">
                         {`Why college administrators can't afford to overlook ${profile.name}`}
                       </span>
                     </div>
@@ -441,9 +447,9 @@ export default async function ProfilePage({
             07 — CONNECT (closing CTA)
             ============================================ */}
         {(showVCCard || showUniversityCard) && (
-          <section className="border-b border-border bg-accent/[0.04]">
+          <section id="profile-connect-section" className="border-b border-border bg-accent/[0.04]">
             <div className="mx-auto max-w-[1400px] px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
-              <SectionEyebrow number="07" label="Connect" />
+              <SectionEyebrow number="08" label="Connect" />
               <h2 className="mt-8 max-w-4xl font-serif text-4xl font-bold leading-tight text-foreground md:text-5xl lg:text-6xl text-balance">
                 Want to back, recruit, or partner with{" "}
                 {profile.name.split(" ")[0]}?
@@ -455,13 +461,14 @@ export default async function ProfilePage({
 
               <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center">
                 {showVCCard && (
-                  <Link
-                    href="/explore"
+                  <button
+                    type="button"
+                    aria-disabled="true"
                     className="group inline-flex items-center justify-center gap-3 rounded-full bg-accent px-10 py-6 text-lg font-semibold text-accent-foreground shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl lg:text-xl"
                   >
-                    See more F18
+                    Connect
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </Link>
+                  </button>
                 )}
               </div>
             </div>

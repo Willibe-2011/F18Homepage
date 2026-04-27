@@ -20,6 +20,7 @@ export function StickyIntroBar({
   record,
 }: StickyIntroBarProps) {
   const [visible, setVisible] = useState(false)
+  const [hideForConnectSection, setHideForConnectSection] = useState(false)
 
   useEffect(() => {
     const onScroll = () => {
@@ -31,6 +32,22 @@ export function StickyIntroBar({
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  useEffect(() => {
+    const connectSection = document.getElementById("profile-connect-section")
+    if (!connectSection) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Hide sticky bar when the Connect section is in view.
+        setHideForConnectSection(entry.isIntersecting)
+      },
+      { threshold: 0.2 },
+    )
+
+    observer.observe(connectSection)
+    return () => observer.disconnect()
+  }, [])
+
   const avatarSrc =
     pictureUrl ||
     `/placeholder.svg?height=96&width=96&query=editorial%20portrait%20founder%20${age}%20year%20old`
@@ -39,7 +56,7 @@ export function StickyIntroBar({
     <div
       aria-hidden={!visible}
       className={`fixed inset-x-0 bottom-0 z-40 transition-transform duration-300 ${
-        visible ? "translate-y-0" : "translate-y-full"
+        visible && !hideForConnectSection ? "translate-y-0" : "translate-y-full"
       }`}
     >
       <div className="mx-auto max-w-[1400px] px-4 pb-4 lg:px-8 lg:pb-6">
