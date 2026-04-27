@@ -42,12 +42,6 @@ export default async function HomePage() {
               >
                 <span className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(255,255,255,0.32),rgba(255,255,255,0)_45%),radial-gradient(120%_120%_at_100%_100%,rgba(255,255,255,0.18),rgba(255,255,255,0)_55%)] opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
                 <span className="font-serif tracking-tight">Explore the F18</span>
-                <span
-                  className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/35 bg-white/12 text-xs transition-all duration-300 group-hover:translate-x-1 group-hover:bg-white/28 group-hover:shadow-[0_0_16px_rgba(255,255,255,0.45)]"
-                  aria-hidden="true"
-                >
-                  ↗
-                </span>
               </Link>
               <Link
                 target="_blank"
@@ -56,12 +50,6 @@ export default async function HomePage() {
               >
                 <span className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(255,255,255,0.32),rgba(255,255,255,0)_45%),radial-gradient(120%_120%_at_100%_100%,rgba(255,255,255,0.18),rgba(255,255,255,0)_55%)] opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
                 <span className="font-serif tracking-tight">Get Featured</span>
-                <span
-                  className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/35 bg-white/12 text-xs transition-all duration-300 group-hover:translate-x-1 group-hover:bg-white/28 group-hover:shadow-[0_0_16px_rgba(255,255,255,0.45)]"
-                  aria-hidden="true"
-                >
-                  ↗
-                </span>
               </Link>
             </div>
 
