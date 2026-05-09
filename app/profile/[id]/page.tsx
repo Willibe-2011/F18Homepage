@@ -66,10 +66,10 @@ export default async function ProfilePage({
         <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
           
           {/* Dossier Card */}
-          <article className="flex flex-col lg:flex-row overflow-hidden rounded-3xl border border-border bg-card shadow-2xl">
+          <article className="flex flex-col lg:flex-row overflow-hidden rounded-[2.5rem] border border-border bg-card shadow-2xl">
             
             {/* Left Column: Photo + Identity + Record Claim */}
-            <div className="flex w-full shrink-0 flex-col border-b border-border bg-card lg:w-[400px] lg:border-b-0 lg:border-r xl:w-[480px]">
+            <div className="flex w-full shrink-0 flex-col border-b border-border bg-card lg:w-[420px] lg:border-b-0 lg:border-r xl:w-[500px]">
               <div className="relative aspect-square w-full bg-secondary">
                 <Image
                   src={heroAvatarSrc}
@@ -79,7 +79,7 @@ export default async function ProfilePage({
                   priority
                 />
               </div>
-              <div className="flex flex-col p-8 md:p-10 lg:p-8 xl:p-10">
+              <div className="flex flex-col p-10 md:p-12 lg:p-14">
                 <div className="flex flex-wrap items-center gap-3 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                   <span className="text-accent">{profile.age} Y/O</span>
                   <span>•</span>
@@ -87,12 +87,12 @@ export default async function ProfilePage({
                   <span>•</span>
                   <span>{profile.industry}</span>
                 </div>
-                <h1 className="mt-4 font-serif text-4xl font-bold leading-tight text-foreground md:text-5xl">
+                <h1 className="mt-6 font-serif text-5xl font-bold leading-tight text-foreground md:text-6xl">
                   {profile.name}
                 </h1>
                 {profile.breakTheRecord && (
-                  <div className="mt-6 border-l-2 border-accent pl-4">
-                    <p className="text-lg font-medium leading-snug text-foreground md:text-xl">
+                  <div className="mt-8 border-l-2 border-accent pl-5">
+                    <p className="text-xl font-medium leading-relaxed text-foreground/90 md:text-2xl">
                       {profile.breakTheRecord}
                     </p>
                   </div>
@@ -102,15 +102,15 @@ export default async function ProfilePage({
 
             {/* Right Column: Details & Letters */}
             <div className="flex min-w-0 flex-1 flex-col">
-              <div className="flex-1 space-y-12 p-8 md:p-10 lg:p-12">
+              <div className="flex-1 space-y-16 p-10 md:p-14 lg:p-16">
                 
                 {/* What they built */}
                 {profile.whatTheyreBuilding && (
                   <section>
-                    <h2 className="mb-4 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+                    <h2 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                       What they built
                     </h2>
-                    <p className="text-lg leading-relaxed text-foreground md:text-xl">
+                    <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl">
                       {profile.whatTheyreBuilding}
                     </p>
                     {profile.profileUrl && (
@@ -118,7 +118,7 @@ export default async function ProfilePage({
                         href={profile.profileUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+                        className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
                       >
                         <ExternalLink className="h-4 w-4" />
                         View Project
@@ -130,13 +130,13 @@ export default async function ProfilePage({
                 {/* Verified track record */}
                 {(profile.proofTraction.length > 0 || profile.evidence.length > 0) && (
                   <section>
-                    <h2 className="mb-4 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+                    <h2 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                       Verified track record
                     </h2>
-                    <ul className="space-y-3">
+                    <ul className="space-y-4">
                       {profile.proofTraction.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-base text-foreground md:text-lg">
-                          <CheckCircle className="mt-1 h-5 w-5 shrink-0 text-green-500" />
+                        <li key={idx} className="flex items-start gap-4 text-lg leading-[1.8] text-foreground/90 md:text-xl">
+                          <CheckCircle className="mt-1.5 h-5 w-5 shrink-0 text-green-500" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -145,8 +145,8 @@ export default async function ProfilePage({
                         const url = urlMatch ? urlMatch[1] : null
                         const text = url ? item.replace(url, "").replace(/[—:-]\s*$/, "").trim() : item
                         return (
-                          <li key={`ev-${idx}`} className="flex items-start gap-3 text-base text-foreground md:text-lg">
-                            <CheckCircle className="mt-1 h-5 w-5 shrink-0 text-green-500" />
+                          <li key={`ev-${idx}`} className="flex items-start gap-4 text-lg leading-[1.8] text-foreground/90 md:text-xl">
+                            <CheckCircle className="mt-1.5 h-5 w-5 shrink-0 text-green-500" />
                             <span>
                               {text}{" "}
                               {url && (
@@ -165,27 +165,31 @@ export default async function ProfilePage({
                 {/* Letters */}
                 {(profile.letterToVC || profile.letterToUniversity) && (
                   <section>
-                    <div className="grid gap-8 md:grid-cols-2">
+                    <div className="grid gap-8 md:grid-cols-2 lg:gap-10">
                       {profile.letterToVC && (
-                        <div className="rounded-2xl border border-border bg-secondary/20 p-6">
-                          <h3 className="mb-4 font-mono text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                        <div className="rounded-3xl border border-border bg-secondary/20 p-8 md:p-10">
+                          <h3 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                             For VCs
                           </h3>
-                          <p className="whitespace-pre-wrap text-base leading-relaxed text-foreground">
+                          <p className="whitespace-pre-wrap text-lg leading-[1.8] text-foreground/90 md:text-xl">
                             {profile.letterToVC}
                           </p>
-                          <CopyLetterButtons text={profile.letterToVC} type="VC" />
+                          <div className="mt-8">
+                            <CopyLetterButtons text={profile.letterToVC} type="VC" />
+                          </div>
                         </div>
                       )}
                       {profile.letterToUniversity && (
-                        <div className="rounded-2xl border border-border bg-secondary/20 p-6">
-                          <h3 className="mb-4 font-mono text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                        <div className="rounded-3xl border border-border bg-secondary/20 p-8 md:p-10">
+                          <h3 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                             For Universities
                           </h3>
-                          <p className="whitespace-pre-wrap text-base leading-relaxed text-foreground">
+                          <p className="whitespace-pre-wrap text-lg leading-[1.8] text-foreground/90 md:text-xl">
                             {profile.letterToUniversity}
                           </p>
-                          <CopyLetterButtons text={profile.letterToUniversity} type="University" />
+                          <div className="mt-8">
+                            <CopyLetterButtons text={profile.letterToUniversity} type="University" />
+                          </div>
                         </div>
                       )}
                     </div>
@@ -195,16 +199,16 @@ export default async function ProfilePage({
               </div>
               
               {/* Footer Actions */}
-              <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border bg-secondary/30 p-6 md:px-10 lg:px-12">
+              <div className="flex flex-wrap items-center justify-between gap-6 border-t border-border bg-secondary/30 p-8 md:px-14 lg:px-16">
                 <div className="flex items-center gap-4">
                   <button
                     type="button"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-10 py-4 text-lg font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
                   >
                     Request Intro
                   </button>
                 </div>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-4 text-sm font-medium tracking-wide text-muted-foreground">
                   {profile.lastEditTime && <span>Updated {profile.lastEditTime}</span>}
                 </div>
               </div>

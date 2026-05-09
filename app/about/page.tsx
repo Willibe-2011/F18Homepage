@@ -19,7 +19,7 @@ export default function AboutPage() {
             <p className="font-mono text-[11px] font-semibold tracking-[0.35em] text-foreground/55 uppercase md:text-xs">
               Founders Thesis
             </p>
-            <p className="relative mt-4 pl-6 text-xl font-normal leading-relaxed tracking-[0.003em] text-foreground/90 [text-wrap:pretty] md:mt-5 md:pl-8 md:text-2xl md:leading-relaxed">
+            <p className="relative mt-4 pl-6 text-lg font-normal leading-[1.8] tracking-[0.003em] text-foreground/90 [text-wrap:pretty] md:mt-5 md:pl-8 md:text-xl">
               <span className="pointer-events-none absolute left-0 top-0 h-full w-0.5 rounded-full bg-gradient-to-b from-white/55 via-white/25 to-transparent" aria-hidden="true" />
               <span className="relative">
                 Next Gen Founders identify and solve real problems before 18. Founders18 accelerates that shift — finding them, amplifying their story, and bringing them the attention and capital they deserve.
@@ -42,16 +42,16 @@ export default function AboutPage() {
               </h2>
             </div>
             <div className="max-w-3xl space-y-6">
-              <p className="text-xl leading-relaxed text-foreground/92 md:text-2xl md:leading-relaxed">
+              <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl">
                 Founders18 (F18) is a discovery and amplification platform for the next generation of founders — builders who are already solving real problems before they turn 18.
               </p>
-              <p className="text-xl leading-relaxed text-foreground/82 md:text-2xl md:leading-relaxed">
+              <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl">
                 F18 is not a competition. Not a program. Not a directory of high achievers.
               </p>
-              <p className="text-xl leading-relaxed text-foreground/90 md:text-2xl md:leading-relaxed">
+              <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl">
                 It is a verified record of Next Gen Founders — backed by evidence: real products, real users, real impact. Every profile on F18 is researched, verified, and told through a story that captures who they are and what they&apos;ve built.
               </p>
-              <p className="text-xl leading-relaxed text-foreground/82 md:text-2xl md:leading-relaxed">
+              <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl">
                 In the AI age, age is no longer a barrier to solving what matters. F18 exists to make sure the world sees that — and that the builders driving this shift get the attention and capital they deserve.
               </p>
             </div>
@@ -72,7 +72,7 @@ export default function AboutPage() {
               <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-white/10">
                 For VCs & Investors
               </h3>
-              <p className="text-lg leading-relaxed text-muted-foreground">
+              <p className="text-lg leading-[1.8] text-muted-foreground">
                 The best founders start early. F18 gives you a verified pipeline of Next Gen Founders — builders who have already shipped, already proven they can execute, and are just getting started. Find them before everyone else does.
               </p>
             </div>
@@ -82,7 +82,7 @@ export default function AboutPage() {
               <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-white/10">
                 For Media & Journalists
               </h3>
-              <p className="text-lg leading-relaxed text-muted-foreground">
+              <p className="text-lg leading-[1.8] text-muted-foreground">
                 The most compelling founder stories are the ones that start young. F18 surfaces verified, story-ready profiles — each backed by real evidence, not self-reported claims. Your media should put them on your watching list.
               </p>
             </div>
@@ -92,7 +92,7 @@ export default function AboutPage() {
               <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-white/10">
                 For Universities & Schools
               </h3>
-              <p className="text-lg leading-relaxed text-muted-foreground">
+              <p className="text-lg leading-[1.8] text-muted-foreground">
                 These are not just exceptional students. They are creators who have already made an impact before stepping into your program. F18 helps you identify and recruit the builders who will define your next decade.
               </p>
             </div>
