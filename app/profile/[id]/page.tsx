@@ -9,7 +9,7 @@ import {
 } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { CopyLetterButtons } from "@/components/copy-letter-buttons"
+import { LetterCTA } from "@/components/letter-cta"
 import { getProfileBySlug, getAllPublishedSlugs } from "@/lib/notion"
 import { fetchOgImage } from "@/lib/og"
 
@@ -127,6 +127,23 @@ export default async function ProfilePage({
                   </section>
                 )}
 
+                {/* Official Letters CTAs */}
+                {(profile.letterToVC || profile.letterToUniversity) && (
+                  <section>
+                    <h2 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+                      Official Letters
+                    </h2>
+                    <div className="grid gap-6 sm:grid-cols-2">
+                      {profile.letterToVC && (
+                        <LetterCTA type="VC" text={profile.letterToVC} founderName={profile.name} />
+                      )}
+                      {profile.letterToUniversity && (
+                        <LetterCTA type="University" text={profile.letterToUniversity} founderName={profile.name} />
+                      )}
+                    </div>
+                  </section>
+                )}
+
                 {/* Verified track record */}
                 {(profile.proofTraction.length > 0 || profile.evidence.length > 0) && (
                   <section className="relative rounded-none border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
@@ -159,40 +176,6 @@ export default async function ProfilePage({
                         )
                       })}
                     </ul>
-                  </section>
-                )}
-
-                {/* Letters */}
-                {(profile.letterToVC || profile.letterToUniversity) && (
-                  <section>
-                    <div className="grid gap-8 md:grid-cols-2 lg:gap-10">
-                      {profile.letterToVC && (
-                        <div className="relative rounded-none border border-border border-b-[4px] bg-secondary/30 p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md md:p-10">
-                          <h3 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-                            For VCs
-                          </h3>
-                          <p className="whitespace-pre-wrap text-lg leading-[1.8] text-foreground/90 md:text-xl">
-                            {profile.letterToVC}
-                          </p>
-                          <div className="mt-8">
-                            <CopyLetterButtons text={profile.letterToVC} type="VC" />
-                          </div>
-                        </div>
-                      )}
-                      {profile.letterToUniversity && (
-                        <div className="relative rounded-none border border-border border-b-[4px] bg-secondary/30 p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md md:p-10">
-                          <h3 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-                            For Universities
-                          </h3>
-                          <p className="whitespace-pre-wrap text-lg leading-[1.8] text-foreground/90 md:text-xl">
-                            {profile.letterToUniversity}
-                          </p>
-                          <div className="mt-8">
-                            <CopyLetterButtons text={profile.letterToUniversity} type="University" />
-                          </div>
-                        </div>
-                      )}
-                    </div>
                   </section>
                 )}
 
