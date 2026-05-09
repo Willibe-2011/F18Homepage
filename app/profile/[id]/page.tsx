@@ -136,7 +136,7 @@ export default async function ProfilePage({
                     <ul className="space-y-4">
                       {profile.proofTraction.map((item, idx) => (
                         <li key={idx} className="flex items-start gap-4 text-lg leading-[1.8] text-foreground/90 md:text-xl">
-                          <CheckCircle className="mt-1.5 h-5 w-5 shrink-0 text-green-500" />
+                          <CheckCircle className="mt-1.5 h-5 w-5 shrink-0 text-accent" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -146,7 +146,7 @@ export default async function ProfilePage({
                         const text = url ? item.replace(url, "").replace(/[—:-]\s*$/, "").trim() : item
                         return (
                           <li key={`ev-${idx}`} className="flex items-start gap-4 text-lg leading-[1.8] text-foreground/90 md:text-xl">
-                            <CheckCircle className="mt-1.5 h-5 w-5 shrink-0 text-green-500" />
+                            <CheckCircle className="mt-1.5 h-5 w-5 shrink-0 text-accent" />
                             <span>
                               {text}{" "}
                               {url && (

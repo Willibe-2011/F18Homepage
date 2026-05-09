@@ -15,12 +15,12 @@ export default function AboutPage() {
             Accelerate Next Gen Founder Shift.
           </h1>
           <div className="relative mt-10 max-w-3xl">
-            <span className="pointer-events-none absolute -left-1 top-10 hidden h-24 w-24 rounded-full bg-white/10 blur-2xl md:block" aria-hidden="true" />
+            <span className="pointer-events-none absolute -left-1 top-10 hidden h-24 w-24 rounded-full bg-accent/10 blur-2xl md:block" aria-hidden="true" />
             <p className="font-mono text-[11px] font-semibold tracking-[0.35em] text-foreground/55 uppercase md:text-xs">
               Founders Thesis
             </p>
             <p className="relative mt-4 pl-6 text-lg font-normal leading-[1.8] tracking-[0.003em] text-foreground/90 [text-wrap:pretty] md:mt-5 md:pl-8 md:text-xl">
-              <span className="pointer-events-none absolute left-0 top-0 h-full w-0.5 rounded-full bg-gradient-to-b from-white/55 via-white/25 to-transparent" aria-hidden="true" />
+              <span className="pointer-events-none absolute left-0 top-0 h-full w-0.5 rounded-full bg-gradient-to-b from-accent via-accent/50 to-transparent" aria-hidden="true" />
               <span className="relative">
                 Next Gen Founders identify and solve real problems before 18. Founders18 accelerates that shift — finding them, amplifying their story, and bringing them the attention and capital they deserve.
               </span>
@@ -30,7 +30,7 @@ export default function AboutPage() {
 
         {/* Separator */}
         <div className="mx-auto max-w-[1400px] px-8 lg:px-12 mt-24 mb-24">
-          <div className="h-px w-full bg-white/10" />
+          <div className="h-px w-full bg-border" />
         </div>
 
         {/* What is F18 Section */}
@@ -68,8 +68,8 @@ export default function AboutPage() {
           
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {/* Card 1: VCs */}
-            <div className="flex flex-col rounded-none border border-white/10 bg-card/40 p-8 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] transition-all hover:bg-card/60">
-              <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-white/10">
+            <div className="flex flex-col rounded-none border border-border bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:bg-secondary/60">
+              <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-border">
                 For VCs & Investors
               </h3>
               <p className="text-lg leading-[1.8] text-muted-foreground">
@@ -78,8 +78,8 @@ export default function AboutPage() {
             </div>
 
             {/* Card 2: Media */}
-            <div className="flex flex-col rounded-none border border-white/10 bg-card/40 p-8 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] transition-all hover:bg-card/60">
-              <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-white/10">
+            <div className="flex flex-col rounded-none border border-border bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:bg-secondary/60">
+              <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-border">
                 For Media & Journalists
               </h3>
               <p className="text-lg leading-[1.8] text-muted-foreground">
@@ -88,8 +88,8 @@ export default function AboutPage() {
             </div>
 
             {/* Card 3: Universities */}
-            <div className="flex flex-col rounded-none border border-white/10 bg-card/40 p-8 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] transition-all hover:bg-card/60">
-              <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-white/10">
+            <div className="flex flex-col rounded-none border border-border bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:bg-secondary/60">
+              <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-border">
                 For Universities & Schools
               </h3>
               <p className="text-lg leading-[1.8] text-muted-foreground">

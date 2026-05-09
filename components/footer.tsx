@@ -10,13 +10,13 @@ export function Footer() {
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 sm:gap-4">
           <Link
             href="/about"
-            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-semibold text-foreground/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm transition-all duration-200 hover:border-white/25 hover:bg-white/10 hover:text-foreground sm:px-4 sm:py-2 sm:text-base lg:text-lg"
+            className="rounded-full border border-border bg-secondary/50 px-3 py-1.5 text-sm font-semibold text-foreground/90 shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-border/80 hover:bg-secondary hover:text-foreground sm:px-4 sm:py-2 sm:text-base lg:text-lg"
           >
             Mission
           </Link>
           <Link
             href="/standard"
-            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-semibold text-foreground/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm transition-all duration-200 hover:border-white/25 hover:bg-white/10 hover:text-foreground sm:px-4 sm:py-2 sm:text-base lg:text-lg"
+            className="rounded-full border border-border bg-secondary/50 px-3 py-1.5 text-sm font-semibold text-foreground/90 shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-border/80 hover:bg-secondary hover:text-foreground sm:px-4 sm:py-2 sm:text-base lg:text-lg"
           >
             The Standard
           </Link>
@@ -24,11 +24,11 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             href="https://forms.gle/evkDGtdsratB7kWZ9"
-            className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-semibold text-foreground/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm transition-all duration-200 hover:border-white/25 hover:bg-white/10 hover:text-foreground sm:px-4 sm:py-2 sm:text-base lg:text-lg"
+            className="group inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-3 py-1.5 text-sm font-semibold text-foreground/90 shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-border/80 hover:bg-secondary hover:text-foreground sm:px-4 sm:py-2 sm:text-base lg:text-lg"
           >
             Nominate Someone
             <span
-              className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-white/25 bg-white/10 text-[10px] leading-none text-foreground/90 transition-all duration-200 group-hover:border-white/40 group-hover:bg-white/18"
+              className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-border bg-secondary text-[10px] leading-none text-foreground/90 transition-all duration-200 group-hover:border-border/80 group-hover:bg-secondary/80"
               aria-hidden="true"
             >
               ↗

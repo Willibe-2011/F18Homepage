@@ -38,16 +38,16 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 h-20 border-b border-white/10 transition-all duration-200 lg:h-24 ${
+      className={`fixed top-0 left-0 right-0 z-50 h-20 border-b transition-all duration-200 lg:h-24 ${
         scrolled || menuOpen
-          ? "bg-background/80 backdrop-blur-md"
-          : "bg-transparent"
+          ? "bg-background/80 backdrop-blur-md border-border"
+          : "bg-transparent border-transparent"
       }`}
     >
       <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-12">
         <Link
           href="/"
-          className="group relative inline-flex items-center overflow-hidden rounded-full border border-white/20 bg-white/5 px-4 py-1.5 font-serif text-xl font-bold tracking-tight text-foreground shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-white/30 hover:bg-white/10 sm:text-2xl lg:text-3xl"
+          className="group relative inline-flex items-center overflow-hidden rounded-full border border-border bg-secondary/50 px-4 py-1.5 font-serif text-xl font-bold tracking-tight text-foreground shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-border/80 hover:bg-secondary sm:text-2xl lg:text-3xl"
           onClick={closeMenu}
         >
           <span className="text-foreground/90">
@@ -74,7 +74,7 @@ export function Navbar() {
           <Link
             target="_blank"
             href="https://forms.gle/evkDGtdsratB7kWZ9"
-            className="rounded-full border border-white/20 bg-transparent px-7 py-3 text-base font-semibold text-foreground transition-colors hover:bg-white/10 lg:px-8 lg:py-3.5 lg:text-lg"
+            className="rounded-full border border-border bg-transparent px-7 py-3 text-base font-semibold text-foreground transition-colors hover:bg-secondary lg:px-8 lg:py-3.5 lg:text-lg"
           >
             Nominate Someone
           </Link>
@@ -82,13 +82,13 @@ export function Navbar() {
 
         <button
           type="button"
-          className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/12 bg-secondary/55 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_4px_14px_rgba(0,0,0,0.18)] backdrop-blur-md transition-all duration-300 hover:border-white/18 hover:bg-secondary/65 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_6px_18px_rgba(0,0,0,0.22)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:hidden"
+          className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-secondary/50 text-foreground shadow-sm backdrop-blur-md transition-all duration-300 hover:border-border/80 hover:bg-secondary active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:hidden"
           aria-expanded={menuOpen}
           aria-controls="site-mobile-nav"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           onClick={() => setMenuOpen((o) => !o)}
         >
-          <span className="pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(255,255,255,0.22),rgba(255,255,255,0)_45%),radial-gradient(120%_120%_at_100%_100%,rgba(255,255,255,0.12),rgba(255,255,255,0)_55%)]" />
+          <span className="pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(0,0,0,0.05),rgba(0,0,0,0)_45%),radial-gradient(120%_120%_at_100%_100%,rgba(0,0,0,0.02),rgba(0,0,0,0)_55%)]" />
           <span
             className={`relative inline-flex items-center justify-center text-foreground/90 transition-all duration-300 ease-out group-hover:text-foreground group-hover:scale-110 ${menuOpen ? "rotate-90" : "rotate-0"}`}
           >
@@ -127,7 +127,7 @@ export function Navbar() {
               <Link
                 target="_blank"
                 href="https://forms.gle/evkDGtdsratB7kWZ9"
-                className="mt-2 inline-flex w-fit items-center justify-center rounded-full border border-white/20 bg-transparent px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-white/10"
+                className="mt-2 inline-flex w-fit items-center justify-center rounded-full border border-border bg-transparent px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
                 onClick={closeMenu}
               >
                 Nominate Someone

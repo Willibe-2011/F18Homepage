@@ -118,7 +118,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
           </div>
         </div>
 
-        <aside className="h-fit w-full shrink-0 self-start rounded-2xl border border-border bg-card/40 p-6 lg:sticky lg:top-28 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:w-[320px] lg:max-w-full lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 xl:top-32">
+        <aside className="h-fit w-full shrink-0 self-start rounded-2xl border border-border bg-secondary/40 p-6 lg:sticky lg:top-28 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:w-[320px] lg:max-w-full lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 xl:top-32">
         <h2 className="font-serif text-3xl font-bold text-foreground lg:text-4xl">
           Filter.
         </h2>

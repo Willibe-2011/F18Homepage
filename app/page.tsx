@@ -38,7 +38,7 @@ export default async function HomePage() {
             <div className="mt-10 flex flex-col gap-3 pointer-events-auto sm:mt-14 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
               <Link
                 href="/explore"
-                className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-transparent px-6 py-2.5 text-sm font-semibold text-foreground transition-all duration-300 hover:border-white/40 hover:bg-white/5 sm:w-auto sm:px-10 sm:py-4 sm:text-base md:py-5 md:text-lg"
+                className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-border bg-transparent px-6 py-2.5 text-sm font-semibold text-foreground transition-all duration-300 hover:border-border/80 hover:bg-secondary sm:w-auto sm:px-10 sm:py-4 sm:text-base md:py-5 md:text-lg"
               >
                 <span className="font-serif tracking-tight">Browse the F18</span>
               </Link>
@@ -54,17 +54,17 @@ export default async function HomePage() {
         {/* Section B: This week's eighteen — Notion data */}
         <section className="py-32">
           <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
-            <div className="flex flex-col gap-4 border-b border-white/10 pb-6 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+            <div className="flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
               <h2 className="font-serif text-3xl font-bold text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
                 This week&apos;s eighteen.
               </h2>
               <Link
                 href="/explore"
-                className="group relative inline-flex w-fit shrink-0 items-center gap-2.5 overflow-hidden rounded-full border border-white/20 bg-transparent px-4 py-2 text-xs font-semibold tracking-[0.22em] text-muted-foreground uppercase transition-all duration-300 hover:border-white/40 hover:bg-white/5 hover:text-foreground md:px-5 md:py-2.5 md:text-sm"
+                className="group relative inline-flex w-fit shrink-0 items-center gap-2.5 overflow-hidden rounded-full border border-border bg-transparent px-4 py-2 text-xs font-semibold tracking-[0.22em] text-muted-foreground uppercase transition-all duration-300 hover:border-border/80 hover:bg-secondary hover:text-foreground md:px-5 md:py-2.5 md:text-sm"
               >
                 <span className="relative">Explore More</span>
                 <span
-                  className="relative inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/20 bg-transparent text-sm text-foreground/90 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-white/40"
+                  className="relative inline-flex h-7 w-7 items-center justify-center rounded-full border border-border bg-transparent text-sm text-foreground/90 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-border/80"
                   aria-hidden="true"
                 >
                   →

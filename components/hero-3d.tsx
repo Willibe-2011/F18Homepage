@@ -20,17 +20,17 @@ function HeroMobileBackdrop() {
     >
       {/* Base depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_85%_20%,rgba(255,255,255,0.14),transparent_55%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_10%_75%,rgba(0,120,64,0.45),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_10%_75%,rgba(37,99,235,0.45),transparent_50%)]" />
       {/* Soft “glass” orbs */}
       <div
         className="absolute -right-[20%] top-[8%] h-[min(52vw,280px)] w-[min(52vw,280px)] rounded-full opacity-[0.22] blur-3xl"
         style={{
           background:
-            "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.55), rgba(200,230,210,0.15) 45%, transparent 70%)",
+            "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.55), rgba(219,234,254,0.15) 45%, transparent 70%)",
         }}
       />
       <div
-        className="absolute -right-[8%] top-[22%] h-[min(40vw,200px)] w-[min(40vw,200px)] rounded-full opacity-30 blur-2xl border border-white/10"
+        className="absolute -right-[8%] top-[22%] h-[min(40vw,200px)] w-[min(40vw,200px)] rounded-full opacity-30 blur-2xl border border-accent/10"
         style={{
           background:
             "linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02))",

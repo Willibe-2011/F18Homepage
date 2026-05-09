@@ -21,7 +21,7 @@ export default function StandardPage() {
         </section>
 
         <div className="mx-auto max-w-[1400px] px-8 lg:px-12 mt-24 mb-24">
-          <div className="h-px w-full bg-white/10" />
+          <div className="h-px w-full bg-border" />
         </div>
 
         <section className="mx-auto max-w-[1400px] px-8 lg:px-12">

@@ -42,11 +42,11 @@ export function ProfileCard({ profile, size = "default", variant = "full" }: Pro
             </div>
             <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
               <span className="truncate">{profile.location || "Global"}</span>
-              <span className="shrink-0 text-white/20">•</span>
+              <span className="shrink-0 text-muted-foreground/30">•</span>
               <span className="truncate">{profile.industry}</span>
             </div>
             {profile.breakTheRecord && (
-              <div className="mt-4 border-t border-white/10 pt-4">
+              <div className="mt-4 border-t border-border pt-4">
                 <p className="text-sm font-medium leading-snug text-foreground/90 line-clamp-2">
                   {profile.breakTheRecord}
                 </p>
