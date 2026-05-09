@@ -250,16 +250,21 @@ function notionPageToProfile(page: any): F18Profile {
   }
 }
 
-// Query the database for published profiles, handling pagination
-async function queryDatabase(startCursor?: string): Promise<any> {
+// Query the database for profiles, handling pagination
+async function queryDatabase(startCursor?: string, options?: { publishedOnly?: boolean }): Promise<any> {
+  const publishedOnly = options?.publishedOnly ?? true
   const body: any = {
-    filter: {
-      property: "ReadPublish",
-      checkbox: { equals: true },
-    },
     sorts: [{ property: "Created time", direction: "descending" }],
     page_size: 100,
   }
+  
+  if (publishedOnly) {
+    body.filter = {
+      property: "ReadPublish",
+      checkbox: { equals: true },
+    }
+  }
+  
   if (startCursor) body.start_cursor = startCursor
 
   const res = await fetch(
@@ -282,14 +287,34 @@ async function queryDatabase(startCursor?: string): Promise<any> {
 
 // Fetch all published profiles (ReadPublish = true), sorted newest first
 export async function getPublishedProfiles(): Promise<F18Profile[]> {
-  const data = await queryDatabase()
+  const data = await queryDatabase(undefined, { publishedOnly: true })
   const pages: any[] = data.results ?? []
 
   // Paginate if needed
   let hasMore = data.has_more
   let cursor = data.next_cursor
   while (hasMore && cursor) {
-    const more = await queryDatabase(cursor)
+    const more = await queryDatabase(cursor, { publishedOnly: true })
+    pages.push(...(more.results ?? []))
+    hasMore = more.has_more
+    cursor = more.next_cursor
+  }
+
+  return pages
+    .filter((page: any) => page.object === "page")
+    .map((page: any) => notionPageToProfile(page))
+}
+
+// Fetch all profiles (regardless of ReadPublish status), sorted newest first
+export async function getAllProfiles(): Promise<F18Profile[]> {
+  const data = await queryDatabase(undefined, { publishedOnly: false })
+  const pages: any[] = data.results ?? []
+
+  // Paginate if needed
+  let hasMore = data.has_more
+  let cursor = data.next_cursor
+  while (hasMore && cursor) {
+    const more = await queryDatabase(cursor, { publishedOnly: false })
     pages.push(...(more.results ?? []))
     hasMore = more.has_more
     cursor = more.next_cursor
