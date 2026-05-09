@@ -9,7 +9,7 @@ import {
 } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { LetterCTA } from "@/components/letter-cta"
+import { LettersSection } from "@/components/letters-section"
 import { getProfileBySlug, getAllPublishedSlugs } from "@/lib/notion"
 import { fetchOgImage } from "@/lib/og"
 
@@ -129,19 +129,11 @@ export default async function ProfilePage({
 
                 {/* Official Letters CTAs */}
                 {(profile.letterToVC || profile.letterToUniversity) && (
-                  <section>
-                    <h2 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-                      The F18 Thesis
-                    </h2>
-                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
-                      {profile.letterToVC && (
-                        <LetterCTA type="VC" text={profile.letterToVC} founderName={profile.name} />
-                      )}
-                      {profile.letterToUniversity && (
-                        <LetterCTA type="University" text={profile.letterToUniversity} founderName={profile.name} />
-                      )}
-                    </div>
-                  </section>
+                  <LettersSection 
+                    founderName={profile.name}
+                    letterToVC={profile.letterToVC}
+                    letterToUniversity={profile.letterToUniversity}
+                  />
                 )}
 
                 {/* Verified track record */}
