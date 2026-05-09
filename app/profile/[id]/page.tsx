@@ -207,9 +207,6 @@ export default async function ProfilePage({
                   >
                     Request Intro
                   </button>
-                  <Link href="/explore" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                    ← Back to Explore
-                  </Link>
                 </div>
                 <div className="flex items-center text-sm font-medium tracking-wide text-muted-foreground">
                   {profile.lastEditTime && <span>Updated {profile.lastEditTime}</span>}
