@@ -32,19 +32,19 @@ export default function StandardPage() {
               </h2>
             </div>
             <div className="max-w-3xl space-y-8">
-              <div className="relative rounded-2xl border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
+              <div className="relative rounded-none border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
                 <h3 className="text-2xl font-bold text-foreground mb-4">1. One hero claim</h3>
                 <p className="text-lg leading-relaxed text-muted-foreground">
                   If you cannot write a single-sentence record, the person does not qualify yet. We look for constraint-bounded claims that hold up even without the age constraint.
                 </p>
               </div>
-              <div className="relative rounded-2xl border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
+              <div className="relative rounded-none border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
                 <h3 className="text-2xl font-bold text-foreground mb-4">2. Hyperlinked metrics</h3>
                 <p className="text-lg leading-relaxed text-muted-foreground">
                   Every metric, award, or milestone must link to a primary source. We verify funding raised, active users, press coverage, and awards. No inflated or unverified numbers.
                 </p>
               </div>
-              <div className="relative rounded-2xl border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
+              <div className="relative rounded-none border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
                 <h3 className="text-2xl font-bold text-foreground mb-4">3. Third-person letters</h3>
                 <p className="text-lg leading-relaxed text-muted-foreground">
                   We write the case for the founder. Every profile includes third-person letters addressed to VCs and Universities, explaining why they should be reaching out to the founder, not the other way around.

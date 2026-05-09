@@ -48,7 +48,7 @@ export default function AboutPage() {
                 "It is a verified record of Next Gen Founders — backed by evidence: real products, real users, real impact. Every profile on F18 is researched, verified, and told through a story that captures who they are and what they've built.",
                 "In the AI age, age is no longer a barrier to solving what matters. F18 exists to make sure the world sees that — and that the builders driving this shift get the attention and capital they deserve."
               ].map((text, i) => (
-                <div key={i} className="relative rounded-2xl border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
+                <div key={i} className="relative rounded-none border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
                   <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl">
                     {text}
                   </p>
@@ -68,7 +68,7 @@ export default function AboutPage() {
           
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {/* Card 1: VCs */}
-            <div className="flex flex-col rounded-2xl border border-border border-b-[4px] bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:-translate-y-1 hover:bg-secondary/60 hover:shadow-md">
+            <div className="flex flex-col rounded-none border border-border border-b-[4px] bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:-translate-y-1 hover:bg-secondary/60 hover:shadow-md">
               <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-border">
                 For VCs & Investors
               </h3>
@@ -78,7 +78,7 @@ export default function AboutPage() {
             </div>
 
             {/* Card 2: Media */}
-            <div className="flex flex-col rounded-2xl border border-border border-b-[4px] bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:-translate-y-1 hover:bg-secondary/60 hover:shadow-md">
+            <div className="flex flex-col rounded-none border border-border border-b-[4px] bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:-translate-y-1 hover:bg-secondary/60 hover:shadow-md">
               <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-border">
                 For Media & Journalists
               </h3>
@@ -88,7 +88,7 @@ export default function AboutPage() {
             </div>
 
             {/* Card 3: Universities */}
-            <div className="flex flex-col rounded-2xl border border-border border-b-[4px] bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:-translate-y-1 hover:bg-secondary/60 hover:shadow-md">
+            <div className="flex flex-col rounded-none border border-border border-b-[4px] bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:-translate-y-1 hover:bg-secondary/60 hover:shadow-md">
               <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-border">
                 For Universities & Schools
               </h3>

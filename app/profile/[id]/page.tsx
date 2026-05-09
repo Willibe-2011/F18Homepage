@@ -106,7 +106,7 @@ export default async function ProfilePage({
                 
                 {/* What they built */}
                 {profile.whatTheyreBuilding && (
-                  <section className="relative rounded-2xl border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
+                  <section className="relative rounded-none border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
                     <h2 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                       What they built
                     </h2>
@@ -129,7 +129,7 @@ export default async function ProfilePage({
 
                 {/* Verified track record */}
                 {(profile.proofTraction.length > 0 || profile.evidence.length > 0) && (
-                  <section className="relative rounded-2xl border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
+                  <section className="relative rounded-none border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
                     <h2 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                       Verified track record
                     </h2>
@@ -167,7 +167,7 @@ export default async function ProfilePage({
                   <section>
                     <div className="grid gap-8 md:grid-cols-2 lg:gap-10">
                       {profile.letterToVC && (
-                        <div className="relative rounded-3xl border border-border border-b-[4px] bg-secondary/30 p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md md:p-10">
+                        <div className="relative rounded-none border border-border border-b-[4px] bg-secondary/30 p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md md:p-10">
                           <h3 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                             For VCs
                           </h3>
@@ -180,7 +180,7 @@ export default async function ProfilePage({
                         </div>
                       )}
                       {profile.letterToUniversity && (
-                        <div className="relative rounded-3xl border border-border border-b-[4px] bg-secondary/30 p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md md:p-10">
+                        <div className="relative rounded-none border border-border border-b-[4px] bg-secondary/30 p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md md:p-10">
                           <h3 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                             For Universities
                           </h3>
