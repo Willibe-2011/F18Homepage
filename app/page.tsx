@@ -2,7 +2,6 @@ import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ProfileCard } from "@/components/profile-card"
-import { Hero3D } from "@/components/hero-3d"
 import { HomeStatsStrip } from "@/components/home-latest-entry"
 import { getAllProfiles } from "@/lib/notion"
 import type { F18Profile } from "@/lib/data"
@@ -27,7 +26,6 @@ export default async function HomePage() {
       <main>
         {/* Section A: Hero */}
         <section className="relative flex min-h-dvh flex-col justify-center overflow-hidden px-5 pt-20 sm:px-8 sm:pt-24 lg:px-12 lg:pt-28">
-          <Hero3D />
           <div className="mx-auto w-full max-w-[1400px] relative z-10 pointer-events-none">
             <h1 className="max-w-4xl font-serif text-[2.25rem] font-bold leading-[1.12] text-foreground text-balance pointer-events-auto sm:text-5xl md:text-6xl md:leading-tight lg:text-7xl xl:text-8xl">
               Next Gen Founders. F18 found them.
