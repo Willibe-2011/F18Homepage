@@ -51,23 +51,23 @@ export function LetterCTA({ type, text, founderName }: LetterCTAProps) {
 
       {/* Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8">
           <div 
             className="absolute inset-0 bg-background/80 backdrop-blur-sm"
             onClick={() => setIsOpen(false)}
           />
-          <div className="relative z-10 flex max-h-[90vh] w-full max-w-2xl flex-col rounded-none border border-border border-b-[4px] bg-card shadow-2xl">
-            <div className="flex items-center justify-between border-b border-border p-6">
-              <h3 className="font-serif text-2xl font-bold text-foreground">{title}</h3>
+          <div className="relative z-10 flex max-h-[90vh] w-full max-w-4xl flex-col rounded-none border border-border border-b-[4px] bg-card shadow-2xl">
+            <div className="flex items-center justify-between border-b border-border p-6 md:p-8">
+              <h3 className="font-serif text-2xl font-bold text-foreground md:text-3xl">{title}</h3>
               <button
                 onClick={() => setIsOpen(false)}
                 className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
               >
-                <X className="h-5 w-5" />
+                <X className="h-6 w-6" />
               </button>
             </div>
-            <div className="custom-scrollbar flex-1 overflow-y-auto p-6 md:p-10">
-              <p className="whitespace-pre-wrap text-lg leading-[1.8] text-foreground/90 md:text-xl">
+            <div className="custom-scrollbar flex-1 overflow-y-auto p-6 md:p-10 lg:p-12">
+              <p className="whitespace-pre-wrap text-lg leading-[1.8] text-foreground/90 md:text-xl lg:text-2xl lg:leading-[1.8]">
                 {text}
               </p>
             </div>
