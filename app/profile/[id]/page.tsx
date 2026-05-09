@@ -69,8 +69,8 @@ export default async function ProfilePage({
           <article className="flex flex-col lg:flex-row overflow-hidden rounded-[2.5rem] border border-border bg-card shadow-2xl">
             
             {/* Left Column: Photo + Identity + Record Claim */}
-            <div className="flex w-full shrink-0 flex-col border-b border-border bg-card lg:w-[420px] lg:border-b-0 lg:border-r xl:w-[500px]">
-              <div className="relative aspect-square w-full bg-secondary">
+            <div className="flex w-full shrink-0 flex-col border-b border-border bg-card lg:w-[380px] lg:border-b-0 lg:border-r xl:w-[440px]">
+              <div className="relative aspect-[4/3] w-full bg-secondary">
                 <Image
                   src={heroAvatarSrc}
                   alt={profile.name}
@@ -79,20 +79,20 @@ export default async function ProfilePage({
                   priority
                 />
               </div>
-              <div className="flex flex-col p-10 md:p-12 lg:p-14">
-                <div className="flex flex-wrap items-center gap-3 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+              <div className="flex flex-col p-8 md:p-10">
+                <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground md:text-sm">
                   <span className="text-accent">{profile.age} Y/O</span>
                   <span>•</span>
                   <span>{profile.location || "Global"}</span>
                   <span>•</span>
                   <span>{profile.industry}</span>
                 </div>
-                <h1 className="mt-6 font-serif text-5xl font-bold leading-tight text-foreground md:text-6xl">
+                <h1 className="mt-4 font-serif text-4xl font-bold leading-tight text-foreground md:text-5xl">
                   {profile.name}
                 </h1>
                 {profile.breakTheRecord && (
-                  <div className="mt-8 border-l-2 border-accent pl-5">
-                    <p className="text-xl font-medium leading-relaxed text-foreground/90 md:text-2xl">
+                  <div className="mt-6 border-l-2 border-accent pl-4">
+                    <p className="text-lg font-medium leading-relaxed text-foreground/90 md:text-xl">
                       {profile.breakTheRecord}
                     </p>
                   </div>
