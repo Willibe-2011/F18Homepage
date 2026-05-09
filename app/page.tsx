@@ -38,9 +38,8 @@ export default async function HomePage() {
             <div className="mt-10 flex flex-col gap-3 pointer-events-auto sm:mt-14 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
               <Link
                 href="/explore"
-                className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-white/30 bg-white/8 px-6 py-2.5 text-sm font-semibold text-foreground shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/16 hover:shadow-[0_14px_40px_rgba(0,0,0,0.32)] sm:w-auto sm:border-2 sm:px-10 sm:py-4 sm:text-base md:py-5 md:text-lg"
+                className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-transparent px-6 py-2.5 text-sm font-semibold text-foreground transition-all duration-300 hover:border-white/40 hover:bg-white/5 sm:w-auto sm:px-10 sm:py-4 sm:text-base md:py-5 md:text-lg"
               >
-                <span className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(255,255,255,0.32),rgba(255,255,255,0)_45%),radial-gradient(120%_120%_at_100%_100%,rgba(255,255,255,0.18),rgba(255,255,255,0)_55%)] opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
                 <span className="font-serif tracking-tight">Browse the F18</span>
               </Link>
             </div>
@@ -61,12 +60,11 @@ export default async function HomePage() {
               </h2>
               <Link
                 href="/explore"
-                className="group relative inline-flex w-fit shrink-0 items-center gap-2.5 overflow-hidden rounded-full border border-white/20 bg-white/6 px-4 py-2 text-xs font-semibold tracking-[0.22em] text-muted-foreground uppercase shadow-[inset_0_1px_0_rgba(255,255,255,0.14),0_6px_18px_rgba(0,0,0,0.18)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/35 hover:bg-white/12 hover:text-foreground hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_10px_26px_rgba(0,0,0,0.24)] md:px-5 md:py-2.5 md:text-sm"
+                className="group relative inline-flex w-fit shrink-0 items-center gap-2.5 overflow-hidden rounded-full border border-white/20 bg-transparent px-4 py-2 text-xs font-semibold tracking-[0.22em] text-muted-foreground uppercase transition-all duration-300 hover:border-white/40 hover:bg-white/5 hover:text-foreground md:px-5 md:py-2.5 md:text-sm"
               >
-                <span className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(255,255,255,0.22),rgba(255,255,255,0)_48%),radial-gradient(120%_120%_at_100%_100%,rgba(255,255,255,0.12),rgba(255,255,255,0)_55%)] opacity-60 transition-opacity duration-300 group-hover:opacity-100" />
                 <span className="relative">Explore More</span>
                 <span
-                  className="relative inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/25 bg-white/10 text-sm text-foreground/90 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-white/40 group-hover:bg-white/18"
+                  className="relative inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/20 bg-transparent text-sm text-foreground/90 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-white/40"
                   aria-hidden="true"
                 >
                   →

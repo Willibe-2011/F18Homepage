@@ -47,11 +47,10 @@ export function Navbar() {
       <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-12">
         <Link
           href="/"
-          className="group relative inline-flex items-center overflow-hidden rounded-full border border-white/30 bg-white/8 px-4 py-1.5 font-serif text-xl font-bold tracking-tight text-foreground shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/16 hover:shadow-[0_14px_40px_rgba(0,0,0,0.32)] sm:text-2xl lg:text-3xl"
+          className="group relative inline-flex items-center overflow-hidden rounded-full border border-white/20 bg-white/5 px-4 py-1.5 font-serif text-xl font-bold tracking-tight text-foreground shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-white/30 hover:bg-white/10 sm:text-2xl lg:text-3xl"
           onClick={closeMenu}
         >
-          <span className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(255,255,255,0.32),rgba(255,255,255,0)_45%),radial-gradient(120%_120%_at_100%_100%,rgba(255,255,255,0.18),rgba(255,255,255,0)_55%)] opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
-          <span className="founder-wave-text bg-gradient-to-r from-foreground/88 via-foreground to-foreground/82 bg-clip-text text-transparent">
+          <span className="text-foreground/90">
             Founder18
           </span>
         </Link>
@@ -75,7 +74,7 @@ export function Navbar() {
           <Link
             target="_blank"
             href="https://forms.gle/evkDGtdsratB7kWZ9"
-            className="rounded-full bg-accent px-7 py-3 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent/90 lg:px-8 lg:py-3.5 lg:text-lg"
+            className="rounded-full border border-white/20 bg-transparent px-7 py-3 text-base font-semibold text-foreground transition-colors hover:bg-white/10 lg:px-8 lg:py-3.5 lg:text-lg"
           >
             Nominate Someone
           </Link>
@@ -128,7 +127,7 @@ export function Navbar() {
               <Link
                 target="_blank"
                 href="https://forms.gle/evkDGtdsratB7kWZ9"
-                className="mt-2 inline-flex w-fit items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
+                className="mt-2 inline-flex w-fit items-center justify-center rounded-full border border-white/20 bg-transparent px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-white/10"
                 onClick={closeMenu}
               >
                 Nominate Someone

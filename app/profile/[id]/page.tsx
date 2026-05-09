@@ -199,34 +199,17 @@ export default async function ProfilePage({
               </div>
               
               {/* Footer Actions */}
-              <div className="flex flex-col gap-12 border-t border-border bg-background p-8 md:p-12 lg:p-16 xl:p-20">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8 border-t border-border bg-background p-8 md:p-12 lg:p-16 xl:p-20">
+                <div className="flex flex-wrap items-center gap-6">
                   <button
                     type="button"
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-10 py-4 text-lg font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
                   >
                     Request Intro
                   </button>
-                  <div className="text-sm font-medium tracking-wide text-muted-foreground">
-                    {profile.lastEditTime && <span>Updated {profile.lastEditTime}</span>}
-                  </div>
                 </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-8 border-t border-white/10">
-                  <p className="text-sm font-medium tracking-wide text-foreground/90">
-                    F18 © 2026
-                  </p>
-                  <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-                    <Link href="/about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                      Mission
-                    </Link>
-                    <Link href="/standard" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                      The Standard
-                    </Link>
-                    <Link target="_blank" rel="noopener noreferrer" href="https://forms.gle/evkDGtdsratB7kWZ9" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                      Nominate Someone ↗
-                    </Link>
-                  </div>
+                <div className="flex items-center text-sm font-medium tracking-wide text-muted-foreground">
+                  {profile.lastEditTime && <span>Updated {profile.lastEditTime}</span>}
                 </div>
               </div>
 
@@ -236,6 +219,7 @@ export default async function ProfilePage({
 
         </div>
       </main>
+      <Footer />
     </>
   )
 }
