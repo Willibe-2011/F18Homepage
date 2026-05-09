@@ -70,7 +70,7 @@ export default async function ProfilePage({
             
             {/* Left Column: Photo + Identity + Record Claim (Sticky on Desktop) */}
             <div className="flex w-full shrink-0 flex-col bg-card lg:w-[40vw] xl:w-[35vw] lg:sticky lg:top-24 lg:h-[calc(100vh-6rem)] lg:overflow-y-auto lg:border-r lg:border-border">
-              <div className="relative aspect-square w-full bg-secondary">
+              <div className="relative aspect-[4/3] w-full bg-secondary">
                 <Image
                   src={heroAvatarSrc}
                   alt={profile.name}
@@ -87,11 +87,11 @@ export default async function ProfilePage({
                   <span>•</span>
                   <span>{profile.industry}</span>
                 </div>
-                <h1 className="mt-4 font-serif text-4xl font-bold leading-tight text-foreground md:text-5xl lg:text-6xl">
+                <h1 className="mt-6 font-serif text-4xl font-bold leading-tight text-foreground md:text-5xl lg:text-6xl">
                   {profile.name}
                 </h1>
                 {profile.breakTheRecord && (
-                  <div className="mt-8 border-l-2 border-accent pl-5">
+                  <div className="mt-10 border-l-2 border-accent pl-6">
                     <p className="text-lg font-medium leading-relaxed text-foreground/90 md:text-xl xl:text-2xl">
                       {profile.breakTheRecord}
                     </p>
@@ -216,13 +216,35 @@ export default async function ProfilePage({
                 </div>
               </div>
 
+              {/* Right Column Custom Footer */}
+              <div className="border-t border-border bg-card/30 p-8 md:px-12 lg:px-16 xl:px-20">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                  <p className="text-sm font-medium tracking-wide text-foreground/90">
+                    F18 © 2026
+                  </p>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                    <Link href="/about" className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-semibold text-foreground/90 transition-all hover:bg-white/10">
+                      Mission
+                    </Link>
+                    <Link href="/standard" className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-semibold text-foreground/90 transition-all hover:bg-white/10">
+                      The Standard
+                    </Link>
+                    <Link target="_blank" rel="noopener noreferrer" href="https://forms.gle/evkDGtdsratB7kWZ9" className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-semibold text-foreground/90 transition-all hover:bg-white/10">
+                      Nominate Someone
+                      <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/25 bg-white/10 text-[8px] leading-none text-foreground/90 transition-all group-hover:border-white/40 group-hover:bg-white/18" aria-hidden="true">
+                        ↗
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </article>
 
         </div>
       </main>
-      <Footer />
     </>
   )
 }
