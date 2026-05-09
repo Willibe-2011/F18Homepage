@@ -62,15 +62,15 @@ export default async function ProfilePage({
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-background pt-24 pb-20">
-        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-background pt-20 lg:pt-24">
+        <div className="w-full">
           
-          {/* Dossier Card */}
-          <article className="flex flex-col lg:flex-row overflow-hidden rounded-[2.5rem] border border-border bg-card shadow-2xl">
+          {/* Dossier Full-Screen Split Layout */}
+          <article className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-6rem)]">
             
-            {/* Left Column: Photo + Identity + Record Claim */}
-            <div className="flex w-full shrink-0 flex-col border-b border-border bg-card lg:w-[380px] lg:border-b-0 lg:border-r xl:w-[440px]">
-              <div className="relative aspect-[4/3] w-full bg-secondary">
+            {/* Left Column: Photo + Identity + Record Claim (Sticky on Desktop) */}
+            <div className="flex w-full shrink-0 flex-col bg-card lg:w-[40vw] xl:w-[35vw] lg:sticky lg:top-24 lg:h-[calc(100vh-6rem)] lg:overflow-y-auto lg:border-r lg:border-border">
+              <div className="relative aspect-square w-full bg-secondary">
                 <Image
                   src={heroAvatarSrc}
                   alt={profile.name}
@@ -79,7 +79,7 @@ export default async function ProfilePage({
                   priority
                 />
               </div>
-              <div className="flex flex-col p-8 md:p-10">
+              <div className="flex flex-col p-8 md:p-10 lg:p-12 xl:p-14">
                 <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground md:text-sm">
                   <span className="text-accent">{profile.age} Y/O</span>
                   <span>•</span>
@@ -87,12 +87,12 @@ export default async function ProfilePage({
                   <span>•</span>
                   <span>{profile.industry}</span>
                 </div>
-                <h1 className="mt-4 font-serif text-4xl font-bold leading-tight text-foreground md:text-5xl">
+                <h1 className="mt-4 font-serif text-4xl font-bold leading-tight text-foreground md:text-5xl lg:text-6xl">
                   {profile.name}
                 </h1>
                 {profile.breakTheRecord && (
-                  <div className="mt-6 border-l-2 border-accent pl-4">
-                    <p className="text-lg font-medium leading-relaxed text-foreground/90 md:text-xl">
+                  <div className="mt-8 border-l-2 border-accent pl-5">
+                    <p className="text-lg font-medium leading-relaxed text-foreground/90 md:text-xl xl:text-2xl">
                       {profile.breakTheRecord}
                     </p>
                   </div>
@@ -101,8 +101,8 @@ export default async function ProfilePage({
             </div>
 
             {/* Right Column: Details & Letters */}
-            <div className="flex min-w-0 flex-1 flex-col">
-              <div className="flex-1 space-y-16 p-10 md:p-14 lg:p-16">
+            <div className="flex min-w-0 flex-1 flex-col bg-background">
+              <div className="flex-1 space-y-16 p-8 md:p-12 lg:p-16 xl:p-20">
                 
                 {/* What they built */}
                 {profile.whatTheyreBuilding && (
@@ -199,7 +199,7 @@ export default async function ProfilePage({
               </div>
               
               {/* Footer Actions */}
-              <div className="flex flex-wrap items-center justify-between gap-6 border-t border-border bg-secondary/30 p-8 md:px-14 lg:px-16">
+              <div className="flex flex-wrap items-center justify-between gap-6 border-t border-border bg-background p-8 md:px-12 lg:px-16 xl:px-20">
                 <div className="flex items-center gap-4">
                   <button
                     type="button"
@@ -217,7 +217,7 @@ export default async function ProfilePage({
 
           </article>
           
-          <div className="mt-12 text-center">
+          <div className="py-12 text-center border-t border-border">
             <Link href="/explore" className="text-sm font-medium text-muted-foreground hover:text-foreground">
               ← Back to Explore
             </Link>
