@@ -47,7 +47,7 @@ export function Navbar() {
       <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-12">
         <Link
           href="/"
-          className="group relative inline-flex items-center overflow-hidden rounded-full border border-border bg-secondary/50 px-4 py-1.5 font-serif text-xl font-bold tracking-tight text-foreground shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-border/80 hover:bg-secondary sm:text-2xl lg:text-3xl"
+          className="group relative inline-flex items-center overflow-hidden px-4 py-1.5 font-serif text-xl font-bold tracking-tight text-foreground transition-all duration-300 hover:opacity-80 sm:text-2xl lg:text-3xl"
           onClick={closeMenu}
         >
           <span className="text-foreground/90">
