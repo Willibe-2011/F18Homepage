@@ -35,19 +35,19 @@ export default async function HomePage() {
             <p className="mt-6 max-w-2xl text-lg leading-[1.8] text-muted-foreground sm:mt-8 md:text-xl lg:text-2xl">
               Verified builders under 18. Real products. Real impact. Before the world catches up.
             </p>
-            <div className="mt-10 flex flex-col gap-3 pointer-events-auto sm:mt-14 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
+            <div className="mt-10 flex flex-col gap-4 pointer-events-auto sm:mt-12 sm:flex-row sm:items-center">
               <Link
                 href="/explore"
-                className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md sm:w-auto sm:px-10 sm:py-4 sm:text-base md:py-5 md:text-lg"
+                className="inline-flex w-full items-center justify-center rounded-full bg-accent px-8 py-3.5 text-base font-medium text-accent-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md sm:w-auto"
               >
-                <span className="font-serif tracking-tight">Browse the F18</span>
+                Browse the F18
               </Link>
               <Link
                 target="_blank"
                 href="https://forms.gle/evkDGtdsratB7kWZ9"
-                className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-border bg-transparent px-6 py-2.5 text-sm font-semibold text-foreground transition-all duration-300 hover:border-border/80 hover:bg-secondary sm:w-auto sm:px-10 sm:py-4 sm:text-base md:py-5 md:text-lg"
+                className="inline-flex w-full items-center justify-center rounded-full border border-border bg-card px-8 py-3.5 text-base font-medium text-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-secondary hover:shadow-md sm:w-auto"
               >
-                <span className="font-serif tracking-tight">Nominate Someone</span>
+                Nominate Someone
               </Link>
             </div>
 

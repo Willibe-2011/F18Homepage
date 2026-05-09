@@ -45,58 +45,61 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-12">
-        <div className="flex items-center gap-12">
+        {/* Left: Logo */}
+        <div className="flex lg:flex-1 items-center justify-start">
           <Link
             href="/"
-            className="group relative inline-flex items-center overflow-hidden px-2 py-1.5 font-serif text-xl font-bold tracking-tight text-foreground transition-all duration-300 hover:opacity-80 sm:text-2xl lg:text-3xl"
+            className="font-serif text-2xl font-bold tracking-tight text-foreground transition-opacity hover:opacity-80 lg:text-[1.75rem]"
             onClick={closeMenu}
           >
-            <span className="text-foreground/90">
-              Founder18
-            </span>
+            Founder18
           </Link>
+        </div>
 
-          <div className="hidden items-center gap-8 lg:flex">
+        {/* Center: Nav Links (Pill Design) */}
+        <div className="hidden lg:flex items-center justify-center gap-1 rounded-full border border-border bg-secondary/30 p-1 backdrop-blur-sm">
+          <Link
+            href="/explore"
+            className="rounded-full px-5 py-2 text-sm font-medium text-foreground/70 transition-all hover:bg-background hover:text-foreground hover:shadow-sm"
+          >
+            Explore
+          </Link>
+          <Link
+            href="/about"
+            className="rounded-full px-5 py-2 text-sm font-medium text-foreground/70 transition-all hover:bg-background hover:text-foreground hover:shadow-sm"
+          >
+            About
+          </Link>
+        </div>
+
+        {/* Right: CTA & Mobile Toggle */}
+        <div className="flex lg:flex-1 items-center justify-end gap-4">
+          <div className="hidden lg:block">
             <Link
-              href="/explore"
-              className="text-base font-medium text-foreground/80 transition-colors hover:text-foreground"
+              target="_blank"
+              href="https://forms.gle/evkDGtdsratB7kWZ9"
+              className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-accent-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md"
             >
-              Explore
-            </Link>
-            <Link
-              href="/about"
-              className="text-base font-medium text-foreground/80 transition-colors hover:text-foreground"
-            >
-              About
+              Nominate Someone
             </Link>
           </div>
-        </div>
 
-        <div className="hidden lg:flex items-center gap-6">
-          <Link
-            target="_blank"
-            href="https://forms.gle/evkDGtdsratB7kWZ9"
-            className="rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md"
+          <button
+            type="button"
+            className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-secondary/50 text-foreground shadow-sm backdrop-blur-md transition-all duration-300 hover:border-border/80 hover:bg-secondary active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:hidden"
+            aria-expanded={menuOpen}
+            aria-controls="site-mobile-nav"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((o) => !o)}
           >
-            Nominate Someone
-          </Link>
+            <span className="pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(0,0,0,0.05),rgba(0,0,0,0)_45%),radial-gradient(120%_120%_at_100%_100%,rgba(0,0,0,0.02),rgba(0,0,0,0)_55%)]" />
+            <span
+              className={`relative inline-flex items-center justify-center text-foreground/90 transition-all duration-300 ease-out group-hover:text-foreground group-hover:scale-110 ${menuOpen ? "rotate-90" : "rotate-0"}`}
+            >
+              {menuOpen ? <X className="h-5 w-5" strokeWidth={2.25} /> : <Menu className="h-5 w-5" strokeWidth={2.25} />}
+            </span>
+          </button>
         </div>
-
-        <button
-          type="button"
-          className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-secondary/50 text-foreground shadow-sm backdrop-blur-md transition-all duration-300 hover:border-border/80 hover:bg-secondary active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:hidden"
-          aria-expanded={menuOpen}
-          aria-controls="site-mobile-nav"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          onClick={() => setMenuOpen((o) => !o)}
-        >
-          <span className="pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(0,0,0,0.05),rgba(0,0,0,0)_45%),radial-gradient(120%_120%_at_100%_100%,rgba(0,0,0,0.02),rgba(0,0,0,0)_55%)]" />
-          <span
-            className={`relative inline-flex items-center justify-center text-foreground/90 transition-all duration-300 ease-out group-hover:text-foreground group-hover:scale-110 ${menuOpen ? "rotate-90" : "rotate-0"}`}
-          >
-            {menuOpen ? <X className="h-5 w-5" strokeWidth={2.25} /> : <Menu className="h-5 w-5" strokeWidth={2.25} />}
-          </span>
-        </button>
       </div>
 
       {menuOpen ? (
