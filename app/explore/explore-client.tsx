@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react"
 import { Search } from "lucide-react"
+import { FilterBadge } from "@/components/ui/filter-badge"
 import { ProfileCard } from "@/components/profile-card"
 import type { F18Profile } from "@/lib/data"
 import { industries } from "@/lib/data"
@@ -118,7 +119,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
           </div>
         </div>
 
-        <aside className="h-fit w-full shrink-0 self-start rounded-2xl border border-border bg-secondary/40 p-6 lg:sticky lg:top-28 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:w-[320px] lg:max-w-full lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 xl:top-32">
+        <aside className="h-fit w-full shrink-0 self-start rounded-2xl border border-border bg-secondary/40 p-6 lg:sticky lg:top-28 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:w-[320px] lg:max-w-full lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto lg:custom-scrollbar lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 xl:top-32">
         <h2 className="font-serif text-3xl font-bold text-foreground lg:text-4xl">
           Filter.
         </h2>
@@ -126,20 +127,31 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
         <div className="mt-8 lg:mt-10">
           <h3 className="text-base font-medium text-foreground lg:text-lg">Industry</h3>
           <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-4 lg:flex-wrap lg:gap-3 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
-            {availableIndustries.map((industry) => (
-              <button
-                key={industry}
-                type="button"
-                onClick={() => toggleIndustry(industry)}
-                className={`shrink-0 rounded-none px-3 py-2 text-sm transition-colors lg:px-4 lg:py-2 lg:text-base ${
-                  selectedIndustries.includes(industry)
-                    ? "bg-accent text-accent-foreground"
-                    : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                }`}
-              >
-                {industry}
-              </button>
-            ))}
+            {availableIndustries.map((industry) => {
+              const isSelected = selectedIndustries.includes(industry)
+              return isSelected ? (
+                  <FilterBadge
+                    key={industry}
+                    label="Industry"
+                    value={industry}
+                    variant="default"
+                    onRemove={(e) => {
+                      e.stopPropagation()
+                      toggleIndustry(industry)
+                    }}
+                    className="border-accent bg-accent text-accent-foreground shrink-0 cursor-pointer"
+                    onClick={() => toggleIndustry(industry)}
+                  />
+              ) : (
+                <button key={industry} type="button" onClick={() => toggleIndustry(industry)} className="shrink-0">
+                  <FilterBadge
+                    value={industry}
+                    variant="default"
+                    className="bg-secondary text-secondary-foreground hover:bg-secondary/80 cursor-pointer transition-colors"
+                  />
+                </button>
+              )
+            })}
           </div>
         </div>
 
@@ -147,20 +159,31 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
           <div className="mt-8 lg:mt-10">
             <h3 className="text-base font-medium text-foreground lg:text-lg">Country</h3>
             <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-4 lg:flex-wrap lg:gap-3 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
-              {availableCountries.map((country) => (
-                <button
-                  key={country}
-                  type="button"
-                  onClick={() => toggleCountry(country)}
-                  className={`shrink-0 rounded-none px-3 py-2 text-sm transition-colors lg:px-4 lg:py-2 lg:text-base ${
-                    selectedCountries.includes(country)
-                      ? "bg-accent text-accent-foreground"
-                      : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                  }`}
-                >
-                  {country}
-                </button>
-              ))}
+              {availableCountries.map((country) => {
+                const isSelected = selectedCountries.includes(country)
+                return isSelected ? (
+                  <FilterBadge
+                    key={country}
+                    label="Country"
+                    value={country}
+                    variant="default"
+                    onRemove={(e) => {
+                      e.stopPropagation()
+                      toggleCountry(country)
+                    }}
+                    className="border-accent bg-accent text-accent-foreground shrink-0 cursor-pointer"
+                    onClick={() => toggleCountry(country)}
+                  />
+                ) : (
+                  <button key={country} type="button" onClick={() => toggleCountry(country)} className="shrink-0">
+                    <FilterBadge
+                      value={country}
+                      variant="default"
+                      className="bg-secondary text-secondary-foreground hover:bg-secondary/80 cursor-pointer transition-colors"
+                    />
+                  </button>
+                )
+              })}
             </div>
           </div>
         )}
