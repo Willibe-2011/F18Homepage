@@ -10,14 +10,14 @@ function GlassShape() {
 
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x += delta * 0.1
-      meshRef.current.rotation.y += delta * 0.15
+      meshRef.current.rotation.x += delta * 0.3
+      meshRef.current.rotation.y += delta * 0.45
     }
   })
 
   return (
     <group>
-      <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+      <Float speed={4} rotationIntensity={1} floatIntensity={2}>
         <group position={[1.5, 1.2, -1]} scale={0.85}>
           <TorusKnot ref={meshRef} args={[1.5, 0.4, 128, 64]}>
             <meshPhysicalMaterial
