@@ -45,36 +45,38 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-12">
-        <Link
-          href="/"
-          className="group relative inline-flex items-center overflow-hidden px-4 py-1.5 font-serif text-xl font-bold tracking-tight text-foreground transition-all duration-300 hover:opacity-80 sm:text-2xl lg:text-3xl"
-          onClick={closeMenu}
-        >
-          <span className="text-foreground/90">
-            Founder18
-          </span>
-        </Link>
+        <div className="flex items-center gap-12">
+          <Link
+            href="/"
+            className="group relative inline-flex items-center overflow-hidden px-2 py-1.5 font-serif text-xl font-bold tracking-tight text-foreground transition-all duration-300 hover:opacity-80 sm:text-2xl lg:text-3xl"
+            onClick={closeMenu}
+          >
+            <span className="text-foreground/90">
+              Founder18
+            </span>
+          </Link>
 
-        <div className="hidden items-center gap-8 lg:flex lg:gap-10">
-          <Link
-            href="/explore"
-            className="text-base font-medium text-foreground transition-colors hover:text-muted-foreground lg:text-lg"
-          >
-            Explore
-          </Link>
-          <Link
-            href="/about"
-            className="text-base font-medium text-foreground transition-colors hover:text-muted-foreground lg:text-lg"
-          >
-            About
-          </Link>
+          <div className="hidden items-center gap-8 lg:flex">
+            <Link
+              href="/explore"
+              className="text-base font-medium text-foreground/80 transition-colors hover:text-foreground"
+            >
+              Explore
+            </Link>
+            <Link
+              href="/about"
+              className="text-base font-medium text-foreground/80 transition-colors hover:text-foreground"
+            >
+              About
+            </Link>
+          </div>
         </div>
 
-        <div className="hidden lg:block">
+        <div className="hidden lg:flex items-center gap-6">
           <Link
             target="_blank"
             href="https://forms.gle/evkDGtdsratB7kWZ9"
-            className="rounded-full bg-accent px-7 py-3 text-base font-semibold text-accent-foreground shadow-sm transition-all hover:bg-accent/90 hover:shadow-md lg:px-8 lg:py-3.5 lg:text-lg"
+            className="rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md"
           >
             Nominate Someone
           </Link>
