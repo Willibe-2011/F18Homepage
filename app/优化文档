@@ -1,0 +1,117 @@
+> Suggestions for [founder18.com](http://founder18.com) based on the goals and definitions in [What is F18?](https://www.notion.so/What-is-F18-35b9166fd9fd8094b05bd6a6bc990209?pvs=21).
+> 
+
+## What's working
+
+- The headline **"Next Gen Founders. F18 found them."** matches the "we pick them, they don't apply" positioning.
+- The **Verify** pillar reinforces the no-self-reported-claims rule.
+
+---
+
+## What contradicts the goal (fix these first)
+
+| Issue | Why it conflicts with What is F18? | Fix |
+| --- | --- | --- |
+| Stat **"18.6 Avg Age"** | The whole premise is "before 18." An average of 18.6 reads as "older than 18 on average" and quietly undermines the brand. | Remove it, or replace with **"Avg age at first record-break"** (which will be well under 18). |
+| **"Get Featured" → Google Form** | The page says: *"There is no application process. You cannot apply your way in. You can only build your way in."* A "Get Featured" form is an application. | Rename to **"Submit a Tip"** or **"Nominate Someone"**, and reframe the form as third-party tips, not self-applications. |
+| Three pillars: Discover / Verify / **Connect** ("VCs and schools can request introductions") | The stated goal is the opposite direction: F18 *pushes* a third-person letter to VCs and colleges so they chase the member. "Request an intro" makes it passive. | Replace with **Discover / Verify / Champion** (or "Advocate") — and explain that F18 *writes the case* and sends it. |
+| No mention of the **VC letter / college letter** | This is the core differentiator vs. Forbes 30U30, YC directory, etc. It's missing from the landing page. | Add a fourth pillar or a hero sub-section: **"We don't just list them. We write the case for them."** |
+
+---
+
+## Reduce visual noise (the "too many variables" problem)
+
+The homepage today competes for attention with:
+
+- 4 stat counters
+- A 10-name marquee (currently shown twice in the page source)
+- 3 pillar cards
+- 2 CTAs ("Explore" + "Get Featured")
+- Top nav
+
+That's 5+ separate visual systems on first scroll. Suggested simplification:
+
+1. **One hero. One stat. One CTA.**
+    - Headline + sub-headline.
+    - One stat (e.g., *"135 verified builders. 0 applications accepted."*).
+    - One primary CTA: *Browse the F18*.
+2. **Drop the marquee** of names on the landing page, or replace it with **3–4 "card previews"** of full profiles, so visitors immediately see what the actual product looks like.
+3. **Move "Get Featured" / nominate form to the footer or a secondary page.** It's not a primary action.
+4. **Remove the pillar icons section** if card previews are added — they say the same thing twice.
+
+---
+
+## The personal profile page → make it a "card"
+
+Profiles today read like Wikipedia entries. A **card** should feel like something a VC partner could read in 60 seconds and forward to their team. The layout below maps 1:1 to the structure already defined in [What is F18?](https://www.notion.so/What-is-F18-35b9166fd9fd8094b05bd6a6bc990209?pvs=21) (Identity → What They Built → Verified Track Record → The Record They Broke → Targeted Letters).
+
+### Proposed profile card structure
+
+```
+┌─────────────────────────────────────────────────────┐
+│  [Photo]   Name, Age, Country, Field                │
+│            One-line record claim (the headline)     │
+│            ──────────────────────────────────       │
+│            "Youngest in [Country] to ship a [X]"    │
+└─────────────────────────────────────────────────────┘
+
+┌── What they built ──────────────────────────────────┐
+│  2–3 sentence factual description. No marketing.    │
+│  [link to product]  [link to demo]  [link to repo]  │
+└─────────────────────────────────────────────────────┘
+
+┌── Verified track record ────────────────────────────┐
+│  • Funding raised:    $X (source)                   │
+│  • Users:             X active (source)             │
+│  • Press:             [Logo] [Logo] [Logo]          │
+│  • Awards:            [Award] (year, source)        │
+│  Every line links to a primary source.              │
+└─────────────────────────────────────────────────────┘
+
+┌── The record ───────────────────────────────────────┐
+│  Single sentence, constraint-bounded claim.         │
+│  Why it holds up even without the age constraint.   │
+└─────────────────────────────────────────────────────┘
+
+┌── For VCs ──────────────────┐  ┌── For Universities ┐
+│  Third-person letter.       │  │  Third-person      │
+│  ~150 words.                │  │  letter. ~150 words│
+│  "You should be reaching    │  │                    │
+│  out, not the other way."   │  │                    │
+│  [Copy letter] [PDF]        │  │  [Copy] [PDF]      │
+└─────────────────────────────┘  └────────────────────┘
+
+[Share profile]   [Request intro through F18]
+```
+
+### Rules to enforce on every profile
+
+- **One hero claim** at the top. If you can't write a single-sentence record, the person doesn't qualify yet.
+- **Every metric is a hyperlink to a primary source.** This is the moat vs. Forbes / Fortune lists.
+- **The two letters are visible by default**, not hidden behind a tab. They are the product.
+- **Add a "Copy letter as PDF" button.** Members will literally send these to admissions / VCs — make it one click.
+- **No comments, no follower counts, no social engagement widgets.** F18 is "not a social network" — the profile should look like a dossier, not a LinkedIn page.
+
+---
+
+## Suggested information architecture
+
+```
+/                  → Hero + 3–4 sample profile cards + 1 CTA
+/explore           → Searchable index (filter by field, country, age-at-record)
+/p/[slug]          → Profile card (the dossier)
+/about             → "What is F18?" content
+/standard          → "How the record-breaking standard works"
+/nominate          → Tip form (formerly "Get Featured")
+```
+
+---
+
+<aside>
+
+
+**One-line summary**
+
+The site today looks like a **directory**. The goal page describes a **dossier service**. The fastest fix is to rebuild the profile page as a single-screen card with the two third-person letters front and center, and strip the homepage down so the profile *is* the hero — not the stats or the marquee.
+
+</aside>

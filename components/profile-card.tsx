@@ -17,7 +17,7 @@ export function ProfileCard({ profile, size = "default", variant = "full" }: Pro
     const widthClass =
       size === "large"
         ? "w-full"
-        : "w-full max-w-md mx-auto md:mx-0 md:w-[200px] md:max-w-none md:flex-shrink-0"
+        : "w-full max-w-md mx-auto md:mx-0 md:w-[320px] md:max-w-none md:flex-shrink-0"
 
     return (
       <Link href={`/profile/${profile.slug}`} className="block group">
@@ -31,10 +31,27 @@ export function ProfileCard({ profile, size = "default", variant = "full" }: Pro
               className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>
-          <div className="px-4 py-3">
-            <h3 className="text-sm font-semibold text-foreground truncate lg:text-base">
-              {profile.name}
-            </h3>
+          <div className="p-5">
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="font-serif text-xl font-bold text-foreground truncate lg:text-2xl">
+                {profile.name}
+              </h3>
+              <span className="shrink-0 rounded-md bg-secondary px-2 py-1 font-mono text-xs font-medium text-muted-foreground">
+                {profile.age}
+              </span>
+            </div>
+            <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
+              <span className="truncate">{profile.location || "Global"}</span>
+              <span className="shrink-0 text-white/20">•</span>
+              <span className="truncate">{profile.industry}</span>
+            </div>
+            {profile.breakTheRecord && (
+              <div className="mt-4 border-t border-white/10 pt-4">
+                <p className="text-sm font-medium leading-snug text-foreground/90 line-clamp-2">
+                  {profile.breakTheRecord}
+                </p>
+              </div>
+            )}
           </div>
         </article>
       </Link>

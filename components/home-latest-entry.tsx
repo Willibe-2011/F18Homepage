@@ -11,5 +11,12 @@ export async function HomeStatsStrip() {
   } catch {
     stats = null
   }
-  return <StatsStrip stats={stats} />
+  if (!stats) return null
+  return (
+    <div className="mt-12">
+      <p className="font-mono text-sm font-medium tracking-widest text-muted-foreground uppercase">
+        {stats.totalCandidates} verified builders. 0 applications accepted.
+      </p>
+    </div>
+  )
 }

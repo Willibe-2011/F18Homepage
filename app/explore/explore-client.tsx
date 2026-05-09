@@ -12,6 +12,7 @@ interface ExploreClientProps {
 
 export function ExploreClient({ profiles }: ExploreClientProps) {
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([])
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([])
   const [ageRange, setAgeRange] = useState<[number, number]>([8, 18])
   const [sortBy, setSortBy] = useState<"newest" | "youngest" | "az">("newest")
   const [searchQuery, setSearchQuery] = useState("")
@@ -21,11 +22,32 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
     return industries.filter((i) => inData.has(i))
   }, [profiles])
 
+  const availableCountries = useMemo(() => {
+    const countries = new Set<string>()
+    profiles.forEach((p) => {
+      if (p.location) {
+        const parts = p.location.split(",")
+        const country = parts[parts.length - 1].trim()
+        if (country) countries.add(country)
+      }
+    })
+    return Array.from(countries).sort()
+  }, [profiles])
+
   const filteredProfiles = useMemo(() => {
     let filtered = [...profiles]
 
     if (selectedIndustries.length > 0) {
       filtered = filtered.filter((p) => selectedIndustries.includes(p.industry))
+    }
+
+    if (selectedCountries.length > 0) {
+      filtered = filtered.filter((p) => {
+        if (!p.location) return false
+        const parts = p.location.split(",")
+        const country = parts[parts.length - 1].trim()
+        return selectedCountries.includes(country)
+      })
     }
 
     filtered = filtered.filter(
@@ -50,7 +72,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
     }
 
     return filtered
-  }, [profiles, selectedIndustries, ageRange, sortBy, searchQuery])
+  }, [profiles, selectedIndustries, selectedCountries, ageRange, sortBy, searchQuery])
 
   const toggleIndustry = (industry: string) => {
     setSelectedIndustries((prev) =>
@@ -60,8 +82,17 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
     )
   }
 
+  const toggleCountry = (country: string) => {
+    setSelectedCountries((prev) =>
+      prev.includes(country)
+        ? prev.filter((c) => c !== country)
+        : [...prev, country]
+    )
+  }
+
   const resetFilters = () => {
     setSelectedIndustries([])
+    setSelectedCountries([])
     setAgeRange([8, 18])
     setSortBy("newest")
     setSearchQuery("")
@@ -111,6 +142,28 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
             ))}
           </div>
         </div>
+
+        {availableCountries.length > 0 && (
+          <div className="mt-8 lg:mt-10">
+            <h3 className="text-base font-medium text-foreground lg:text-lg">Country</h3>
+            <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-4 lg:flex-wrap lg:gap-3 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
+              {availableCountries.map((country) => (
+                <button
+                  key={country}
+                  type="button"
+                  onClick={() => toggleCountry(country)}
+                  className={`shrink-0 rounded-full px-3 py-2 text-sm transition-colors lg:px-4 lg:py-2 lg:text-base ${
+                    selectedCountries.includes(country)
+                      ? "bg-accent text-accent-foreground"
+                      : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                  }`}
+                >
+                  {country}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="mt-8 lg:mt-10">
           <h3 className="text-base font-medium text-foreground lg:text-lg">Age</h3>

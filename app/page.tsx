@@ -41,15 +41,7 @@ export default async function HomePage() {
                 className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-white/30 bg-white/8 px-6 py-2.5 text-sm font-semibold text-foreground shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/16 hover:shadow-[0_14px_40px_rgba(0,0,0,0.32)] sm:w-auto sm:border-2 sm:px-10 sm:py-4 sm:text-base md:py-5 md:text-lg"
               >
                 <span className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(255,255,255,0.32),rgba(255,255,255,0)_45%),radial-gradient(120%_120%_at_100%_100%,rgba(255,255,255,0.18),rgba(255,255,255,0)_55%)] opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
-                <span className="font-serif tracking-tight">Explore the F18</span>
-              </Link>
-              <Link
-                target="_blank"
-                href="https://forms.gle/evkDGtdsratB7kWZ9"
-                className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-white/30 bg-white/8 px-6 py-2.5 text-sm font-semibold text-foreground shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/16 hover:shadow-[0_14px_40px_rgba(0,0,0,0.32)] sm:w-auto sm:border-2 sm:px-10 sm:py-4 sm:text-base md:py-5 md:text-lg"
-              >
-                <span className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(255,255,255,0.32),rgba(255,255,255,0)_45%),radial-gradient(120%_120%_at_100%_100%,rgba(255,255,255,0.18),rgba(255,255,255,0)_55%)] opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
-                <span className="font-serif tracking-tight">Get Featured</span>
+                <span className="font-serif tracking-tight">Browse the F18</span>
               </Link>
             </div>
 
@@ -82,53 +74,15 @@ export default async function HomePage() {
               </Link>
             </div>
           </div>
-          {/* Mobile: vertical stack */}
-          <div className="mt-10 flex flex-col gap-6 px-5 sm:px-8 md:hidden">
-            {featuredProfiles.map((profile) => (
-              <ProfileCard key={profile.id} profile={profile} variant="simple" />
-            ))}
-          </div>
-          {/* md+: horizontal rail (unchanged) */}
-          <div className="mt-14 hidden overflow-x-auto pb-6 md:block">
-            <div className="flex gap-8 px-8 md:px-[calc((100vw-1400px)/2+48px)]">
-              {featuredProfiles.map((profile) => (
-                <ProfileCard key={profile.id} profile={profile} variant="simple" />
+          <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12 mt-10">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {featuredProfiles.slice(0, 4).map((profile) => (
+                <ProfileCard key={profile.id} profile={profile} variant="simple" size="large" />
               ))}
             </div>
           </div>
         </section>
 
-        {/* Section C: How It Works */}
-        <section className="py-32">
-          <div className="mx-auto max-w-[1400px] px-8 lg:px-12">
-            <div className="grid gap-16 md:grid-cols-3">
-              <div>
-                <h3 className="font-serif text-3xl font-bold text-foreground lg:text-4xl">
-                  Discover
-                </h3>
-                <p className="mt-6 text-lg leading-relaxed text-muted-foreground lg:text-xl">
-                  Browse young builders by industry, age, or accomplishment.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-serif text-3xl font-bold text-foreground lg:text-4xl">
-                  Verify
-                </h3>
-                <p className="mt-6 text-lg leading-relaxed text-muted-foreground lg:text-xl">
-                  Every entry is backed by evidence — no inflated claims.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-serif text-3xl font-bold text-foreground lg:text-4xl">
-                  Connect
-                </h3>
-                <p className="mt-6 text-lg leading-relaxed text-muted-foreground lg:text-xl">
-                  VCs and schools can request introductions through F18.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
       <Footer />
     </>

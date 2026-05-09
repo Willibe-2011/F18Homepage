@@ -77,7 +77,7 @@ export function Navbar() {
             href="https://forms.gle/evkDGtdsratB7kWZ9"
             className="rounded-full bg-accent px-7 py-3 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent/90 lg:px-8 lg:py-3.5 lg:text-lg"
           >
-            Get Featured
+            Nominate Someone
           </Link>
         </div>
 
@@ -131,7 +131,7 @@ export function Navbar() {
                 className="mt-2 inline-flex w-fit items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
                 onClick={closeMenu}
               >
-                Get Featured
+                Nominate Someone
               </Link>
             </div>
           </nav>
