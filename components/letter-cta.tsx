@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { FileText, X } from "lucide-react"
+import { useState } from "react"
+import { FileText, ChevronDown, ChevronUp } from "lucide-react"
 import { CopyLetterButtons } from "./copy-letter-buttons"
 
 interface LetterCTAProps {
@@ -13,29 +13,20 @@ interface LetterCTAProps {
 export function LetterCTA({ type, text, founderName }: LetterCTAProps) {
   const [isOpen, setIsOpen] = useState(false)
 
-  // Lock body scroll when modal is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "unset"
-    }
-    return () => {
-      document.body.style.overflow = "unset"
-    }
-  }, [isOpen])
-
   const title = type === "VC" ? "Letter to VCs" : "Letter to Universities"
   const description = type === "VC" 
     ? `Why investors should pay attention to ${founderName} now.`
     : `Why college administrators can't afford to overlook ${founderName}.`
 
   return (
-    <>
-      {/* CTA Button / Card */}
+    <div className="flex flex-col">
       <button
-        onClick={() => setIsOpen(true)}
-        className="group relative flex w-full flex-col items-start rounded-none border border-border border-b-[4px] bg-card p-6 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-accent hover:shadow-md sm:p-8"
+        onClick={() => setIsOpen(!isOpen)}
+        className={`group relative flex w-full flex-col items-start border border-border bg-card p-6 text-left transition-all sm:p-8 ${
+          isOpen 
+            ? "rounded-none border-b-0 bg-secondary/5" 
+            : "rounded-none border-b-[4px] shadow-sm hover:-translate-y-1 hover:border-accent hover:shadow-md"
+        }`}
       >
         <div className="mb-4 inline-flex rounded-full bg-secondary p-3 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
           <FileText className="h-6 w-6" />
@@ -44,39 +35,24 @@ export function LetterCTA({ type, text, founderName }: LetterCTAProps) {
         <p className="text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
-        <div className="mt-6 font-mono text-xs font-semibold uppercase tracking-widest text-accent group-hover:underline">
-          Read Letter →
+        <div className="mt-6 flex items-center gap-1 font-mono text-xs font-semibold uppercase tracking-widest text-accent group-hover:underline">
+          {isOpen ? "Close Letter" : "Read Letter"} 
+          {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
         </div>
       </button>
 
-      {/* Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8">
-          <div 
-            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
-            onClick={() => setIsOpen(false)}
-          />
-          <div className="relative z-10 flex max-h-[90vh] w-full max-w-4xl flex-col rounded-none border border-border border-b-[4px] bg-card shadow-2xl">
-            <div className="flex items-center justify-between border-b border-border p-6 md:p-8">
-              <h3 className="font-serif text-2xl font-bold text-foreground md:text-3xl">{title}</h3>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </div>
-            <div className="custom-scrollbar flex-1 overflow-y-auto p-6 md:p-10 lg:p-12">
-              <p className="whitespace-pre-wrap text-lg leading-[1.8] text-foreground/90 md:text-xl lg:text-2xl lg:leading-[1.8]">
-                {text}
-              </p>
-            </div>
-            <div className="border-t border-border bg-secondary/20 p-6 md:p-8">
-              <CopyLetterButtons text={text} type={type} />
-            </div>
+        <div className="flex flex-col rounded-none border border-border border-t-0 border-b-[4px] bg-card shadow-sm animate-in slide-in-from-top-2 fade-in duration-200">
+          <div className="p-6 md:p-10 border-t border-border/50">
+            <p className="whitespace-pre-wrap text-lg leading-[1.8] text-foreground/90 md:text-xl">
+              {text}
+            </p>
+          </div>
+          <div className="border-t border-border bg-secondary/20 p-6 md:p-8">
+            <CopyLetterButtons text={text} type={type} />
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }

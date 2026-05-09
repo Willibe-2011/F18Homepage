@@ -133,7 +133,7 @@ export default async function ProfilePage({
                     <h2 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                       The F18 Thesis
                     </h2>
-                    <div className="grid gap-6 sm:grid-cols-2">
+                    <div className="flex flex-col gap-6">
                       {profile.letterToVC && (
                         <LetterCTA type="VC" text={profile.letterToVC} founderName={profile.name} />
                       )}
