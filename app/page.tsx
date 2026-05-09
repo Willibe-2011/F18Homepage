@@ -25,9 +25,9 @@ export default async function HomePage() {
       <Navbar />
       <main>
         {/* Section A: Hero */}
-        <section className="relative flex min-h-dvh flex-col justify-center overflow-hidden px-5 pt-20 sm:px-8 sm:pt-24 lg:px-12 lg:pt-28">
-          <div className="mx-auto w-full max-w-[1400px] relative z-10 pointer-events-none">
-            <h1 className="max-w-4xl font-serif text-[2.25rem] font-bold leading-[1.12] text-foreground text-balance pointer-events-auto sm:text-5xl md:text-6xl md:leading-tight lg:text-7xl xl:text-8xl">
+        <section className="relative flex min-h-[calc(100vh-5rem)] lg:min-h-[calc(100vh-6rem)] flex-col justify-center overflow-hidden px-5 sm:px-8 lg:px-12 mt-20 lg:mt-24">
+          <div className="mx-auto w-full max-w-[1400px] relative z-10 pointer-events-none pb-12 lg:pb-24">
+            <h1 className="max-w-5xl font-serif text-[2.5rem] font-bold leading-[1.1] text-foreground text-balance pointer-events-auto sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem]">
               Next Gen Founders. F18 found them.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-[1.8] text-muted-foreground sm:mt-8 md:text-xl lg:text-2xl">
