@@ -79,7 +79,7 @@ export default async function ProfilePage({
                   priority
                 />
               </div>
-              <div className="flex flex-col p-8 pb-24 md:p-10 md:pb-32 lg:p-12 lg:pb-32 xl:p-14 xl:pb-40 overflow-y-auto">
+              <div className="flex flex-col p-8 pb-24 md:p-10 md:pb-32 lg:p-12 lg:pb-32 xl:p-14 xl:pb-40 overflow-y-auto custom-scrollbar">
                 <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground md:text-sm">
                   <span className="text-accent">{profile.age} Y/O</span>
                   <span>•</span>
