@@ -38,7 +38,7 @@ export default async function HomePage() {
             <div className="mt-10 flex flex-col gap-3 pointer-events-auto sm:mt-14 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
               <Link
                 href="/explore"
-                className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-border bg-transparent px-6 py-2.5 text-sm font-semibold text-foreground transition-all duration-300 hover:border-border/80 hover:bg-secondary sm:w-auto sm:px-10 sm:py-4 sm:text-base md:py-5 md:text-lg"
+                className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md sm:w-auto sm:px-10 sm:py-4 sm:text-base md:py-5 md:text-lg"
               >
                 <span className="font-serif tracking-tight">Browse the F18</span>
               </Link>

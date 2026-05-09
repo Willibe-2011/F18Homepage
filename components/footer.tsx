@@ -24,11 +24,11 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             href="https://forms.gle/evkDGtdsratB7kWZ9"
-            className="group inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-3 py-1.5 text-sm font-semibold text-foreground/90 shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-border/80 hover:bg-secondary hover:text-foreground sm:px-4 sm:py-2 sm:text-base lg:text-lg"
+            className="group inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1.5 text-sm font-semibold text-accent-foreground shadow-sm transition-all duration-200 hover:bg-accent/90 sm:px-4 sm:py-2 sm:text-base lg:text-lg"
           >
             Nominate Someone
             <span
-              className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-border bg-secondary text-[10px] leading-none text-foreground/90 transition-all duration-200 group-hover:border-border/80 group-hover:bg-secondary/80"
+              className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/20 text-[10px] leading-none text-accent-foreground transition-all duration-200 group-hover:bg-white/30"
               aria-hidden="true"
             >
               ↗

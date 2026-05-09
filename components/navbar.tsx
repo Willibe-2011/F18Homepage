@@ -74,7 +74,7 @@ export function Navbar() {
           <Link
             target="_blank"
             href="https://forms.gle/evkDGtdsratB7kWZ9"
-            className="rounded-full border border-border bg-transparent px-7 py-3 text-base font-semibold text-foreground transition-colors hover:bg-secondary lg:px-8 lg:py-3.5 lg:text-lg"
+            className="rounded-full bg-accent px-7 py-3 text-base font-semibold text-accent-foreground shadow-sm transition-all hover:bg-accent/90 hover:shadow-md lg:px-8 lg:py-3.5 lg:text-lg"
           >
             Nominate Someone
           </Link>
@@ -127,7 +127,7 @@ export function Navbar() {
               <Link
                 target="_blank"
                 href="https://forms.gle/evkDGtdsratB7kWZ9"
-                className="mt-2 inline-flex w-fit items-center justify-center rounded-full border border-border bg-transparent px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
+                className="mt-2 inline-flex w-fit items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm transition-colors hover:bg-accent/90"
                 onClick={closeMenu}
               >
                 Nominate Someone
