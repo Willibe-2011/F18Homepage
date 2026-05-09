@@ -79,7 +79,7 @@ export default async function ProfilePage({
                   priority
                 />
               </div>
-              <div className="flex flex-col p-8 md:p-10 lg:p-12 xl:p-14">
+              <div className="flex flex-col p-8 pb-24 md:p-10 md:pb-32 lg:p-12 lg:pb-32 xl:p-14 xl:pb-40">
                 <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground md:text-sm">
                   <span className="text-accent">{profile.age} Y/O</span>
                   <span>•</span>
@@ -199,16 +199,19 @@ export default async function ProfilePage({
               </div>
               
               {/* Footer Actions */}
-              <div className="flex flex-wrap items-center justify-between gap-6 border-t border-border bg-background p-8 md:px-12 lg:px-16 xl:px-20">
-                <div className="flex items-center gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8 border-t border-border bg-background p-8 md:px-12 lg:px-16 xl:px-20">
+                <div className="flex flex-wrap items-center gap-6">
                   <button
                     type="button"
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-10 py-4 text-lg font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
                   >
                     Request Intro
                   </button>
+                  <Link href="/explore" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                    ← Back to Explore
+                  </Link>
                 </div>
-                <div className="flex items-center gap-4 text-sm font-medium tracking-wide text-muted-foreground">
+                <div className="flex items-center text-sm font-medium tracking-wide text-muted-foreground">
                   {profile.lastEditTime && <span>Updated {profile.lastEditTime}</span>}
                 </div>
               </div>
@@ -216,12 +219,6 @@ export default async function ProfilePage({
             </div>
 
           </article>
-          
-          <div className="py-12 text-center border-t border-border">
-            <Link href="/explore" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-              ← Back to Explore
-            </Link>
-          </div>
 
         </div>
       </main>
