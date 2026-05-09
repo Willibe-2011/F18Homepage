@@ -42,18 +42,18 @@ export default function AboutPage() {
               </h2>
             </div>
             <div className="max-w-3xl space-y-6">
-              <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl">
-                Founders18 (F18) is a discovery and amplification platform for the next generation of founders — builders who are already solving real problems before they turn 18.
-              </p>
-              <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl">
-                F18 is not a competition. Not a program. Not a directory of high achievers.
-              </p>
-              <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl">
-                It is a verified record of Next Gen Founders — backed by evidence: real products, real users, real impact. Every profile on F18 is researched, verified, and told through a story that captures who they are and what they&apos;ve built.
-              </p>
-              <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl">
-                In the AI age, age is no longer a barrier to solving what matters. F18 exists to make sure the world sees that — and that the builders driving this shift get the attention and capital they deserve.
-              </p>
+              {[
+                "Founders18 (F18) is a discovery and amplification platform for the next generation of founders — builders who are already solving real problems before they turn 18.",
+                "F18 is not a competition. Not a program. Not a directory of high achievers.",
+                "It is a verified record of Next Gen Founders — backed by evidence: real products, real users, real impact. Every profile on F18 is researched, verified, and told through a story that captures who they are and what they've built.",
+                "In the AI age, age is no longer a barrier to solving what matters. F18 exists to make sure the world sees that — and that the builders driving this shift get the attention and capital they deserve."
+              ].map((text, i) => (
+                <div key={i} className="relative rounded-2xl border border-border border-b-[4px] bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:p-8">
+                  <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl">
+                    {text}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -68,7 +68,7 @@ export default function AboutPage() {
           
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {/* Card 1: VCs */}
-            <div className="flex flex-col rounded-none border border-border bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:bg-secondary/60">
+            <div className="flex flex-col rounded-2xl border border-border border-b-[4px] bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:-translate-y-1 hover:bg-secondary/60 hover:shadow-md">
               <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-border">
                 For VCs & Investors
               </h3>
@@ -78,7 +78,7 @@ export default function AboutPage() {
             </div>
 
             {/* Card 2: Media */}
-            <div className="flex flex-col rounded-none border border-border bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:bg-secondary/60">
+            <div className="flex flex-col rounded-2xl border border-border border-b-[4px] bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:-translate-y-1 hover:bg-secondary/60 hover:shadow-md">
               <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-border">
                 For Media & Journalists
               </h3>
@@ -88,7 +88,7 @@ export default function AboutPage() {
             </div>
 
             {/* Card 3: Universities */}
-            <div className="flex flex-col rounded-none border border-border bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:bg-secondary/60">
+            <div className="flex flex-col rounded-2xl border border-border border-b-[4px] bg-secondary/40 p-8 backdrop-blur-md shadow-sm transition-all hover:-translate-y-1 hover:bg-secondary/60 hover:shadow-md">
               <h3 className="font-serif text-2xl font-bold text-foreground mb-6 pb-6 border-b border-border">
                 For Universities & Schools
               </h3>

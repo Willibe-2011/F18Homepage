@@ -22,7 +22,7 @@ export function ProfileCard({ profile, size = "default", variant = "full" }: Pro
     return (
       <Link href={`/profile/${profile.slug}`} className="block group">
         <article
-          className={`${widthClass} overflow-hidden rounded-2xl border border-border bg-card transition-all duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-xl`}
+          className={`${widthClass} overflow-hidden rounded-2xl border border-border border-b-[4px] bg-card shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-md`}
         >
           <div className="relative aspect-square w-full overflow-hidden bg-secondary">
             <ProfileImageFill
@@ -62,9 +62,9 @@ export function ProfileCard({ profile, size = "default", variant = "full" }: Pro
   const cardHeight = size === "large" ? "h-[480px]" : "h-[420px]"
 
   return (
-    <Link href={`/profile/${profile.slug}`} className="block">
+    <Link href={`/profile/${profile.slug}`} className="block group">
       <article
-        className={`${cardWidth} ${cardHeight} flex-shrink-0 rounded-2xl border border-border bg-card p-8 transition-all duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-xl`}
+        className={`${cardWidth} ${cardHeight} flex-shrink-0 rounded-2xl border border-border border-b-[4px] bg-card p-8 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-md`}
       >
         <div className="flex h-full flex-col">
           <span className="font-serif text-8xl font-bold text-accent lg:text-9xl">
