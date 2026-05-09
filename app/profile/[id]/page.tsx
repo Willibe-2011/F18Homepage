@@ -69,7 +69,7 @@ export default async function ProfilePage({
           <article className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-6rem)]">
             
             {/* Left Column: Photo + Identity + Record Claim (Sticky on Desktop) */}
-            <div className="flex w-full shrink-0 flex-col bg-card lg:w-[35vw] xl:w-[30vw] lg:sticky lg:top-24 lg:h-[calc(100vh-6rem)] lg:border-r lg:border-border">
+            <div className="flex w-full shrink-0 flex-col bg-card lg:w-[35vw] xl:w-[30vw] lg:sticky lg:top-24 lg:h-[calc(100vh-6rem)] lg:border-r lg:border-border overflow-y-auto custom-scrollbar">
               <div className="relative aspect-[4/3] w-full bg-secondary shrink-0">
                 <Image
                   src={heroAvatarSrc}
@@ -79,7 +79,7 @@ export default async function ProfilePage({
                   priority
                 />
               </div>
-              <div className="flex flex-col p-8 pb-24 md:p-10 md:pb-32 lg:p-12 lg:pb-32 xl:p-14 xl:pb-40 overflow-y-auto custom-scrollbar">
+              <div className="flex flex-col p-8 pb-24 md:p-10 md:pb-32 lg:p-12 lg:pb-32 xl:p-14 xl:pb-40">
                 <div className="flex flex-col border-l-[4px] border-accent pl-6 md:pl-8">
                   <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground md:text-sm">
                     <span className="text-accent">{profile.age} Y/O</span>
