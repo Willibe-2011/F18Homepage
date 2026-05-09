@@ -69,7 +69,7 @@ export default async function ProfilePage({
           <article className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-6rem)]">
             
             {/* Left Column: Photo + Identity + Record Claim (Sticky on Desktop) */}
-            <div className="flex w-full shrink-0 flex-col bg-card lg:w-[35vw] xl:w-[30vw] lg:sticky lg:top-24 lg:h-[calc(100vh-6rem)] lg:border-r lg:border-border overflow-y-auto custom-scrollbar">
+            <div className="flex w-full shrink-0 flex-col bg-card lg:w-[35vw] xl:w-[30vw] lg:sticky lg:top-24 lg:h-[calc(100vh-6rem)] lg:border-r lg:border-border overflow-y-auto overscroll-none custom-scrollbar">
               <div className="relative aspect-[4/3] w-full bg-secondary shrink-0">
                 <Image
                   src={heroAvatarSrc}
