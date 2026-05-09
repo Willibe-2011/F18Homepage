@@ -19,10 +19,10 @@ export function LetterCTA({ type, text, founderName }: LetterCTAProps) {
     : `Why college administrators can't afford to overlook ${founderName}.`
 
   return (
-    <div className="flex flex-col">
+    <div className="flex h-full flex-col">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`group relative flex w-full flex-col items-start border border-border bg-card p-6 text-left transition-all sm:p-8 ${
+        className={`group relative flex h-full w-full flex-col items-start border border-border bg-card p-6 text-left transition-all sm:p-8 ${
           isOpen 
             ? "rounded-none border-b-0 bg-secondary/5" 
             : "rounded-none border-b-[4px] shadow-sm hover:-translate-y-1 hover:border-accent hover:shadow-md"
@@ -32,7 +32,7 @@ export function LetterCTA({ type, text, founderName }: LetterCTAProps) {
           <FileText className="h-6 w-6" />
         </div>
         <h3 className="mb-2 text-xl font-bold text-foreground">{title}</h3>
-        <p className="text-sm leading-relaxed text-muted-foreground">
+        <p className="text-sm leading-relaxed text-muted-foreground flex-1">
           {description}
         </p>
         <div className="mt-6 flex items-center gap-1 font-mono text-xs font-semibold uppercase tracking-widest text-accent group-hover:underline">
