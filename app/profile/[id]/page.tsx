@@ -180,7 +180,7 @@ export default async function ProfilePage({
                 <div className="flex flex-wrap items-center gap-6">
                   <button
                     type="button"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-10 py-4 text-lg font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
+                    className="inline-flex items-center justify-center gap-2 rounded-none bg-accent px-10 py-4 text-lg font-semibold text-accent-foreground transition-colors hover:bg-accent/90"
                   >
                     Request Intro
                   </button>

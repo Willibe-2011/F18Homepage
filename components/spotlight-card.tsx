@@ -126,7 +126,7 @@ export function SpotlightCard({ profile }: SpotlightCardProps) {
             <div className="mt-12">
               <Link
                 href={`/profile/${profile.slug}`}
-                className="inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-base font-semibold text-accent-foreground transition-opacity hover:opacity-90"
+                className="inline-flex items-center gap-3 rounded-none bg-accent px-8 py-4 text-base font-semibold text-accent-foreground transition-opacity hover:opacity-90"
               >
                 Read her story
                 <span aria-hidden="true">→</span>

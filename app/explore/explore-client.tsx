@@ -113,7 +113,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
               placeholder="Search by name, project, or keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-border bg-card py-3.5 pl-12 pr-4 text-base text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent lg:py-4 lg:pl-14 lg:pr-6 lg:text-lg"
+              className="w-full rounded-none border border-border bg-card py-3.5 pl-12 pr-4 text-base text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent lg:py-4 lg:pl-14 lg:pr-6 lg:text-lg"
             />
           </div>
         </div>
@@ -131,7 +131,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
                 key={industry}
                 type="button"
                 onClick={() => toggleIndustry(industry)}
-                className={`shrink-0 rounded-full px-3 py-2 text-sm transition-colors lg:px-4 lg:py-2 lg:text-base ${
+                className={`shrink-0 rounded-none px-3 py-2 text-sm transition-colors lg:px-4 lg:py-2 lg:text-base ${
                   selectedIndustries.includes(industry)
                     ? "bg-accent text-accent-foreground"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
@@ -152,7 +152,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
                   key={country}
                   type="button"
                   onClick={() => toggleCountry(country)}
-                  className={`shrink-0 rounded-full px-3 py-2 text-sm transition-colors lg:px-4 lg:py-2 lg:text-base ${
+                  className={`shrink-0 rounded-none px-3 py-2 text-sm transition-colors lg:px-4 lg:py-2 lg:text-base ${
                     selectedCountries.includes(country)
                       ? "bg-accent text-accent-foreground"
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
@@ -180,7 +180,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
               onChange={(e) =>
                 setAgeRange([parseInt(e.target.value, 10), ageRange[1]])
               }
-              className="h-3 w-full min-w-0 cursor-pointer appearance-none rounded-lg bg-secondary accent-accent lg:flex-1"
+              className="h-3 w-full min-w-0 cursor-pointer appearance-none rounded-none bg-secondary accent-accent lg:flex-1"
             />
             <span className="hidden shrink-0 text-base text-muted-foreground lg:inline">
               {ageRange[0]} - {ageRange[1]}
@@ -194,7 +194,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
               onChange={(e) =>
                 setAgeRange([ageRange[0], parseInt(e.target.value, 10)])
               }
-              className="h-3 w-full min-w-0 cursor-pointer appearance-none rounded-lg bg-secondary accent-accent lg:flex-1"
+              className="h-3 w-full min-w-0 cursor-pointer appearance-none rounded-none bg-secondary accent-accent lg:flex-1"
             />
           </div>
         </div>
@@ -206,7 +206,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
             onChange={(e) =>
               setSortBy(e.target.value as "newest" | "youngest" | "az")
             }
-            className="mt-3 w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent lg:mt-4 lg:bg-card"
+            className="mt-3 w-full rounded-none border border-border bg-background px-4 py-3 text-base text-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent lg:mt-4 lg:bg-card"
           >
             <option value="newest">Newest</option>
             <option value="youngest">Youngest</option>

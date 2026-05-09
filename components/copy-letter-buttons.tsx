@@ -25,14 +25,14 @@ export function CopyLetterButtons({ text, type }: { text: string; type: "VC" | "
     <div className="mt-4 flex items-center gap-3">
       <button
         onClick={handleCopy}
-        className="inline-flex items-center gap-2 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+        className="inline-flex items-center gap-2 rounded-none bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
       >
         {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
         {copied ? "Copied!" : "Copy"}
       </button>
       <button
         onClick={handlePDF}
-        className="inline-flex items-center gap-2 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+        className="inline-flex items-center gap-2 rounded-none bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
       >
         <FileText className="h-3.5 w-3.5" />
         PDF

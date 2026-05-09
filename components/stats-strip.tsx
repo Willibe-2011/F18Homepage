@@ -27,18 +27,18 @@ export function StatsStrip({ stats }: { stats: F18Stats | null }) {
   const items = buildStats(stats)
 
   return (
-    <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border sm:mt-14 sm:rounded-2xl md:mt-16 md:grid-cols-4">
-      {items.map(({ value, label }) => (
+    <div className="grid grid-cols-2 gap-px overflow-hidden rounded-none border border-border bg-border md:grid-cols-4">
+      {items.map(({ value, label }, i) => (
         <div
           key={label}
-          className="group flex flex-col bg-background px-4 py-6 transition-colors duration-200 hover:bg-accent/5 sm:px-6 sm:py-8 md:px-8 md:py-10"
+          className="group flex flex-col px-4 py-6 transition-colors duration-200 sm:px-6 sm:py-8 md:px-8 md:py-10 bg-card"
         >
           <span
-            className="font-serif text-4xl font-bold leading-none tracking-tight text-foreground transition-colors duration-200 group-hover:text-accent sm:text-5xl md:text-7xl lg:text-8xl"
+            className="font-serif text-4xl font-bold leading-none tracking-tight transition-colors duration-200 sm:text-5xl md:text-6xl lg:text-7xl text-foreground"
           >
             {value}
           </span>
-          <span className="mt-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground sm:mt-4 sm:text-sm">
+          <span className="mt-2 text-xs font-semibold uppercase tracking-widest sm:mt-4 sm:text-sm text-muted-foreground">
             {label}
           </span>
         </div>

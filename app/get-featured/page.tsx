@@ -400,7 +400,7 @@ export default function GetFeaturedPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="mt-4 w-full rounded-full bg-accent px-8 py-4 text-lg font-medium text-accent-foreground transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
+              className="mt-4 w-full rounded-none bg-accent px-8 py-4 text-lg font-medium text-accent-foreground transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isSubmitting ? "Submitting..." : "Submit application"}
             </button>

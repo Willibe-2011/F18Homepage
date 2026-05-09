@@ -13,10 +13,8 @@ export async function HomeStatsStrip() {
   }
   if (!stats) return null
   return (
-    <div className="mt-12">
-      <p className="font-mono text-sm font-medium tracking-widest text-muted-foreground uppercase">
-        {stats.totalCandidates} verified builders. 0 applications accepted.
-      </p>
+    <div className="mt-16 w-full text-left">
+      <StatsStrip stats={stats} />
     </div>
   )
 }

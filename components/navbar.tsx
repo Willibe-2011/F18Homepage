@@ -57,18 +57,24 @@ export function Navbar() {
         </div>
 
         {/* Center: Nav Links (Pill Design) */}
-        <div className="hidden lg:flex items-center justify-center gap-1 rounded-full border border-border bg-secondary/30 p-1 backdrop-blur-sm">
+        <div className="hidden lg:flex items-center justify-center gap-2 border border-foreground px-2 py-1">
           <Link
             href="/explore"
-            className="rounded-full px-5 py-2 text-sm font-medium text-foreground/70 transition-all hover:bg-background hover:text-foreground hover:shadow-sm"
+            className="px-3 py-1.5 text-sm font-semibold text-foreground/70 transition-all hover:text-foreground"
           >
             Explore
           </Link>
           <Link
             href="/about"
-            className="rounded-full px-5 py-2 text-sm font-medium text-foreground/70 transition-all hover:bg-background hover:text-foreground hover:shadow-sm"
+            className="px-3 py-1.5 text-sm font-semibold text-foreground/70 transition-all hover:text-foreground"
           >
-            About
+            Mission
+          </Link>
+          <Link
+            href="/standard"
+            className="px-3 py-1.5 text-sm font-semibold text-foreground/70 transition-all hover:text-foreground"
+          >
+            The Standard
           </Link>
         </div>
 
@@ -78,7 +84,7 @@ export function Navbar() {
             <Link
               target="_blank"
               href="https://forms.gle/evkDGtdsratB7kWZ9"
-              className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-accent-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md"
+              className="inline-flex items-center justify-center rounded-none bg-accent px-6 py-2.5 text-sm font-medium text-accent-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md"
             >
               Nominate Someone
             </Link>
@@ -86,7 +92,7 @@ export function Navbar() {
 
           <button
             type="button"
-            className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-secondary/50 text-foreground shadow-sm backdrop-blur-md transition-all duration-300 hover:border-border/80 hover:bg-secondary active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:hidden"
+            className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-none border border-border bg-secondary/50 text-foreground shadow-sm backdrop-blur-md transition-all duration-300 hover:border-border/80 hover:bg-secondary active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:hidden"
             aria-expanded={menuOpen}
             aria-controls="site-mobile-nav"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -117,22 +123,29 @@ export function Navbar() {
             <div className="mx-auto flex max-w-[1400px] flex-col gap-0.5 sm:px-2">
               <Link
                 href="/explore"
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary sm:text-base"
+                className="rounded-none px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary sm:text-base"
                 onClick={closeMenu}
               >
                 Explore
               </Link>
               <Link
                 href="/about"
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary sm:text-base"
+                className="rounded-none px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary sm:text-base"
                 onClick={closeMenu}
               >
-                About
+                Mission
+              </Link>
+              <Link
+                href="/standard"
+                className="rounded-none px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary sm:text-base"
+                onClick={closeMenu}
+              >
+                The Standard
               </Link>
               <Link
                 target="_blank"
                 href="https://forms.gle/evkDGtdsratB7kWZ9"
-                className="mt-2 inline-flex w-fit items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm transition-colors hover:bg-accent/90"
+                className="mt-2 inline-flex w-fit items-center justify-center rounded-none bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm transition-colors hover:bg-accent/90"
                 onClick={closeMenu}
               >
                 Nominate Someone

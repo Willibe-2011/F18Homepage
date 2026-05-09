@@ -35,7 +35,7 @@ export function LettersSection({ founderName, letterToVC, letterToUniversity }: 
                 : "rounded-none border-b-[4px] shadow-sm hover:-translate-y-1 hover:border-accent hover:shadow-md"
             }`}
           >
-            <h3 className="text-xl font-bold text-foreground flex-1">Letter to VCs</h3>
+            <h3 className="text-xl font-bold text-foreground flex-1">Why VCs should fight for {founderName}</h3>
             <div className="mt-6 flex items-center gap-1 font-mono text-xs font-semibold uppercase tracking-widest text-accent group-hover:underline">
               {openLetter === "VC" ? "Close Letter" : "Read Letter"}
               {openLetter === "VC" ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -52,7 +52,7 @@ export function LettersSection({ founderName, letterToVC, letterToUniversity }: 
                 : "rounded-none border-b-[4px] shadow-sm hover:-translate-y-1 hover:border-accent hover:shadow-md"
             }`}
           >
-            <h3 className="text-xl font-bold text-foreground flex-1">Letter to Universities</h3>
+            <h3 className="text-xl font-bold text-foreground flex-1">Why colleges should fight for {founderName}</h3>
             <div className="mt-6 flex items-center gap-1 font-mono text-xs font-semibold uppercase tracking-widest text-accent group-hover:underline">
               {openLetter === "University" ? "Close Letter" : "Read Letter"}
               {openLetter === "University" ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}

@@ -36,7 +36,7 @@ export function ProfileCard({ profile, size = "default", variant = "full" }: Pro
               <h3 className="font-serif text-xl font-bold text-foreground truncate lg:text-2xl">
                 {profile.name}
               </h3>
-              <span className="shrink-0 rounded-md bg-secondary px-2 py-1 font-mono text-xs font-medium text-muted-foreground">
+              <span className="shrink-0 rounded-none bg-secondary px-2 py-1 font-mono text-xs font-medium text-muted-foreground">
                 {profile.age}
               </span>
             </div>
@@ -80,7 +80,7 @@ export function ProfileCard({ profile, size = "default", variant = "full" }: Pro
           </p>
 
           <div className="mt-6">
-            <span className="inline-block rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground">
+            <span className="inline-block rounded-none bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground">
               {profile.industry}
             </span>
           </div>
