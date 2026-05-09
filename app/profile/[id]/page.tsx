@@ -131,7 +131,7 @@ export default async function ProfilePage({
                 {(profile.letterToVC || profile.letterToUniversity) && (
                   <section>
                     <h2 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-                      Official Letters
+                      The F18 Thesis
                     </h2>
                     <div className="grid gap-6 sm:grid-cols-2">
                       {profile.letterToVC && (
