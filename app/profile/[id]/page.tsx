@@ -80,23 +80,25 @@ export default async function ProfilePage({
                 />
               </div>
               <div className="flex flex-col p-8 pb-24 md:p-10 md:pb-32 lg:p-12 lg:pb-32 xl:p-14 xl:pb-40 overflow-y-auto custom-scrollbar">
-                <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground md:text-sm">
-                  <span className="text-accent">{profile.age} Y/O</span>
-                  <span>•</span>
-                  <span>{profile.location || "Global"}</span>
-                  <span>•</span>
-                  <span>{profile.industry}</span>
-                </div>
-                <h1 className="mt-6 font-serif text-4xl font-bold leading-tight text-foreground md:text-5xl lg:text-6xl">
-                  {profile.name}
-                </h1>
-                {profile.breakTheRecord && (
-                  <div className="mt-10 border-l-2 border-accent pl-6">
-                    <p className="text-lg font-medium leading-relaxed text-foreground/90 md:text-xl xl:text-2xl">
-                      {profile.breakTheRecord}
-                    </p>
+                <div className="flex flex-col border-l-[4px] border-accent pl-6 md:pl-8">
+                  <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground md:text-sm">
+                    <span className="text-accent">{profile.age} Y/O</span>
+                    <span>•</span>
+                    <span>{profile.location || "Global"}</span>
+                    <span>•</span>
+                    <span>{profile.industry}</span>
                   </div>
-                )}
+                  <h1 className="mt-4 font-serif text-4xl font-bold leading-tight text-foreground md:text-5xl lg:text-6xl">
+                    {profile.name}
+                  </h1>
+                  {profile.breakTheRecord && (
+                    <div className="mt-6">
+                      <p className="text-lg font-medium leading-relaxed text-foreground/90 md:text-xl xl:text-2xl">
+                        {profile.breakTheRecord}
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
