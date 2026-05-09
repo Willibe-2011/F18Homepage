@@ -4,7 +4,7 @@ import { Footer } from "@/components/footer"
 import { ProfileCard } from "@/components/profile-card"
 import { Hero3D } from "@/components/hero-3d"
 import { HomeStatsStrip } from "@/components/home-latest-entry"
-import { getPublishedProfiles } from "@/lib/notion"
+import { getAllProfiles } from "@/lib/notion"
 import type { F18Profile } from "@/lib/data"
 
 export const revalidate = 3600 // revalidate every hour
@@ -13,7 +13,7 @@ export default async function HomePage() {
   // Fetch published profiles from Notion, sorted by created_time desc
   let allProfiles: F18Profile[] = []
   try {
-    allProfiles = await getPublishedProfiles()
+    allProfiles = await getAllProfiles()
   } catch {
     allProfiles = []
   }
