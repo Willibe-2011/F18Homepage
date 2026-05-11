@@ -36,7 +36,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
   }, [profiles])
 
   const filteredProfiles = useMemo(() => {
-    let filtered = [...profiles]
+    let filtered = profiles.filter(p => p.name !== "Kavin Ramadoss")
 
     if (selectedIndustries.length > 0) {
       filtered = filtered.filter((p) => selectedIndustries.includes(p.industry))
@@ -126,7 +126,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
 
         <div className="mt-8 lg:mt-10">
           <h3 className="text-base font-medium text-foreground lg:text-lg">Industry</h3>
-          <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-4 lg:flex-wrap lg:gap-3 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
+          <div className="-mx-1 mt-3 flex flex-wrap gap-2 pb-1 lg:mx-0 lg:mt-4 lg:gap-3">
             {availableIndustries.map((industry) => {
               const isSelected = selectedIndustries.includes(industry)
               return isSelected ? (
@@ -158,7 +158,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
         {availableCountries.length > 0 && (
           <div className="mt-8 lg:mt-10">
             <h3 className="text-base font-medium text-foreground lg:text-lg">Country</h3>
-            <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-4 lg:flex-wrap lg:gap-3 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
+            <div className="-mx-1 mt-3 flex flex-wrap gap-2 pb-1 lg:mx-0 lg:mt-4 lg:gap-3">
               {availableCountries.map((country) => {
                 const isSelected = selectedCountries.includes(country)
                 return isSelected ? (
