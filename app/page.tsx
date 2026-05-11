@@ -19,7 +19,7 @@ export default async function HomePage() {
   }
 
   // "This week's eighteen" – top 10 by created time, filtering out specific profiles
-  const featuredProfiles = allProfiles.filter(p => p.name !== "Kavin Ramadoss" && p.name !== "Bhuvika Tripuraneni" && p.name !== "Omuwa Izah" && p.name !== "Mohammad Parsa Parhizkar" && p.name !== "Samuel Montanini" && p.name !== "Siyaa Poddar").slice(0, 10)
+  const featuredProfiles = allProfiles.filter(p => p.name !== "Kavin Ramadoss" && p.name !== "Bhuvika Tripuraneni" && p.name !== "Omuwa Izah" && p.name !== "Mohammad Parsa Parhizkar" && p.name !== "Samuel Montanini" && p.name !== "Siyaa Poddar" && p.name !== "Tina Jin").slice(0, 10)
 
   return (
     <>
