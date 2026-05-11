@@ -66,6 +66,18 @@ function cleanHtmlBreaks(text: string): string {
   return text.replace(/<br><br>/g, "\n\n").replace(/<br>/g, "\n")
 }
 
+// Filter out lines containing "introductory call"
+function filterIntroductoryCall(text: string): string {
+  if (!text) return text
+  return text
+    .split('\n')
+    .filter(line => {
+      const lower = line.toLowerCase()
+      return !lower.includes('introductory call') && !lower.includes('intro call')
+    })
+    .join('\n')
+}
+
 // Parse a newline-separated text field into a string array
 function parseLines(text: string): string[] {
   if (!text) return []
@@ -206,9 +218,9 @@ function notionPageToProfile(page: any): F18Profile {
   const props = page.properties as Record<string, any>
 
   const name = richTextToString(props.Name?.title ?? [])
-  const letterToVC = cleanHtmlBreaks(getTextProp(props, "Letter to VC")) || undefined
+  const letterToVC = filterIntroductoryCall(cleanHtmlBreaks(getTextProp(props, "Letter to VC"))) || undefined
   const letterToUniversity =
-    cleanHtmlBreaks(getTextProp(props, "Letter to AD")) || undefined
+    filterIntroductoryCall(cleanHtmlBreaks(getTextProp(props, "Letter to AD"))) || undefined
   const personalArticle = cleanHtmlBreaks(getTextProp(props, "Personal Article"))
 
   // Project short name: from the new "Project" property, fallback to first
