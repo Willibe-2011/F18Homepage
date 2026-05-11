@@ -36,7 +36,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
   }, [profiles])
 
   const filteredProfiles = useMemo(() => {
-    let filtered = profiles.filter(p => p.name !== "Kavin Ramadoss" && p.name !== "Bhuvika Tripuraneni" && p.name !== "Omuwa Izah" && p.name !== "Mohammad Parsa Parhizkar")
+    let filtered = profiles.filter(p => p.name !== "Kavin Ramadoss" && p.name !== "Bhuvika Tripuraneni" && p.name !== "Omuwa Izah" && p.name !== "Mohammad Parsa Parhizkar" && p.name !== "Samuel Montanini")
 
     if (selectedIndustries.length > 0) {
       filtered = filtered.filter((p) => selectedIndustries.includes(p.industry))
