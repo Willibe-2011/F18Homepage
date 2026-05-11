@@ -36,7 +36,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
   }, [profiles])
 
   const filteredProfiles = useMemo(() => {
-    let filtered = profiles.filter(p => p.name !== "Kavin Ramadoss" && p.name !== "Bhuvika Tripuraneni" && p.name !== "Omuwa Izah" && p.name !== "Mohammad Parsa Parhizkar" && p.name !== "Samuel Montanini" && p.name !== "Siyaa Poddar" && p.name !== "Tina Jin")
+    let filtered = profiles.filter(p => p.name !== "Kavin Ramadoss" && p.name !== "Bhuvika Tripuraneni" && p.name !== "Omuwa Izah" && p.name !== "Mohammad Parsa Parhizkar" && p.name !== "Samuel Montanini" && p.name !== "Siyaa Poddar" && p.name !== "Tina Jin" && p.name !== "Aadit Krishna" && p.name !== "Amir Fischer" && p.name !== "Saanika Dutta" && p.name !== "Aniket Sarkar" && p.name !== "Liam Fuller" && p.name !== "Thomas Guthrie" && p.name !== "Kaon Krasniqi" && p.name !== "Faiz Noorani" && p.name !== "Raghav Arora" && p.name !== "Akhil Nagori" && p.name !== "Aidan McMillan" && p.name !== "Nick Dobroshinsky" && p.name !== "John Kessler" && p.name !== "Eric MacDonald" && p.name !== "Vishnu Kannan" && p.name !== "Seungyong Yang" && p.name !== "Arlan Rakhmetzhanov" && p.name !== "Grace Millard" && p.name !== "Savir Dillikar" && p.name !== "Toby Brown")
 
     if (selectedIndustries.length > 0) {
       filtered = filtered.filter((p) => selectedIndustries.includes(p.industry))
