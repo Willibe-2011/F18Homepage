@@ -19,7 +19,7 @@ export default async function HomePage() {
   }
 
   // "This week's eighteen" – top 10 by created time, filtering out specific profiles
-  const featuredProfiles = allProfiles.filter(p => p.name !== "Kavin Ramadoss" && p.name !== "Bhuvika Tripuraneni").slice(0, 10)
+  const featuredProfiles = allProfiles.filter(p => p.name !== "Kavin Ramadoss" && p.name !== "Bhuvika Tripuraneni" && p.name !== "Omuwa Izah").slice(0, 10)
 
   return (
     <>
