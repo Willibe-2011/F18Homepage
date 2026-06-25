@@ -28,6 +28,7 @@ export function ProfileCard({ profile, size = "default", variant = "full" }: Pro
             <ProfileImageFill
               primarySrc={imgSrc}
               alt={profile.name}
+              objectPosition={profile.pictureObjectPosition}
               className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>

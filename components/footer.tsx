@@ -8,14 +8,16 @@ export function Footer() {
           F18 © 2026
         </p>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 sm:gap-4">
-          <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://forms.gle/evkDGtdsratB7kWZ9"
-            className="group inline-flex items-center gap-2 rounded-none bg-accent px-3 py-1.5 text-sm font-semibold text-accent-foreground shadow-sm transition-all duration-200 hover:bg-accent/90 sm:px-4 sm:py-2 sm:text-base lg:text-lg"
-          >
-            Nominate Someone
-          </Link>
+          <div className="flex items-center justify-center border border-white/60 px-2 py-1">
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://forms.gle/evkDGtdsratB7kWZ9"
+              className="px-3 py-1.5 text-sm font-semibold text-white/70 transition-all hover:text-white sm:px-4 sm:py-2 sm:text-base lg:text-lg"
+            >
+              Nominate Someone
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

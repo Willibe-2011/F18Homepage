@@ -1,4 +1,5 @@
 import type { F18Profile } from "./data"
+import { normalizeLocation, PROFILE_PICTURE_OVERRIDES, PROFILE_PICTURE_OBJECT_POSITION } from "./data"
 
 export interface NotionLatestEntry {
   id: string
@@ -235,15 +236,17 @@ function notionPageToProfile(page: any): F18Profile {
   // WhyItMatters and ProofTraction are newline-separated text fields
   const whyItMatters = parseLines(getTextProp(props, "WhyItMatters"))
   const proofTraction = parseLines(getTextProp(props, "ProofTraction"))
+  const slug = slugify(name)
 
   return {
     id: page.id as string,
-    slug: slugify(name),
+    slug,
     name,
     age: props.Age?.number ?? 0, // 0 means "not provided" — SpotlightCard handles this
-    location: getTextProp(props, "Address"),
+    location: normalizeLocation(getTextProp(props, "Address")),
     gender: (props.Gender?.select?.name ?? "Prefer not to say") as F18Profile["gender"],
-    pictureUrl: props.PictureURL?.url ?? undefined,
+    pictureUrl: PROFILE_PICTURE_OVERRIDES[slug] ?? props.PictureURL?.url ?? undefined,
+    pictureObjectPosition: PROFILE_PICTURE_OBJECT_POSITION[slug],
     profileUrl: props.Profile?.url ?? undefined,
     industry: props.Industry?.select?.name ?? "Other",
     project,

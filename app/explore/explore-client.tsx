@@ -5,7 +5,7 @@ import { Search } from "lucide-react"
 import { FilterBadge } from "@/components/ui/filter-badge"
 import { ProfileCard } from "@/components/profile-card"
 import type { F18Profile } from "@/lib/data"
-import { industries } from "@/lib/data"
+import { getCountryFromLocation, industries } from "@/lib/data"
 
 interface ExploreClientProps {
   profiles: F18Profile[]
@@ -27,8 +27,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
     const countries = new Set<string>()
     profiles.forEach((p) => {
       if (p.location) {
-        const parts = p.location.split(",")
-        const country = parts[parts.length - 1].trim()
+        const country = getCountryFromLocation(p.location)
         if (country) countries.add(country)
       }
     })
@@ -45,9 +44,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
     if (selectedCountries.length > 0) {
       filtered = filtered.filter((p) => {
         if (!p.location) return false
-        const parts = p.location.split(",")
-        const country = parts[parts.length - 1].trim()
-        return selectedCountries.includes(country)
+        return selectedCountries.includes(getCountryFromLocation(p.location))
       })
     }
 
@@ -98,6 +95,17 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
     setSortBy("newest")
     setSearchQuery("")
   }
+
+  const hasActiveFilters =
+    selectedIndustries.length > 0 ||
+    selectedCountries.length > 0 ||
+    ageRange[0] !== 8 ||
+    ageRange[1] !== 18 ||
+    searchQuery.trim().length > 0
+
+  const resultSummary = hasActiveFilters
+    ? `${filteredProfiles.length} founder${filteredProfiles.length === 1 ? "" : "s"} match your filters`
+    : `${filteredProfiles.length} verified founder${filteredProfiles.length === 1 ? "" : "s"}`
 
   return (
     <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
@@ -248,7 +256,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
 
         <div className="min-w-0 lg:col-start-2 lg:row-start-2">
           <p className="text-base text-muted-foreground max-lg:text-sm lg:text-lg">
-            Showing {filteredProfiles.length} of {profiles.length} F18s
+            {resultSummary}
           </p>
 
           <div className="mt-6 grid grid-cols-1 gap-6 sm:mt-8 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">

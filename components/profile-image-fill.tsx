@@ -17,6 +17,7 @@ interface ProfileImageFillProps {
   primarySrc: string
   alt: string
   className?: string
+  objectPosition?: string
   /** Replaces default secondary/muted initials panel (e.g. dark hero sections). */
   initialsClassName?: string
 }
@@ -28,6 +29,7 @@ export function ProfileImageFill({
   primarySrc,
   alt,
   className,
+  objectPosition,
   initialsClassName,
 }: ProfileImageFillProps) {
   const [stage, setStage] = useState<Stage>("primary")
@@ -68,6 +70,7 @@ export function ProfileImageFill({
       alt={alt}
       fill
       className={className}
+      style={objectPosition ? { objectPosition } : undefined}
       onError={stage === "primary" ? onPrimaryError : onPlaceholderError}
     />
   )

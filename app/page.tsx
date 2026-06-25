@@ -35,20 +35,22 @@ export default async function HomePage() {
               <p className="mt-6 max-w-2xl text-lg leading-[1.8] text-muted-foreground sm:mt-8 md:text-xl lg:text-2xl">
                 Verified builders under 18. Real products. Real impact. Before the world catches up.
               </p>
-              <div className="mt-10 flex flex-col gap-4 pointer-events-auto sm:mt-12 sm:flex-row sm:items-center sm:justify-center">
-                <Link
-                  href="/explore"
-                  className="inline-flex w-full items-center justify-center rounded-none bg-accent px-8 py-3.5 text-base font-medium text-accent-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md sm:w-auto"
-                >
-                  Browse the F18
-                </Link>
-                <Link
-                  target="_blank"
-                  href="https://forms.gle/evkDGtdsratB7kWZ9"
-                  className="inline-flex w-full items-center justify-center rounded-none border border-border bg-card px-8 py-3.5 text-base font-medium text-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-secondary hover:shadow-md sm:w-auto"
-                >
-                  Nominate Someone
-                </Link>
+              <div className="mt-10 pointer-events-auto sm:mt-12">
+                <div className="inline-flex w-full max-w-md flex-col overflow-hidden border border-foreground sm:w-auto sm:flex-row sm:items-stretch">
+                  <Link
+                    href="/explore"
+                    className="inline-flex flex-1 items-center justify-center bg-foreground px-6 py-3.5 text-sm font-semibold text-background transition-colors hover:bg-foreground/90 sm:px-8"
+                  >
+                    Browse the F18
+                  </Link>
+                  <Link
+                    target="_blank"
+                    href="https://forms.gle/evkDGtdsratB7kWZ9"
+                    className="inline-flex flex-1 items-center justify-center border-t border-foreground px-6 py-3.5 text-sm font-semibold text-foreground/70 transition-colors hover:bg-secondary/50 hover:text-foreground sm:border-t-0 sm:border-l sm:px-8"
+                  >
+                    Nominate Someone
+                  </Link>
+                </div>
               </div>
             </div>
 

@@ -12,6 +12,7 @@ import { Footer } from "@/components/footer"
 import { LettersSection } from "@/components/letters-section"
 import { getProfileBySlug, getAllPublishedSlugs } from "@/lib/notion"
 import { fetchOgImage } from "@/lib/og"
+import { cn } from "@/lib/utils"
 
 export const revalidate = 3600 // revalidate every hour
 export const dynamicParams = true // render on demand if not in static params
@@ -75,7 +76,12 @@ export default async function ProfilePage({
                   src={heroAvatarSrc}
                   alt={profile.name}
                   fill
-                  className="object-cover"
+                  className={cn("object-cover", profile.pictureImageClassName)}
+                  style={
+                    profile.pictureObjectPosition
+                      ? { objectPosition: profile.pictureObjectPosition }
+                      : undefined
+                  }
                   priority
                 />
               </div>

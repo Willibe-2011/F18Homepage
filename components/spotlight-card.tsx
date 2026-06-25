@@ -142,6 +142,7 @@ export function SpotlightCard({ profile }: SpotlightCardProps) {
                   <ProfileImageFill
                     primarySrc={profile.pictureUrl}
                     alt={profile.name}
+                    objectPosition={profile.pictureObjectPosition}
                     className="object-cover object-top"
                     initialsClassName="flex h-full w-full items-center justify-center bg-white/10 font-serif text-6xl font-bold tracking-tight text-white/50 lg:text-8xl"
                   />

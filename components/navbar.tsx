@@ -81,13 +81,15 @@ export function Navbar() {
         {/* Right: CTA & Mobile Toggle */}
         <div className="flex lg:flex-1 items-center justify-end gap-4">
           <div className="hidden lg:block">
-            <Link
-              target="_blank"
-              href="https://forms.gle/evkDGtdsratB7kWZ9"
-              className="inline-flex items-center justify-center rounded-none bg-accent px-6 py-2.5 text-sm font-medium text-accent-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md"
-            >
-              Nominate Someone
-            </Link>
+            <div className="flex items-center justify-center border border-foreground px-2 py-1">
+              <Link
+                target="_blank"
+                href="https://forms.gle/evkDGtdsratB7kWZ9"
+                className="px-3 py-1.5 text-sm font-semibold text-foreground/70 transition-all hover:text-foreground"
+              >
+                Nominate Someone
+              </Link>
+            </div>
           </div>
 
           <button
@@ -145,7 +147,7 @@ export function Navbar() {
               <Link
                 target="_blank"
                 href="https://forms.gle/evkDGtdsratB7kWZ9"
-                className="mt-2 inline-flex w-fit items-center justify-center rounded-none bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm transition-colors hover:bg-accent/90"
+                className="mt-2 inline-flex w-fit items-center justify-center border border-foreground px-3 py-1.5 text-sm font-semibold text-foreground/70 transition-all hover:text-foreground"
                 onClick={closeMenu}
               >
                 Nominate Someone

@@ -6,6 +6,7 @@ export interface F18Profile {
   location: string
   gender: "Female" | "Male" | "Non-binary" | "Prefer not to say"
   pictureUrl?: string
+  pictureObjectPosition?: string
   profileUrl?: string
   industry: string
   project: string
@@ -23,6 +24,26 @@ export interface F18Profile {
   lookingFor: "nothing" | "vc" | "university" | "both"
 }
 
+/** Local profile picture overrides keyed by slug. */
+export const PROFILE_PICTURE_OVERRIDES: Record<string, string> = {
+  "arzouma-renaud-eudes-sorgho": "/profiles/arzouma-renaud-eudes-sorgho.png",
+  "raul-john-aju": "/profiles/raul-john-aju.png",
+  "anika-bhat": "/profiles/anika-bhat.png",
+  "sheyna-patel": "/profiles/sheyna-patel.png",
+  "yashika-garg": "/profiles/yashika-garg.png",
+  "rexan-wong": "/profiles/rexan-wong.png",
+  "harrison-nott": "/profiles/harrison-nott.png",
+  "amaira-srivastava": "/profiles/amaira-srivastava.png",
+  "mia-heller": "/profiles/mia-heller.png",
+  "anirudh-rao": "/profiles/anirudh-rao.png",
+  "amal-eltayib": "/profiles/amal-eltayib.png",
+}
+
+/** Per-profile object-position for square/hero crops (CSS object-position value). */
+export const PROFILE_PICTURE_OBJECT_POSITION: Record<string, string> = {
+  "harrison-nott": "center 18%",
+}
+
 // Industry options matching the Notion database schema
 export const industries = [
   "Tech",
@@ -36,6 +57,46 @@ export const industries = [
   "Hospitality",
   "Other",
 ] as const
+
+const COUNTRY_ALIASES: Record<string, string> = {
+  "united states": "USA",
+  "united states of america": "USA",
+  "u.s.a.": "USA",
+  "u.s.": "USA",
+  "us": "USA",
+  "hong kong": "China",
+  "hong kong sar": "China",
+  "hk": "China",
+  "ca": "China",
+  "united kingdom": "UK",
+  "great britain": "UK",
+  "gb": "UK",
+  "u.k.": "UK",
+}
+
+function normalizeCountry(raw: string): string {
+  let country = raw.trim().replace(/\)+$/, "").trim()
+  // Strip parenthetical notes, e.g. "USA (originally Kazakhstan)"
+  country = country.replace(/\s*\([^)]*\)?\s*$/, "").trim()
+  return COUNTRY_ALIASES[country.toLowerCase()] ?? country
+}
+
+/** Extract normalized country from a "City, Country" location string. */
+export function getCountryFromLocation(location: string): string {
+  const parts = location.split(",")
+  return normalizeCountry(parts[parts.length - 1])
+}
+
+/** Normalize location strings for display and filtering. */
+export function normalizeLocation(location: string): string {
+  const fixed = location.replace(/,\s*([^,]+)\)\s*$/, ", $1").trim()
+  const parts = fixed.split(",")
+  if (parts.length < 2) return normalizeCountry(fixed)
+
+  const city = parts.slice(0, -1).join(",").trim()
+  const country = normalizeCountry(parts[parts.length - 1])
+  return `${city}, ${country}`
+}
 
 // Legacy mock data kept for fallback only – production data comes from Notion
 export const mockProfiles: F18Profile[] = [
