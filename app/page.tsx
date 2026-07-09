@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ProfileCard } from "@/components/profile-card"
@@ -78,10 +79,10 @@ export default async function HomePage() {
               >
                 <span className="relative">Explore More</span>
                 <span
-                  className="relative inline-flex h-7 w-7 items-center justify-center rounded-none border border-border bg-transparent text-sm text-foreground/90 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-border/80"
+                  className="relative inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-none border border-border bg-transparent text-foreground/90 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-border/80"
                   aria-hidden="true"
                 >
-                  →
+                  <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
                 </span>
               </Link>
             </div>
