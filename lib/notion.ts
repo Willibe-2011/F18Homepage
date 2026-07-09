@@ -1,3 +1,4 @@
+import { cache } from "react"
 import type { F18Profile } from "./data"
 import { normalizeLocation, PROFILE_PICTURE_OVERRIDES, PROFILE_PICTURE_OBJECT_POSITION } from "./data"
 
@@ -340,6 +341,9 @@ export async function getAllProfiles(): Promise<F18Profile[]> {
     .map((page: any) => notionPageToProfile(page))
 }
 
+/** Dedupe profile fetches within a single request (page + stats strip). */
+export const getCachedAllProfiles = cache(getAllProfiles)
+
 // Fetch a single published profile by URL slug (derived from Name field)
 // All content comes from database properties — no page body blocks needed
 export async function getProfileBySlug(slug: string): Promise<F18Profile | null> {
@@ -389,7 +393,8 @@ export async function getF18Stats(): Promise<F18Stats | null> {
 
   if (!res.ok) {
     const err = await res.text()
-    console.error(`Notion stats DB query ${res.status}:`, err)
+    console.log(`Notion stats DB query ${res.status}:`, err)
+    // console.error(`Notion stats DB query ${res.status}:`, err)
     return null
   }
 

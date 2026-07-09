@@ -44,6 +44,69 @@ export const PROFILE_PICTURE_OBJECT_POSITION: Record<string, string> = {
   "harrison-nott": "center 18%",
 }
 
+/** True when the profile has a real photo URL (not a generated placeholder). */
+export function hasRealProfilePhoto(profile: F18Profile): boolean {
+  const url = profile.pictureUrl?.trim()
+  if (!url) return false
+  if (url.includes("placeholder.svg")) return false
+  return true
+}
+
+/** Countries listed in filters but with no published F18 founder yet. */
+export const COUNTRIES_WITHOUT_F18 = [
+  "Chile",
+  "Denmark",
+  "Finland",
+  "Kosovo",
+  "Morocco",
+  "Netherlands",
+  "Norway",
+  "Panama",
+  "Sweden",
+  "Uruguay",
+] as const
+
+const COUNTRIES_WITHOUT_F18_SET = new Set<string>(COUNTRIES_WITHOUT_F18)
+
+export function formatCountriesWithoutF18Message(): string {
+  const list = [...COUNTRIES_WITHOUT_F18]
+  if (list.length === 0) return ""
+  if (list.length === 1) return `No Founder18s in ${list[0]}.`
+  const last = list[list.length - 1]
+  const rest = list.slice(0, -1).join(", ")
+  return `No Founder18s in ${rest}, or ${last}.`
+}
+
+export function isCountryWithoutF18(country: string): boolean {
+  return COUNTRIES_WITHOUT_F18_SET.has(country)
+}
+
+/** Profiles hidden from explore/home listings but still in the Notion dataset. */
+export const EXCLUDED_PROFILE_NAMES = new Set([
+  "Kavin Ramadoss", "Bhuvika Tripuraneni", "Omuwa Izah", "Mohammad Parsa Parhizkar",
+  "Samuel Montanini", "Siyaa Poddar", "Tina Jin", "Aadit Krishna", "Amir Fischer",
+  "Saanika Dutta", "Aniket Sarkar", "Liam Fuller", "Thomas Guthrie", "Kaon Krasniqi",
+  "Faiz Noorani", "Raghav Arora", "Akhil Nagori", "Aidan McMillan", "Nick Dobroshinsky",
+  "John Kessler", "Eric MacDonald", "Vishnu Kannan", "Seungyong Yang", "Arlan Rakhmetzhanov",
+  "Grace Millard", "Savir Dillikar", "Toby Brown", "Tejasvi Manoj",
+])
+
+/** Countries with at least one visible F18 founder (matches explore country filter). */
+export function getCountriesWithFounders(profiles: F18Profile[]): string[] {
+  const countries = new Set<string>()
+  for (const profile of profiles) {
+    if (EXCLUDED_PROFILE_NAMES.has(profile.name)) continue
+    if (!profile.location) continue
+    const country = getRecognizedCountryFromLocation(profile.location)
+    if (country && !isCountryWithoutF18(country)) countries.add(country)
+  }
+  return Array.from(countries).sort()
+}
+
+export function countCountriesWithFounders(profiles: F18Profile[]): number {
+  return getCountriesWithFounders(profiles).length
+}
+
 // Industry options matching the Notion database schema
 export const industries = [
   "Tech",
@@ -58,33 +121,181 @@ export const industries = [
   "Other",
 ] as const
 
+/** Industries with at least one F18 founder (matches explore industry filter). */
+export function getIndustriesWithFounders(profiles: F18Profile[]): string[] {
+  const inData = new Set(profiles.map((p) => p.industry))
+  return industries.filter((i) => inData.has(i))
+}
+
+export function countIndustriesWithFounders(profiles: F18Profile[]): number {
+  return getIndustriesWithFounders(profiles).length
+}
+
 const COUNTRY_ALIASES: Record<string, string> = {
-  "united states": "USA",
-  "united states of america": "USA",
-  "u.s.a.": "USA",
-  "u.s.": "USA",
-  "us": "USA",
+  "united states": "United States",
+  "united states of america": "United States",
+  "u.s.a.": "United States",
+  "u.s.": "United States",
+  "us": "United States",
+  "usa": "United States",
+  "america": "United States",
   "hong kong": "China",
   "hong kong sar": "China",
   "hk": "China",
-  "ca": "China",
-  "united kingdom": "UK",
-  "great britain": "UK",
-  "gb": "UK",
-  "u.k.": "UK",
+  "macau": "China",
+  "macao": "China",
+  "taiwan": "China",
+  "guangdong": "China",
+  "guangzhou": "China",
+  "beijing": "China",
+  "shanghai": "China",
+  "shenzhen": "China",
+  "united kingdom": "United Kingdom",
+  "great britain": "United Kingdom",
+  "gb": "United Kingdom",
+  "u.k.": "United Kingdom",
+  "uk": "United Kingdom",
+  "england": "United Kingdom",
+  "scotland": "United Kingdom",
+  "wales": "United Kingdom",
+  "northern ireland": "United Kingdom",
+  "south korea": "South Korea",
+  "republic of korea": "South Korea",
+  "korea": "South Korea",
+  "north korea": "North Korea",
+  "türkiye": "Turkey",
+  "turkiye": "Turkey",
+  "uae": "United Arab Emirates",
+  "united arab emirates": "United Arab Emirates",
+  "czech republic": "Czechia",
+  "czechia": "Czechia",
+  "russia": "Russia",
+  "russian federation": "Russia",
+  "viet nam": "Vietnam",
+  "vietnam": "Vietnam",
+  "the netherlands": "Netherlands",
+  "holland": "Netherlands",
+  "ivory coast": "Ivory Coast",
+  "côte d'ivoire": "Ivory Coast",
+  "cote d'ivoire": "Ivory Coast",
+  "burma": "Myanmar",
+  "republic of ireland": "Ireland",
+  "suisse": "Switzerland",
+  "schweiz": "Switzerland",
+  "deutschland": "Germany",
+  "brasil": "Brazil",
+  "méxico": "Mexico",
+  "mexico": "Mexico",
 }
+
+const CANADIAN_REGIONS = new Set([
+  "ontario", "on", "quebec", "qc", "british columbia", "bc", "alberta", "ab",
+  "manitoba", "mb", "saskatchewan", "sk", "nova scotia", "ns", "new brunswick", "nb",
+  "newfoundland and labrador", "nl", "prince edward island", "pei", "pe",
+])
+
+const AUSTRALIAN_REGIONS = new Set([
+  "new south wales", "nsw", "victoria", "vic", "queensland", "qld",
+  "western australia", "wa", "south australia", "sa", "tasmania", "tas",
+  "northern territory", "nt", "australian capital territory", "act",
+])
+
+/** Sovereign states + canonical names used in profile data. */
+const KNOWN_COUNTRIES = new Set(
+  [
+    "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia",
+    "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados",
+    "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina",
+    "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia",
+    "Cameroon", "Canada", "Cape Verde", "Chad", "Chile", "China", "Colombia", "Comoros",
+    "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia", "Denmark", "Dominican Republic",
+    "Ecuador", "Egypt", "El Salvador", "Estonia", "Ethiopia", "Fiji", "Finland", "France",
+    "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Guatemala", "Guinea",
+    "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran",
+    "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast", "Jamaica", "Japan", "Jordan",
+    "Kazakhstan", "Kenya", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon",
+    "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar",
+    "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Mauritania", "Mauritius", "Mexico",
+    "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar",
+    "Namibia", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria",
+    "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palestine", "Panama",
+    "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar",
+    "Romania", "Russia", "Rwanda", "Saudi Arabia", "Senegal", "Serbia", "Seychelles",
+    "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Somalia", "South Africa",
+    "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden",
+    "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo",
+    "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Uganda", "Ukraine",
+    "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan",
+    "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe",
+    ...Object.values(COUNTRY_ALIASES),
+  ].map((c) => c.toLowerCase())
+)
+
+function isRecognizedCountry(country: string): boolean {
+  return KNOWN_COUNTRIES.has(country.toLowerCase())
+}
+
+/** US states, territories, and abbreviations — map to United States in country filters. */
+const US_REGIONS = new Set([
+  "alabama", "alaska", "arizona", "arkansas", "california", "colorado",
+  "connecticut", "delaware", "florida", "georgia", "hawaii", "idaho",
+  "illinois", "indiana", "iowa", "kansas", "kentucky", "louisiana",
+  "maine", "maryland", "massachusetts", "michigan", "minnesota",
+  "mississippi", "missouri", "montana", "nebraska", "nevada",
+  "new hampshire", "new jersey", "new mexico", "new york",
+  "north carolina", "north dakota", "ohio", "oklahoma", "oregon",
+  "pennsylvania", "puerto rico", "rhode island", "south carolina",
+  "south dakota", "tennessee", "texas", "utah", "vermont", "virginia",
+  "washington", "washington dc", "washington d.c.", "district of columbia",
+  "west virginia", "wisconsin", "wyoming",
+  "al", "ak", "az", "ar", "ca", "co", "ct", "de", "fl", "ga", "hi", "id",
+  "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms",
+  "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok",
+  "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa",
+  "wv", "wi", "wy", "dc",
+])
 
 function normalizeCountry(raw: string): string {
   let country = raw.trim().replace(/\)+$/, "").trim()
   // Strip parenthetical notes, e.g. "USA (originally Kazakhstan)"
   country = country.replace(/\s*\([^)]*\)?\s*$/, "").trim()
-  return COUNTRY_ALIASES[country.toLowerCase()] ?? country
+  // Metro labels, e.g. "Washington DC—Baltimore Area"
+  country = country.replace(/\s*[—–-]\s*.+$/, "").trim()
+  // Dual citizenship, e.g. "Canada / China" — use the first country for filtering
+  if (country.includes("/")) {
+    country = country.split("/").map((p) => p.trim()).find(Boolean) ?? country
+  }
+
+  const key = country.toLowerCase()
+  if (COUNTRY_ALIASES[key]) return COUNTRY_ALIASES[key]
+  if (US_REGIONS.has(key)) return "United States"
+  if (CANADIAN_REGIONS.has(key)) return "Canada"
+  if (AUSTRALIAN_REGIONS.has(key)) return "Australia"
+
+  return country
 }
 
 /** Extract normalized country from a "City, Country" location string. */
 export function getCountryFromLocation(location: string): string {
-  const parts = location.split(",")
+  const parts = location.split(",").map((p) => p.trim()).filter(Boolean)
+  if (parts.length === 0) return ""
   return normalizeCountry(parts[parts.length - 1])
+}
+
+/** Country name if location resolves to a recognized sovereign state, else empty. */
+export function getRecognizedCountryFromLocation(location: string): string {
+  const country = getCountryFromLocation(location)
+  return isRecognizedCountry(country) ? country : ""
+}
+
+/** Count distinct sovereign countries represented in profile locations. */
+export function countUniqueCountries(profiles: F18Profile[]): number {
+  const countries = new Set<string>()
+  for (const profile of profiles) {
+    const country = getRecognizedCountryFromLocation(profile.location ?? "")
+    if (country) countries.add(country)
+  }
+  return countries.size
 }
 
 /** Normalize location strings for display and filtering. */

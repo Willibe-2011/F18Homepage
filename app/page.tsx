@@ -4,8 +4,8 @@ import { Footer } from "@/components/footer"
 import { ProfileCard } from "@/components/profile-card"
 import { HomeStatsStrip } from "@/components/home-latest-entry"
 import { StandardPreview } from "@/components/standard-preview"
-import { getAllProfiles } from "@/lib/notion"
-import type { F18Profile } from "@/lib/data"
+import { getCachedAllProfiles } from "@/lib/notion"
+import { EXCLUDED_PROFILE_NAMES, hasRealProfilePhoto, type F18Profile } from "@/lib/data"
 
 export const revalidate = 3600 // revalidate every hour
 
@@ -13,13 +13,17 @@ export default async function HomePage() {
   // Fetch published profiles from Notion, sorted by created_time desc
   let allProfiles: F18Profile[] = []
   try {
-    allProfiles = await getAllProfiles()
+    allProfiles = await getCachedAllProfiles()
   } catch {
     allProfiles = []
   }
 
-  // "This week's eighteen" – top 10 by created time, filtering out specific profiles
-  const featuredProfiles = allProfiles.filter(p => p.name !== "Kavin Ramadoss" && p.name !== "Bhuvika Tripuraneni" && p.name !== "Omuwa Izah" && p.name !== "Mohammad Parsa Parhizkar" && p.name !== "Samuel Montanini" && p.name !== "Siyaa Poddar" && p.name !== "Tina Jin" && p.name !== "Aadit Krishna" && p.name !== "Amir Fischer" && p.name !== "Saanika Dutta" && p.name !== "Aniket Sarkar" && p.name !== "Liam Fuller" && p.name !== "Thomas Guthrie" && p.name !== "Kaon Krasniqi" && p.name !== "Faiz Noorani" && p.name !== "Raghav Arora" && p.name !== "Akhil Nagori" && p.name !== "Aidan McMillan" && p.name !== "Nick Dobroshinsky" && p.name !== "John Kessler" && p.name !== "Eric MacDonald" && p.name !== "Vishnu Kannan" && p.name !== "Seungyong Yang" && p.name !== "Arlan Rakhmetzhanov" && p.name !== "Grace Millard" && p.name !== "Savir Dillikar" && p.name !== "Toby Brown").slice(0, 10)
+  const excludedNames = EXCLUDED_PROFILE_NAMES
+
+  const eligibleProfiles = allProfiles.filter((p) => !excludedNames.has(p.name))
+
+  // Only show candidates with a real profile photo on the homepage grid
+  const featuredProfiles = eligibleProfiles.filter(hasRealProfilePhoto).slice(0, 4)
 
   return (
     <>
@@ -85,7 +89,7 @@ export default async function HomePage() {
             {/* Featured Profiles Grid */}
             <div className="pointer-events-auto mt-10">
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {featuredProfiles.slice(0, 4).map((profile) => (
+                {featuredProfiles.map((profile) => (
                   <ProfileCard key={profile.id} profile={profile} variant="simple" size="large" />
                 ))}
               </div>

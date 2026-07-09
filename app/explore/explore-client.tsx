@@ -5,7 +5,7 @@ import { Search } from "lucide-react"
 import { FilterBadge } from "@/components/ui/filter-badge"
 import { ProfileCard } from "@/components/profile-card"
 import type { F18Profile } from "@/lib/data"
-import { getCountryFromLocation, industries } from "@/lib/data"
+import { EXCLUDED_PROFILE_NAMES, getCountriesWithFounders, getIndustriesWithFounders, getRecognizedCountryFromLocation, hasRealProfilePhoto, formatCountriesWithoutF18Message } from "@/lib/data"
 
 interface ExploreClientProps {
   profiles: F18Profile[]
@@ -18,24 +18,12 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
   const [sortBy, setSortBy] = useState<"newest" | "youngest" | "az">("newest")
   const [searchQuery, setSearchQuery] = useState("")
 
-  const availableIndustries = useMemo(() => {
-    const inData = new Set(profiles.map((p) => p.industry))
-    return industries.filter((i) => inData.has(i))
-  }, [profiles])
+  const availableIndustries = useMemo(() => getIndustriesWithFounders(profiles), [profiles])
 
-  const availableCountries = useMemo(() => {
-    const countries = new Set<string>()
-    profiles.forEach((p) => {
-      if (p.location) {
-        const country = getCountryFromLocation(p.location)
-        if (country) countries.add(country)
-      }
-    })
-    return Array.from(countries).sort()
-  }, [profiles])
+  const availableCountries = useMemo(() => getCountriesWithFounders(profiles), [profiles])
 
   const filteredProfiles = useMemo(() => {
-    let filtered = profiles.filter(p => p.name !== "Kavin Ramadoss" && p.name !== "Bhuvika Tripuraneni" && p.name !== "Omuwa Izah" && p.name !== "Mohammad Parsa Parhizkar" && p.name !== "Samuel Montanini" && p.name !== "Siyaa Poddar" && p.name !== "Tina Jin" && p.name !== "Aadit Krishna" && p.name !== "Amir Fischer" && p.name !== "Saanika Dutta" && p.name !== "Aniket Sarkar" && p.name !== "Liam Fuller" && p.name !== "Thomas Guthrie" && p.name !== "Kaon Krasniqi" && p.name !== "Faiz Noorani" && p.name !== "Raghav Arora" && p.name !== "Akhil Nagori" && p.name !== "Aidan McMillan" && p.name !== "Nick Dobroshinsky" && p.name !== "John Kessler" && p.name !== "Eric MacDonald" && p.name !== "Vishnu Kannan" && p.name !== "Seungyong Yang" && p.name !== "Arlan Rakhmetzhanov" && p.name !== "Grace Millard" && p.name !== "Savir Dillikar" && p.name !== "Toby Brown")
+    let filtered = profiles.filter((p) => !EXCLUDED_PROFILE_NAMES.has(p.name))
 
     if (selectedIndustries.length > 0) {
       filtered = filtered.filter((p) => selectedIndustries.includes(p.industry))
@@ -44,7 +32,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
     if (selectedCountries.length > 0) {
       filtered = filtered.filter((p) => {
         if (!p.location) return false
-        return selectedCountries.includes(getCountryFromLocation(p.location))
+        return selectedCountries.includes(getRecognizedCountryFromLocation(p.location))
       })
     }
 
@@ -54,22 +42,33 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
 
     if (searchQuery) {
       const query = searchQuery.toLowerCase()
-      filtered = filtered.filter(
-        (p) =>
+      filtered = filtered.filter((p) => {
+        const country = p.location ? getRecognizedCountryFromLocation(p.location).toLowerCase() : ""
+        return (
           p.name.toLowerCase().includes(query) ||
           p.project.toLowerCase().includes(query) ||
           p.whatTheyreBuilding.toLowerCase().includes(query) ||
-          p.industry.toLowerCase().includes(query)
-      )
+          p.industry.toLowerCase().includes(query) ||
+          (p.location?.toLowerCase() ?? "").includes(query) ||
+          country.includes(query)
+        )
+      })
     }
 
-    if (sortBy === "youngest") {
-      filtered.sort((a, b) => a.age - b.age)
-    } else if (sortBy === "az") {
-      filtered.sort((a, b) => a.name.localeCompare(b.name))
+    const withPhotos: F18Profile[] = []
+    const withoutPhotos: F18Profile[] = []
+    for (const profile of filtered) {
+      if (hasRealProfilePhoto(profile)) withPhotos.push(profile)
+      else withoutPhotos.push(profile)
     }
 
-    return filtered
+    const sortGroup = (group: F18Profile[]) => {
+      if (sortBy === "youngest") return [...group].sort((a, b) => a.age - b.age)
+      if (sortBy === "az") return [...group].sort((a, b) => a.name.localeCompare(b.name))
+      return group
+    }
+
+    return [...sortGroup(withPhotos), ...sortGroup(withoutPhotos)]
   }, [profiles, selectedIndustries, selectedCountries, ageRange, sortBy, searchQuery])
 
   const toggleIndustry = (industry: string) => {
@@ -119,7 +118,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
             <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground lg:left-5 lg:h-6 lg:w-6" />
             <input
               type="text"
-              placeholder="Search by name, project, or keyword..."
+              placeholder="Search by name, project, country, or keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-none border border-border bg-card py-3.5 pl-12 pr-4 text-base text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent lg:py-4 lg:pl-14 lg:pr-6 lg:text-lg"
@@ -128,11 +127,7 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
         </div>
 
         <aside className="h-fit w-full shrink-0 self-start rounded-2xl border border-border bg-secondary/40 p-6 lg:sticky lg:top-28 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:w-[320px] lg:max-w-full lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto lg:custom-scrollbar lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 xl:top-32">
-        <h2 className="font-serif text-3xl font-bold text-foreground lg:text-4xl">
-          Filter.
-        </h2>
-
-        <div className="mt-8 lg:mt-10">
+        <div>
           <h3 className="text-base font-medium text-foreground lg:text-lg">Industry</h3>
           <div className="-mx-1 mt-3 flex flex-wrap gap-2 pb-1 lg:mx-0 lg:mt-4 lg:gap-3">
             {availableIndustries.map((industry) => {
@@ -163,9 +158,9 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
           </div>
         </div>
 
-        {availableCountries.length > 0 && (
-          <div className="mt-8 lg:mt-10">
-            <h3 className="text-base font-medium text-foreground lg:text-lg">Country</h3>
+        <div className="mt-8 lg:mt-10">
+          <h3 className="text-base font-medium text-foreground lg:text-lg">Country</h3>
+          {availableCountries.length > 0 && (
             <div className="-mx-1 mt-3 flex flex-wrap gap-2 pb-1 lg:mx-0 lg:mt-4 lg:gap-3">
               {availableCountries.map((country) => {
                 const isSelected = selectedCountries.includes(country)
@@ -193,8 +188,11 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
                 )
               })}
             </div>
-          </div>
-        )}
+          )}
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+            {formatCountriesWithoutF18Message()}
+          </p>
+        </div>
 
         <div className="mt-8 lg:mt-10">
           <h3 className="text-base font-medium text-foreground lg:text-lg">Age</h3>
