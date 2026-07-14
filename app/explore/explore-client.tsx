@@ -23,7 +23,9 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
   const availableCountries = useMemo(() => getCountriesWithFounders(profiles), [profiles])
 
   const filteredProfiles = useMemo(() => {
-    let filtered = profiles.filter((p) => !EXCLUDED_PROFILE_NAMES.has(p.name))
+    let filtered = profiles.filter(
+      (p) => p.readPublish && !EXCLUDED_PROFILE_NAMES.has(p.name),
+    )
 
     if (selectedIndustries.length > 0) {
       filtered = filtered.filter((p) => selectedIndustries.includes(p.industry))

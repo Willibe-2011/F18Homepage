@@ -5,7 +5,7 @@ import { Footer } from "@/components/footer"
 import { ProfileCard } from "@/components/profile-card"
 import { HomeStatsStrip } from "@/components/home-latest-entry"
 import { StandardPreview } from "@/components/standard-preview"
-import { getCachedAllProfiles } from "@/lib/notion"
+import { getCachedPublishedProfiles } from "@/lib/notion"
 import { EXCLUDED_PROFILE_NAMES, hasRealProfilePhoto, type F18Profile } from "@/lib/data"
 
 export const revalidate = 3600 // revalidate every hour
@@ -14,7 +14,7 @@ export default async function HomePage() {
   // Fetch published profiles from Notion, sorted by created_time desc
   let allProfiles: F18Profile[] = []
   try {
-    allProfiles = await getCachedAllProfiles()
+    allProfiles = await getCachedPublishedProfiles()
   } catch {
     allProfiles = []
   }

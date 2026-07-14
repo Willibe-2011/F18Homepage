@@ -27,7 +27,9 @@ export interface F18Profile {
 /** Local profile picture overrides keyed by slug. */
 export const PROFILE_PICTURE_OVERRIDES: Record<string, string> = {
   "arzouma-renaud-eudes-sorgho": "/profiles/arzouma-renaud-eudes-sorgho.png",
+  "arzouma-sorgho": "/profiles/arzouma-renaud-eudes-sorgho.png",
   "raul-john-aju": "/profiles/raul-john-aju.png",
+  "raul-aju": "/profiles/raul-john-aju.png",
   "anika-bhat": "/profiles/anika-bhat.png",
   "sheyna-patel": "/profiles/sheyna-patel.png",
   "yashika-garg": "/profiles/yashika-garg.png",
@@ -37,11 +39,13 @@ export const PROFILE_PICTURE_OVERRIDES: Record<string, string> = {
   "mia-heller": "/profiles/mia-heller.png",
   "anirudh-rao": "/profiles/anirudh-rao.png",
   "amal-eltayib": "/profiles/amal-eltayib.png",
+  "arushi-nath": "/profiles/arushi-nath.jpg",
 }
 
 /** Per-profile object-position for square/hero crops (CSS object-position value). */
 export const PROFILE_PICTURE_OBJECT_POSITION: Record<string, string> = {
   "harrison-nott": "center 18%",
+  "arushi-nath": "center 22%",
 }
 
 /** True when the profile has a real photo URL (not a generated placeholder). */

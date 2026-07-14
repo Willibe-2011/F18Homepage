@@ -66,11 +66,11 @@ export default async function ProfilePage({
       <main className="min-h-screen bg-background pt-20 lg:pt-24">
         <div className="w-full">
           
-          {/* Dossier Full-Screen Split Layout */}
-          <article className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-6rem)]">
+          {/* Dossier Full-Screen Split Layout — page scroll only (no nested overflow traps) */}
+          <article className="flex w-full flex-col lg:flex-row lg:items-start">
             
             {/* Left Column: Photo + Identity + Record Claim (Sticky on Desktop) */}
-            <div className="flex w-full shrink-0 flex-col bg-card lg:w-[35vw] xl:w-[30vw] lg:sticky lg:top-24 lg:h-[calc(100vh-6rem)] lg:border-r lg:border-border overflow-y-auto overscroll-none custom-scrollbar">
+            <div className="flex w-full shrink-0 flex-col bg-card lg:sticky lg:top-24 lg:min-h-[calc(100vh-6rem)] lg:w-[35vw] lg:self-start lg:border-r lg:border-border xl:w-[30vw]">
               <div className="relative aspect-[4/3] w-full bg-secondary shrink-0">
                 <Image
                   src={heroAvatarSrc}

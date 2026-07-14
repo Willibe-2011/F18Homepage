@@ -289,7 +289,8 @@ async function queryDatabase(startCursor?: string, options?: { publishedOnly?: b
       method: "POST",
       headers: notionHeaders,
       body: JSON.stringify(body),
-      next: { revalidate: 3600 },
+      // POST body (cursor/filter) must not share one URL cache entry across pages
+      cache: "no-store",
     }
   )
 
@@ -344,33 +345,24 @@ export async function getAllProfiles(): Promise<F18Profile[]> {
 /** Dedupe profile fetches within a single request (page + stats strip). */
 export const getCachedAllProfiles = cache(getAllProfiles)
 
-// Fetch a single published profile by URL slug (derived from Name field)
-// All content comes from database properties — no page body blocks needed
+/** Dedupe published-profile list within a single request (detail pages + static params). */
+export const getCachedPublishedProfiles = cache(getPublishedProfiles)
+
+// Fetch a single published profile by URL slug (derived from Name field).
 export async function getProfileBySlug(slug: string): Promise<F18Profile | null> {
-  const data = await queryDatabase()
-  const pages: any[] = data.results ?? []
+  const profiles = await getCachedPublishedProfiles()
+  const published = profiles.find((profile) => profile.slug === slug)
+  if (published) return published
 
-  const targetPage = pages.find((page: any) => {
-    if (page.object !== "page") return false
-    const name = richTextToString(page.properties?.Name?.title ?? [])
-    return slugify(name) === slug
-  })
-
-  if (!targetPage) return null
-  return notionPageToProfile(targetPage)
+  // Fallback for direct links to drafts that are not ReadPublish yet
+  const all = await getCachedAllProfiles()
+  return all.find((profile) => profile.slug === slug) ?? null
 }
 
-// Fetch all slugs of published profiles (for generateStaticParams)
+// Fetch all published slugs (for generateStaticParams)
 export async function getAllPublishedSlugs(): Promise<string[]> {
-  const data = await queryDatabase()
-  const pages: any[] = data.results ?? []
-
-  return pages
-    .filter((page: any) => page.object === "page")
-    .map((page: any) => {
-      const name = richTextToString(page.properties?.Name?.title ?? [])
-      return slugify(name)
-    })
+  const profiles = await getCachedPublishedProfiles()
+  return [...new Set(profiles.map((profile) => profile.slug).filter(Boolean))]
 }
 
 /**

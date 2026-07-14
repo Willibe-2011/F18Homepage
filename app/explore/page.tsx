@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { getAllProfiles } from "@/lib/notion"
+import { getCachedPublishedProfiles } from "@/lib/notion"
 import type { F18Profile } from "@/lib/data"
 import { ExploreClient } from "./explore-client"
 
@@ -9,7 +9,7 @@ export const revalidate = 3600 // revalidate every hour
 export default async function ExplorePage() {
   let profiles: F18Profile[] = []
   try {
-    profiles = await getAllProfiles()
+    profiles = await getCachedPublishedProfiles()
   } catch {
     profiles = []
   }
