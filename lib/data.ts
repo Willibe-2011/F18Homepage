@@ -40,12 +40,14 @@ export const PROFILE_PICTURE_OVERRIDES: Record<string, string> = {
   "anirudh-rao": "/profiles/anirudh-rao.png",
   "amal-eltayib": "/profiles/amal-eltayib.png",
   "arushi-nath": "/profiles/arushi-nath.jpg",
+  "shaan-guru": "/profiles/shaan-guru.jpg",
 }
 
 /** Per-profile object-position for square/hero crops (CSS object-position value). */
 export const PROFILE_PICTURE_OBJECT_POSITION: Record<string, string> = {
   "harrison-nott": "center 18%",
   "arushi-nath": "center 22%",
+  "shaan-guru": "center 12%",
 }
 
 /** True when the profile has a real photo URL (not a generated placeholder). */
