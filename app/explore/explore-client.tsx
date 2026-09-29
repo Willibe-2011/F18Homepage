@@ -24,7 +24,10 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
 
   const filteredProfiles = useMemo(() => {
     let filtered = profiles.filter(
-      (p) => p.readPublish && !EXCLUDED_PROFILE_NAMES.has(p.name),
+      (p) =>
+        p.readPublish &&
+        !EXCLUDED_PROFILE_NAMES.has(p.name) &&
+        hasRealProfilePhoto(p),
     )
 
     if (selectedIndustries.length > 0) {
@@ -57,20 +60,9 @@ export function ExploreClient({ profiles }: ExploreClientProps) {
       })
     }
 
-    const withPhotos: F18Profile[] = []
-    const withoutPhotos: F18Profile[] = []
-    for (const profile of filtered) {
-      if (hasRealProfilePhoto(profile)) withPhotos.push(profile)
-      else withoutPhotos.push(profile)
-    }
-
-    const sortGroup = (group: F18Profile[]) => {
-      if (sortBy === "youngest") return [...group].sort((a, b) => a.age - b.age)
-      if (sortBy === "az") return [...group].sort((a, b) => a.name.localeCompare(b.name))
-      return group
-    }
-
-    return [...sortGroup(withPhotos), ...sortGroup(withoutPhotos)]
+    if (sortBy === "youngest") return [...filtered].sort((a, b) => a.age - b.age)
+    if (sortBy === "az") return [...filtered].sort((a, b) => a.name.localeCompare(b.name))
+    return filtered
   }, [profiles, selectedIndustries, selectedCountries, ageRange, sortBy, searchQuery])
 
   const toggleIndustry = (industry: string) => {

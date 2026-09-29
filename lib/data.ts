@@ -102,6 +102,7 @@ export function getCountriesWithFounders(profiles: F18Profile[]): string[] {
   const countries = new Set<string>()
   for (const profile of profiles) {
     if (EXCLUDED_PROFILE_NAMES.has(profile.name)) continue
+    if (!hasRealProfilePhoto(profile)) continue
     if (!profile.location) continue
     const country = getRecognizedCountryFromLocation(profile.location)
     if (country && !isCountryWithoutF18(country)) countries.add(country)
@@ -129,7 +130,9 @@ export const industries = [
 
 /** Industries with at least one F18 founder (matches explore industry filter). */
 export function getIndustriesWithFounders(profiles: F18Profile[]): string[] {
-  const inData = new Set(profiles.map((p) => p.industry))
+  const inData = new Set(
+    profiles.filter((p) => hasRealProfilePhoto(p)).map((p) => p.industry),
+  )
   return industries.filter((i) => inData.has(i))
 }
 

@@ -1,7 +1,7 @@
 import { unstable_noStore } from "next/cache"
 import { StatsStrip } from "@/components/stats-strip"
 import { getCachedPublishedProfiles, getF18Stats } from "@/lib/notion"
-import { countCountriesWithFounders, countIndustriesWithFounders, type F18Profile } from "@/lib/data"
+import { countCountriesWithFounders, countIndustriesWithFounders, hasRealProfilePhoto, type F18Profile } from "@/lib/data"
 
 /** Isolated component so `unstable_noStore` forces a fresh Notion read on every request. */
 export async function HomeStatsStrip() {
@@ -17,7 +17,7 @@ export async function HomeStatsStrip() {
 
   let profiles: F18Profile[] = []
   try {
-    profiles = await getCachedPublishedProfiles()
+    profiles = (await getCachedPublishedProfiles()).filter(hasRealProfilePhoto)
   } catch {
     profiles = []
   }

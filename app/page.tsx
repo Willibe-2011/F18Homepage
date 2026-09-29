@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer"
 import { ProfileCard } from "@/components/profile-card"
 import { HomeStatsStrip } from "@/components/home-latest-entry"
 import { StandardPreview } from "@/components/standard-preview"
+import { UniversityQuestionSection } from "@/components/university-question-section"
 import { getCachedPublishedProfiles } from "@/lib/notion"
 import { EXCLUDED_PROFILE_NAMES, hasRealProfilePhoto, type F18Profile } from "@/lib/data"
 
@@ -97,6 +98,9 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Section C: New project — universities question */}
+        <UniversityQuestionSection />
 
         {/* Section D: Standard Preview */}
         <StandardPreview />
