@@ -36,7 +36,7 @@ export default async function HomePage() {
           <div className="mx-auto w-full max-w-[1400px] relative z-10 pb-12 lg:pb-16 flex flex-col items-center text-center">
             <div className="pointer-events-none flex flex-col items-center">
               <h1 className="max-w-5xl font-serif text-[2.5rem] font-medium leading-[1.1] text-foreground text-balance pointer-events-auto sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem]">
-                Next Gen Founders. F18 found them.
+                They started before 18. F18 found the beginning.
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-[1.8] text-muted-foreground sm:mt-8 md:text-xl lg:text-2xl">
                 Verified builders under 18. Real products. Real impact. Before the world catches up.

@@ -2,21 +2,7 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-
-const CAMPUSES = [
-  "Harvard",
-  "MIT",
-  "Brown",
-  "Yale",
-  "NYU",
-  "Columbia",
-  "Princeton",
-  "UPenn",
-  "Stanford",
-  "Berkeley",
-  "Caltech",
-  "UCL",
-]
+import { CampusList } from "@/components/campus-list"
 
 export default function UniversitiesPage() {
   return (
@@ -33,20 +19,14 @@ export default function UniversitiesPage() {
 
           <div className="mt-8 max-w-3xl space-y-6 md:mt-10 md:space-y-8">
             <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl lg:text-2xl">
-              Teenager William Hao walked onto twelve of the world&apos;s most powerful campuses — Harvard, MIT, Brown, Yale, NYU, Columbia, Princeton, UPenn, Stanford, Berkeley, Caltech, and UCL — and asked students, professors, and staff a question almost nobody wants answered out loud: are universities still the right places for young people today?
+              Teenager William Hao walked onto twelve of the world&apos;s most powerful campuses — Harvard, MIT, Stanford, Yale, Princeton, Columbia, UPenn, Brown, NYU, Berkeley, UCLA, and Caltech — and asked students, professors, and staff a question almost nobody wants answered out loud: are universities still the right places for young people today?
             </p>
             <p className="text-lg leading-[1.8] text-foreground/90 md:text-xl lg:text-2xl">
               What came back was not polite consensus. It was raw, divided, and — in places — devastating. The people inside the system did not all defend it. Some hesitated. Some laughed. Some said what you are not supposed to say on the quad.
             </p>
           </div>
 
-          <ul className="mt-10 flex flex-wrap gap-x-3 gap-y-2 border-t border-border pt-8 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground sm:mt-12 sm:gap-x-4 md:text-sm">
-            {CAMPUSES.map((campus) => (
-              <li key={campus} className="after:ml-3 after:text-border after:content-['·'] last:after:content-none sm:after:ml-4">
-                {campus}
-              </li>
-            ))}
-          </ul>
+          <CampusList className="mt-10 border-t border-border pt-8 sm:mt-12" />
 
           <div className="mt-20 border-t border-border pt-14 md:mt-28 md:pt-20">
             <h2 className="max-w-2xl font-serif text-3xl font-bold leading-tight text-foreground sm:text-4xl md:text-5xl">

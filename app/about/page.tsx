@@ -93,7 +93,7 @@ export default function AboutPage() {
                 For Universities & Schools
               </h3>
               <p className="text-lg leading-[1.8] text-muted-foreground">
-                These are not just exceptional students. They are creators who have already made an impact before stepping into your program. F18 helps you identify and recruit the builders who will define your next decade.
+                These are not just students on a résumé. They are creators who have already made an impact before stepping into your program. F18 helps you identify and recruit the builders who will define your next decade.
               </p>
             </div>
           </div>

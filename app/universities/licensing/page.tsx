@@ -1,29 +1,36 @@
 import Link from "next/link"
-import { ArrowRight, ChevronDown } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { CampusList } from "@/components/campus-list"
+import { DatabaseAccessRequest } from "@/components/database-access-request"
+import { ProjectReel } from "@/components/project-reel"
 
 /** Hero metric cards with video slots (yes/no % cards removed). */
 const HERO_METRICS = [
   {
-    value: "33.3%",
-    label: "Said it depends",
+    value: "298",
+    label: "Cold approaches on campus",
     youtubeId: "",
+    videoSrc: "",
+  },
+  {
+    value: "156",
+    label: "Rejections kept in the same table",
+    youtubeId: "",
+    videoSrc: "",
   },
   {
     value: "142",
     label: "Completed interview videos",
     youtubeId: "",
+    videoSrc: "/videos/project-reel.mp4",
   },
   {
     value: "343",
     label: "Structured rows you can audit",
     youtubeId: "",
-  },
-  {
-    value: "298",
-    label: "Cold approaches on campus",
-    youtubeId: "",
+    videoSrc: "",
   },
 ]
 
@@ -32,30 +39,7 @@ export default function UniversitiesLicensingPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-background">
-        {/* Full-viewport project reel */}
-        <section className="relative h-svh w-full overflow-hidden bg-foreground text-background">
-          {/* Replace with video when the master cut is ready */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
-            <span className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-background/40 bg-background/10 backdrop-blur-sm">
-              <span className="ml-1 border-y-[10px] border-l-[18px] border-y-transparent border-l-background" />
-            </span>
-            <p className="max-w-xs text-lg font-semibold leading-snug text-balance">
-              Project reel
-            </p>
-            <p className="text-lg text-background/60">
-              Video placeholder
-            </p>
-          </div>
-          <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center sm:bottom-10">
-            <a
-              href="#licensing-content"
-              className="grid h-12 w-12 animate-bounce place-items-center rounded-full border border-background/35 bg-background/15 backdrop-blur-sm transition-colors hover:bg-background/25"
-              aria-label="Scroll down"
-            >
-              <ChevronDown className="h-5 w-5 text-background" strokeWidth={2.5} aria-hidden />
-            </a>
-          </div>
-        </section>
+        <ProjectReel />
 
         <div id="licensing-content" className="mx-auto max-w-[1400px] px-5 pb-24 pt-20 sm:px-8 lg:px-12 lg:pb-32 lg:pt-28">
           {/* Wireframe intro: metrics → who / value */}
@@ -63,6 +47,7 @@ export default function UniversitiesLicensingPage() {
             <p className="mx-auto max-w-3xl text-center text-lg font-semibold leading-snug text-balance text-foreground">
               12 of the best schools across the US have spoken.
             </p>
+            <CampusList className="mt-8 sm:mt-10" />
 
             <ul className="mx-auto mt-16 grid max-w-5xl gap-x-6 gap-y-24 sm:mt-20 sm:gap-x-8 lg:grid-cols-2 lg:gap-x-10 lg:gap-y-32">
               {HERO_METRICS.map((item) => (
@@ -79,8 +64,16 @@ export default function UniversitiesLicensingPage() {
                     </p>
                   </div>
 
-                  <div className="relative mt-3 aspect-video w-full overflow-hidden border border-primary/20 bg-primary/95">
-                    {item.youtubeId ? (
+                  <div className="relative mt-3 aspect-video w-full overflow-hidden bg-primary/95">
+                    {item.videoSrc ? (
+                      <video
+                        className="absolute inset-0 h-full w-full object-cover"
+                        src={item.videoSrc}
+                        controls
+                        playsInline
+                        preload="metadata"
+                      />
+                    ) : item.youtubeId ? (
                       <iframe
                         className="absolute inset-0 h-full w-full"
                         src={`https://www.youtube.com/embed/${item.youtubeId}`}
@@ -149,14 +142,15 @@ export default function UniversitiesLicensingPage() {
 
           {/* Final ask */}
           <section className="mt-20 border-t border-border pt-14 md:mt-28 md:pt-20">
-            <h2 className="mx-auto max-w-3xl text-center text-lg font-semibold leading-snug text-foreground">
+            <h2 className="mx-auto max-w-3xl text-center font-serif text-2xl font-bold leading-[1.15] text-balance text-foreground sm:text-3xl md:text-4xl">
               Ask for a read-only database link. Spend ten minutes.
             </h2>
-            <p className="mx-auto mt-6 max-w-3xl text-lg leading-[1.8] text-foreground/90">
+            <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-[1.8] text-foreground/90">
               Pick a random row. I will send the matching original video. If it is useful after you check, we talk about how to work together.
             </p>
 
             <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-4">
+              <DatabaseAccessRequest />
               <Link
                 href="/universities"
                 className="inline-flex items-center justify-center border border-border px-6 py-3.5 text-lg font-semibold text-foreground/70 transition-colors hover:bg-secondary hover:text-foreground sm:px-8"
@@ -165,7 +159,7 @@ export default function UniversitiesLicensingPage() {
               </Link>
             </div>
             <p className="mx-auto mt-6 max-w-3xl text-center text-lg text-muted-foreground">
-              Contact:{" "}
+              Or email{" "}
               <a href="mailto:will@hao.com.co" className="text-accent underline-offset-4 hover:underline">
                 will@hao.com.co
               </a>

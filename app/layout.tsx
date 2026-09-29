@@ -14,8 +14,8 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: 'F18 — Extraordinary Under 18',
-  description: 'A registry of people under 18 who built something that matters.',
+  title: 'F18 — They started before 18',
+  description: 'They started before 18. F18 found the beginning. A registry of people under 18 who built something that matters.',
   icons: {
     icon: [
       {

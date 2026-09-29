@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { DatabaseAccessRequest } from "@/components/database-access-request"
 
 const STATS = [
   { label: "Trip / schools", value: "17 days, 12 Top 30 schools" },
@@ -355,7 +356,15 @@ export default function UniversitiesLicensingOfferPage() {
           </section>
 
           <section className="mt-20 border-t border-border pt-14 md:mt-28 md:pt-20">
-            <div className="mx-auto flex max-w-3xl flex-col items-center gap-4">
+            <h2 className="mx-auto max-w-3xl text-center font-serif text-2xl font-bold leading-[1.15] text-balance text-foreground sm:text-3xl md:text-4xl">
+              Ask for a read-only database link. Spend ten minutes.
+            </h2>
+            <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-[1.8] text-foreground/90">
+              Pick a random row. I will send the matching original video. If it is useful after you check, we talk about how to work together.
+            </p>
+
+            <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-4">
+              <DatabaseAccessRequest />
               <Link
                 href="/universities/licensing"
                 className="inline-flex items-center justify-center border border-border px-6 py-3.5 text-lg font-semibold text-foreground/70 transition-colors hover:bg-secondary hover:text-foreground sm:px-8"
@@ -364,7 +373,7 @@ export default function UniversitiesLicensingOfferPage() {
               </Link>
             </div>
             <p className="mx-auto mt-6 max-w-3xl text-center text-lg text-muted-foreground">
-              Contact:{" "}
+              Or email{" "}
               <a href="mailto:will@hao.com.co" className="text-accent underline-offset-4 hover:underline">
                 will@hao.com.co
               </a>
