@@ -18,7 +18,7 @@ const HERO_METRICS = [
     value: "156",
     label: "Rejections kept in the same table",
     youtubeId: "",
-    videoSrc: "",
+    videoSrc: "/videos/rejection-reel.mp4",
   },
   {
     value: "142",
@@ -30,7 +30,7 @@ const HERO_METRICS = [
     value: "343",
     label: "Structured rows you can audit",
     youtubeId: "",
-    videoSrc: "",
+    videoSrc: "/videos/structured-rows.mp4",
   },
 ]
 
