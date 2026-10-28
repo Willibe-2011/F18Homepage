@@ -13,10 +13,10 @@ export function UniversityQuestionSection() {
             New from F18
           </p>
           <h2 className="mt-5 max-w-[18ch] font-serif text-[1.85rem] font-bold leading-[1.15] text-balance text-foreground sm:mt-6 sm:max-w-none sm:text-4xl md:text-5xl lg:text-6xl">
-            Are universities the right places for young people today?
+            Is going to college still worth it?
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-[1.8] text-muted-foreground sm:mt-6 sm:text-lg md:text-xl">
-            William Hao asked twelve elite campuses the question they cannot dodge. The answers are not what you expect.
+            YouTube keeps the films. Instagram gets them shared. LinkedIn is where the report is read.
           </p>
           <Link
             href={PROJECT_URL}

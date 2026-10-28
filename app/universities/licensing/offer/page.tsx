@@ -366,10 +366,10 @@ export default function UniversitiesLicensingOfferPage() {
             <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-4">
               <DatabaseAccessRequest />
               <Link
-                href="/universities/licensing"
+                href="/universities"
                 className="inline-flex items-center justify-center border border-border px-6 py-3.5 text-lg font-semibold text-foreground/70 transition-colors hover:bg-secondary hover:text-foreground sm:px-8"
               >
-                Back to the licensing page
+                Back to the project
               </Link>
             </div>
             <p className="mx-auto mt-6 max-w-3xl text-center text-lg text-muted-foreground">

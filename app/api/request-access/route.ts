@@ -55,7 +55,7 @@ async function saveToNotion(email: string, purpose: string) {
   return true
 }
 
-async function sendWithResend(email: string, purpose: string) {
+async function sendWithResend(email: string) {
   const key = process.env.RESEND_API_KEY
   if (!key) return { sent: false as const, reason: "missing_key" as const }
 
@@ -66,8 +66,8 @@ async function sendWithResend(email: string, purpose: string) {
     from,
     to: [DEST],
     replyTo: email,
-    subject: "Request read-only database access",
-    text: `Someone requested read-only database access.\n\nEmail: ${email}\nWhat for: ${purpose}\n`,
+    subject: `Database request — ${email}`,
+    text: `${email}\n\nThis address asked to look at the database.\nReply to this message to reach them.\n`,
   })
 
   if (error) {
@@ -92,25 +92,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Email and purpose are required." }, { status: 400 })
   }
 
-  const mail = await sendWithResend(email, purpose)
-  const notionOk = await saveToNotion(email, purpose)
+  const mail = await sendWithResend(email)
+  await saveToNotion(email, purpose)
 
   if (mail.sent) {
     return NextResponse.json({ ok: true, channel: "email" })
   }
 
-  // Resend not configured / failed — Notion note still counts as received so the form works.
-  if (notionOk) {
-    return NextResponse.json({ ok: true, channel: "notion" })
-  }
-
-  return NextResponse.json(
-    {
-      error:
-        mail.reason === "missing_key"
-          ? "Email delivery is not configured yet. Add RESEND_API_KEY to .env.local."
-          : "Could not send. Try again.",
-    },
-    { status: 502 },
-  )
+  console.error("Database request email was not sent:", mail.reason)
+  return NextResponse.json({ error: "Could not send. Try again." }, { status: 502 })
 }
